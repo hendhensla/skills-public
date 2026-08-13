@@ -1,0 +1,28 @@
+{
+  "name": "claude-skills-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ntn worker that syncs skills between this GitHub repo and the Notion ✨ AI Skills database (both directions).",
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10.9.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@notionhq/client": "^5.22.0",
+    "@notionhq/workers": "^0.4.0",
+    "@octokit/rest": "^22.0.0",
+    "diff": "^9.0.0",
+    "dotenv": "^16.4.0",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.8.0"
+  }
+}

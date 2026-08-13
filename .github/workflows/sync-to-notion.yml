@@ -1,0 +1,58 @@
+name: Sync skills to Notion
+
+# GitHub -> Notion direction. Fires when a SKILL.md changes on main, then invokes
+# the deployed ntn worker's `pushToNotion` tool (which does the comment-preserving write).
+#
+# Loop prevention: the worker's own commits carry "[skills-sync]" — the job below skips them.
+# .sync/** snapshots never match the path filter, so snapshot commits don't trigger this either.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**/SKILL.md"
+
+jobs:
+  sync:
+    if: ${{ !contains(github.event.head_commit.message, '[skills-sync]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Determine changed SKILL.md files
+        id: changed
+        run: |
+          base="${{ github.event.before }}"
+          if ! git cat-file -e "$base^{commit}" 2>/dev/null; then base="HEAD~1"; fi
+          files=$(git diff --name-only "$base" "${{ github.sha }}" -- 'skills/**/SKILL.md' || true)
+          {
+            echo "files<<EOF"
+            echo "$files"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Install ntn CLI
+        run: npm install -g ntn@0.1.35
+
+      - name: Push each changed skill to Notion
+        if: ${{ steps.changed.outputs.files != '' }}
+        env:
+          # ntn CLI auth — mint with `ntn tokens create` and store as the repo secret NOTION_API_TOKEN.
+          # NOTION_ENV targets the dev workspace. Worker secrets (NOTION_TOKEN, GITHUB_TOKEN) live in the
+          # deployed worker via `ntn workers env set` — they are NOT needed here.
+          NOTION_API_TOKEN: ${{ secrets.NOTION_API_TOKEN }}
+          # Drop NOTION_ENV (or set to your environment) if your workspace is on production notion.so
+          NOTION_ENV: dev
+        run: |
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            echo "::group::Syncing $f"
+            ntn workers exec --workers-config-file worker/workers.json pushToNotion -d "{\"path\":\"$f\"}"
+            echo "::endgroup::"
+          done <<< "${{ steps.changed.outputs.files }}"
