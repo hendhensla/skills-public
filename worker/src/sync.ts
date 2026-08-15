@@ -11,6 +11,7 @@ import {
 	syncSnapshotPath,
 	type SkillFile,
 } from "./frontmatter.js";
+import { browserSignals, hasPublishOverride, publishBlock } from "./publish.js";
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
 
@@ -164,8 +165,27 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 	};
 	const composed = composeSkillFile(file);
 
-	// Echo guard: identical to what's already in the repo -> our own round-trip.
 	const current = slug === existingParsed?.slug ? existing : await gh.getFile(path);
+
+	// Publish guard (2026-08-15): a doc that spells out agent-browser usage is a runbook for a
+	// signed-in browser session, so it never goes to a public repo. A block is a no-op, not a
+	// failure. When such a file is already published, say so on the row instead of deleting it
+	// silently: removal is the owner's call.
+	const blocked = await publishBlock(composed);
+	if (blocked) {
+		if (current) {
+			await nt
+				.postPageComment(
+					rowId,
+					`\u{1F512} skills-sync did not publish this update: ${blocked}. \`${path}\` is already in the repo, so delete it there if it must go, or add a \`publish: public\` line to this page to allow future updates.`,
+				)
+				.catch(() => undefined);
+			return { slug, action: "noop", detail: `publish guard: ${blocked}; existing repo file untouched` };
+		}
+		return { slug, action: "noop", detail: `publish guard: ${blocked}` };
+	}
+
+	// Echo guard: identical to what's already in the repo -> our own round-trip.
 	if (current && current.content === composed) return { slug, action: "noop", detail: "github already current" };
 
 	// Conflict guard: GitHub changed since last sync AND Notion changed (the trigger).
@@ -188,6 +208,16 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 	if (!file) return { slug: repoPath, action: "noop", detail: "file not found (deleted?)" };
 	const parsed = parseSkillFile(file.content);
 	const slug = parsed.slug;
+
+	// Worker docs are born in Notion: the row page IS the doc page, and a Worker id cannot be
+	// invented from a repo file. An unlinked worker doc is therefore a no-op, never a new row.
+	if (parsed.meta.type === "Worker" && (!parsed.notionRow || !parsed.notionDoc)) {
+		return {
+			slug,
+			action: "noop",
+			detail: "worker doc has no notion_row/notion_doc link; create the Worker row in Notion first",
+		};
+	}
 
 	// New skill: create the row + body page, write IDs back, snapshot.
 	if (!parsed.notionDoc || !parsed.notionRow) {
@@ -315,4 +345,41 @@ export async function dryRunCompose(triggerPageId: string): Promise<string> {
 		notionDoc: `https://www.notion.so/${docId}`,
 		body,
 	});
+}
+
+// ---------------------------------------------------------------------------
+// Read-only publish check: would this row reach the repo, and if not, why?
+// ---------------------------------------------------------------------------
+export interface PublishCheck {
+	slug: string;
+	type: string | null;
+	willPublish: boolean;
+	reason: string | null;
+	signals: string[];
+	overridden: boolean;
+}
+
+export async function checkPublish(triggerPageId: string): Promise<PublishCheck> {
+	const triggerRow = await nt.readRowProps(nt.pageIdFromUrl(triggerPageId)).catch(() => null);
+	if (triggerRow?.type && !SYNCED_TYPES.has(triggerRow.type)) {
+		return {
+			slug: slugForRow(triggerRow),
+			type: triggerRow.type,
+			willPublish: false,
+			reason: `type=${triggerRow.type} is not published to the repo`,
+			signals: [],
+			overridden: false,
+		};
+	}
+	const composed = await dryRunCompose(triggerPageId);
+	const parsed = parseSkillFile(composed);
+	const reason = await publishBlock(composed);
+	return {
+		slug: parsed.slug,
+		type: parsed.meta.type ?? null,
+		willPublish: reason === null,
+		reason,
+		signals: browserSignals(composed),
+		overridden: hasPublishOverride(composed),
+	};
 }

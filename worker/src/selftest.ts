@@ -5,6 +5,7 @@
  */
 import { computeDiff } from "./diff.js";
 import { parseSkillFile, composeSkillFile } from "./frontmatter.js";
+import { browserSignals, hasPublishOverride } from "./publish.js";
 
 let failures = 0;
 function check(name: string, cond: boolean, extra?: unknown) {
@@ -84,6 +85,17 @@ console.log("frontmatter parse/compose roundtrip:");
 	check("roundtrip slug", reparsed.slug === "deal", reparsed.slug);
 	check("roundtrip status", reparsed.meta.status === "Active", reparsed.meta.status);
 	check("roundtrip body", reparsed.body.trim() === "Body line one.", JSON.stringify(reparsed.body));
+}
+
+console.log("publish guard (pure detection):");
+{
+	const browsery = "Runs the agent browser to open a signed-in session and read the page.";
+	check("flags agent browser", browserSignals(browsery).length > 0, browserSignals(browsery));
+	check("flags a browser driver", browserSignals("This tool is driven by Playwright.").includes("browser driver"));
+	const plain = "Reads one post by URL and returns its text. No browser is involved.";
+	check("plain tool doc stays publishable", browserSignals(plain).length === 0, browserSignals(plain));
+	check("reads the publish override", hasPublishOverride("intro\npublish: public\nrest"));
+	check("no false override", !hasPublishOverride("publish: publicly documented later"));
 }
 
 console.log(failures === 0 ? "\nALL PASSED" : `\n${failures} CHECK(S) FAILED`);
