@@ -160,7 +160,7 @@ export function postPageComment(pageId: string, body: string): Promise<unknown> 
 
 export interface SkillMeta {
 	skill: string;
-	type?: string; // "Skill" | "Agent" | "Workflow" — only "Skill" rows sync (see pushToGitHub guard)
+	type?: string; // "Skill" | "Agent" | "Workflow" | "Worker" — only "Skill" rows sync (see pushToGitHub guard)
 	whatItDoes?: string; // "What it does" (one-line summary) <-> SKILL.md `description`
 	status?: string;
 	category?: string[];
@@ -170,6 +170,7 @@ export interface SkillMeta {
 	lastTested?: string; // ISO date
 	notes?: string;
 	docUrl?: string;
+	location?: string; // "Location" (Worker URL, repo, or path). Published to frontmatter, never written back.
 }
 
 type Props = Record<string, Record<string, unknown>>;
@@ -190,6 +191,9 @@ export async function readRowProps(rowPageId: string): Promise<SkillMeta> {
 		lastTested: (p["Last tested"]?.date as { start?: string } | null)?.start,
 		notes: richTextToPlain(p["Notes"]?.rich_text as Array<{ plain_text?: string }>),
 		docUrl: (p["Doc URL"]?.url as string | null) ?? undefined,
+		location:
+			(p["Location"]?.url as string | null) ??
+			(richTextToPlain(p["Location"]?.rich_text as Array<{ plain_text?: string }>) || undefined),
 	};
 }
 

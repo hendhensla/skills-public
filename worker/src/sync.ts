@@ -7,12 +7,17 @@ import {
 	composeSkillFile,
 	parseSkillFile,
 	repoPathForSlug,
-	slugify,
+	slugForRow,
 	syncSnapshotPath,
 	type SkillFile,
 } from "./frontmatter.js";
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
+
+// Row types that publish to the repo. Skill rows carry writing/analysis instructions;
+// Worker rows carry the callable tool surface of a deployed Notion Worker, which is what
+// an external agent needs in order to use it. Agent and Workflow rows stay in Notion.
+const SYNCED_TYPES = new Set(["Skill", "Worker"]);
 
 export interface SyncResult {
 	slug: string;
@@ -29,6 +34,11 @@ export interface SyncResult {
 async function resolveSkill(pageId: string): Promise<{ rowId: string; docId: string; meta: nt.SkillMeta }> {
 	const id = nt.pageIdFromUrl(pageId);
 	const meta = await nt.readRowProps(id).catch(() => null);
+	// Worker rows keep their documentation in the row page body, and their Doc URL points at the
+	// Worker itself, not at a Notion page. Use the row as its own body source.
+	if (meta?.skill && meta.type === "Worker") {
+		return { rowId: id, docId: id, meta };
+	}
 	if (meta?.skill && meta.docUrl) {
 		return { rowId: id, docId: nt.pageIdFromUrl(meta.docUrl), meta };
 	}
@@ -84,15 +94,15 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 	// would otherwise throw on the missing Doc URL). A body-page trigger has no Type/Skill props and
 	// falls through to resolveSkill's reverse lookup unchanged.
 	const triggerRow = await nt.readRowProps(nt.pageIdFromUrl(triggerPageId)).catch(() => null);
-	if (triggerRow?.type && triggerRow.type !== "Skill") {
-		return { slug: slugify(triggerRow.skill), action: "noop", detail: `type=${triggerRow.type}; non-skill row, sync skipped` };
+	if (triggerRow?.type && !SYNCED_TYPES.has(triggerRow.type)) {
+		return { slug: slugForRow(triggerRow), action: "noop", detail: `type=${triggerRow.type}; type is not published to the repo, sync skipped` };
 	}
 
 	const { rowId, docId, meta } = await resolveSkill(triggerPageId);
 
 	// Defense-in-depth: a non-Skill row that somehow carries a Doc URL still must not sync.
-	if (meta.type && meta.type !== "Skill") {
-		return { slug: slugify(meta.skill), action: "noop", detail: `type=${meta.type}; non-skill row, sync skipped` };
+	if (meta.type && !SYNCED_TYPES.has(meta.type)) {
+		return { slug: slugForRow(meta), action: "noop", detail: `type=${meta.type}; type is not published to the repo, sync skipped` };
 	}
 
 	const { markdown: body } = await nt.retrievePageMarkdown(docId);
@@ -111,7 +121,7 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 		}
 		return false;
 	};
-	const path0 = repoPathForSlug(slugify(meta.skill));
+	const path0 = repoPathForSlug(slugForRow(meta));
 	const candidate = (await gh.getFile(path0)) ?? null;
 	const candidateParsed = candidate ? parseSkillFile(candidate.content) : null;
 	let existing: typeof candidate = null;
@@ -134,15 +144,15 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 		if (!existing && candidate) {
 			// The slugified title collides with a DIFFERENT skill's path — never overwrite it.
 			const issueUrl = await flag(
-				slugify(meta.skill),
+				slugForRow(meta),
 				docId,
 				"path-collision",
 				`Row title slugifies to \`${path0}\`, which belongs to another skill, and no repo file links this row. Not applied.`,
 			);
-			return { slug: slugify(meta.skill), action: "conflict", issueUrl };
+			return { slug: slugForRow(meta), action: "conflict", issueUrl };
 		}
 	}
-	const slug = existingParsed?.slug ?? slugify(meta.skill);
+	const slug = existingParsed?.slug ?? slugForRow(meta);
 	const path = repoPathForSlug(slug);
 	const file: SkillFile = {
 		slug,
@@ -298,7 +308,7 @@ export async function dryRunCompose(triggerPageId: string): Promise<string> {
 	const { rowId, docId, meta } = await resolveSkill(triggerPageId);
 	const { markdown: body } = await nt.retrievePageMarkdown(docId);
 	return composeSkillFile({
-		slug: slugify(meta.skill),
+		slug: slugForRow(meta),
 		description: meta.whatItDoes || meta.notes || "",
 		meta,
 		notionRow: `https://www.notion.so/${rowId}`,

@@ -170,3 +170,16 @@ cd worker && cp .env.example .env
 npx tsx src/cli.ts dry <row-or-body-page-id>   # prints composed SKILL.md, no writes
 npx tsx src/selftest.ts                        # token-free: diff engine + frontmatter checks
 ```
+
+## Worker tool docs
+
+Rows in the AI Skills database with `Type = Worker` publish here too, at `skills/worker-<name>/SKILL.md`.
+
+Why: a deployed Notion Worker is only useful to an outside agent if that agent knows the tool names, the inputs, and how to call them. The Worker row page holds that documentation, so the row page is its own body source. There is no separate body page, and the `Doc URL` property points at the Worker instead of at a Notion page.
+
+Frontmatter adds two keys for these rows:
+
+- `type` is `Worker`
+- `worker_url` comes from the `Location` property
+
+Rows with `Type = Agent` or `Type = Workflow` still stay in Notion.
