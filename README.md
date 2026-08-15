@@ -1,12 +1,46 @@
-# claude-skills-sync
+# skills-public
 
-Keep your [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) in
-**three-way sync**: a **GitHub repo** ⇄ a **Notion database** ⇄ the **local**
-`~/.claude/skills/` directory Claude Code triggers from.
+This repo is two things:
+
+1. **A public catalog of generalized skills** (in [`skills/`](skills/)). These are
+   de-identified versions of skills I actually build and run day to day in Claude Code
+   and Notion. Each one is automatically rewritten from my private repo into a generic,
+   setup-ready playbook: proprietary names, IDs, and internal tooling are stripped and
+   replaced with placeholders and plain-language descriptions of the capability, so you
+   can stand the skill up in your own environment. Nothing lands here without a human
+   review pass. The same catalog is browsable as a Notion site:
+   **[AI Skills (Personal)](PUBLIC_NOTION_SITE_URL_TBD)** — every skill is a database
+   row whose page body is the playbook itself.
+2. **The sync system itself** — keep your
+   [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) in
+   **three-way sync**: a **GitHub repo** ⇄ a **Notion database** ⇄ the **local**
+   `~/.claude/skills/` directory Claude Code triggers from.
 
 Skills stay plain markdown files a coding agent can read and edit — and every skill also
 lives in Notion as a database row with a real page body, where your team can browse the
 catalog, comment, and collaborate.
+
+## How these skills get created
+
+Every skill in [`skills/`](skills/) started life as a private, working skill — not
+documentation written after the fact:
+
+1. **Built in real work.** A skill begins as instructions for a task I actually do
+   (in Claude Code or Notion AI), then gets exercised repeatedly on real cases.
+2. **Hardened as a living document.** Each run that reveals a rule, edge case, or gotcha
+   gets appended back into the skill, so the playbook accumulates operational lessons
+   instead of staying a first draft.
+3. **Synced everywhere I work.** Private skills live in three-way sync — local files
+   Claude Code triggers from ⇄ a private GitHub repo ⇄ a Notion database — so an edit
+   from any surface propagates to the rest (that's the sync system in this repo).
+4. **De-identified automatically.** When a skill reaches Active status, any change to it
+   triggers a pipeline that has Claude rewrite it as a generic playbook:
+   employer/customer specifics come out, internal tools become plain-language capability
+   descriptions, IDs become placeholders, and a first-time setup section is added for
+   things the private version assumed.
+5. **Reviewed by a human, then published.** The rewrite lands as a pull request here —
+   nothing merges without review — and on merge the skill syncs onward into the public
+   Notion catalog automatically.
 
 ```
   Local (~/.claude/skills, a git clone)
@@ -62,8 +96,23 @@ diffs, never a wholesale replace) so block IDs — and the comments anchored to 
 **Notion → GitHub.** Run the worker's `pushToGitHub` with the changed page id → it reads the
 row props + body via `GET /v1/pages/{id}/markdown` → composes `SKILL.md` → commits to the
 repo. Repo files are matched by their `notion_row` link (never by title), so renaming a row
-can't fork a skill. Wire it to a Notion DB automation/webhook if your workspace has access;
-otherwise it's a one-line manual invoke.
+can't fork a skill.
+
+To make this automatic, the worker exposes a `skillRowChanged` **webhook** capability.
+Wire it up once:
+
+1. Set a shared secret on the worker: `ntn workers env set WEBHOOK_SECRET=<random hex>`.
+2. Get the endpoint: `ntn workers webhooks list` (the URL embeds its own secret id —
+   treat it like a credential, don't commit it).
+3. On your AI Skills database, add a database automation: **When** "Page edited" (and/or
+   "Page added") → **Do** "Send webhook" → paste the URL, and add a custom header
+   `X-Skills-Sync-Secret: <the same secret>`.
+
+The handler verifies the header, pulls the page id out of the automation's payload
+(`data.id`), and runs the same echo-skip/conflict-flag sync as a manual `pushToGitHub`.
+Manual invoke still works: `POST {"pageId": "<row-id>"}` with the header, or
+`ntn workers exec pushToGitHub -d '{"pageId":"<row-id>"}'`. (A `worker.automation()`
+capability would be the native trigger, but it's currently a private alpha.)
 
 **Repair.** `forcePushToNotion` replaces a page body wholesale from GitHub and refreshes the
 snapshot — for migrating or fixing a desynced skill (comment anchors on that page are lost).

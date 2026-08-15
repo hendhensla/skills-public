@@ -197,9 +197,21 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 	const rowId = nt.pageIdFromUrl(parsed.notionRow);
 	const live = await nt.retrievePageMarkdown(docId);
 
+	// Status consolidation (rule set 2026-08-14): the Notion DB owns Status. When a
+	// GitHub push arrives for a row whose Status is non-Active and differs from the repo
+	// frontmatter, sync the content but never touch the row's status; if content actually
+	// changes, leave a comment on the row marking the resolution.
+	let rowMeta = parsed.meta;
+	let statusKept: string | null = null;
+	const currentRow = await nt.readRowProps(rowId).catch(() => null);
+	if (currentRow?.status && currentRow.status !== "Active" && currentRow.status !== parsed.meta.status) {
+		rowMeta = { ...parsed.meta, status: undefined };
+		statusKept = currentRow.status;
+	}
+
 	// Echo guard.
 	if (sha(live.markdown) === sha(parsed.body)) {
-		await nt.updateRowProps(rowId, parsed.meta).catch(() => undefined); // props may still differ
+		await nt.updateRowProps(rowId, rowMeta).catch(() => undefined); // props may still differ
 		return { slug, action: "noop", detail: "notion body already current" };
 	}
 
@@ -217,7 +229,7 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 		return { slug, action: "conflict", issueUrl };
 	}
 	if (!diff.updates.length) {
-		await nt.updateRowProps(rowId, parsed.meta).catch(() => undefined);
+		await nt.updateRowProps(rowId, rowMeta).catch(() => undefined);
 		return { slug, action: "noop", detail: "no effective body change" };
 	}
 
@@ -247,12 +259,20 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 	}
 
 	await nt.updatePageMarkdown(docId, diff.updates, diff.hasDeletions);
-	await nt.updateRowProps(rowId, parsed.meta);
+	await nt.updateRowProps(rowId, rowMeta);
+	if (statusKept) {
+		await nt
+			.postPageComment(
+				rowId,
+				`🔄 skills-sync consolidation: content was updated from a GitHub push, but Status stays "${statusKept}" (repo frontmatter said "${parsed.meta.status ?? "none"}"). Non-Active statuses are owned by this database — change Status here when the skill is ready.`,
+			)
+			.catch(() => undefined);
+	}
 	// Snapshot the round-tripped markdown (see the create path note): Notion re-normalizes
 	// the applied edits, and the snapshot must equal what a fresh GET returns.
 	const after = await nt.retrievePageMarkdown(docId);
 	await writeSnapshot(slug, after.markdown);
-	return { slug, action: "updated", detail: `applied ${diff.updates.length} edit(s)` };
+	return { slug, action: "updated", detail: `applied ${diff.updates.length} edit(s)${statusKept ? `; status kept at ${statusKept}, comment left` : ""}` };
 }
 
 /**

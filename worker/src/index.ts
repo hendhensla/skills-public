@@ -1,4 +1,4 @@
-import { Worker } from "@notionhq/workers";
+import { Worker, WebhookVerificationError } from "@notionhq/workers";
 import { j } from "@notionhq/workers/schema-builder";
 import { pushToGitHub, pushToNotion, forcePushToNotion, dryRunCompose, type SyncResult } from "./sync.js";
 
@@ -55,6 +55,31 @@ worker.tool("dryRunCompose", {
 	execute: async ({ pageId }) => dryRunCompose(pageId),
 });
 
-// NOTE: a worker.automation("skillRowChanged", … → pushToGitHub(event.pageId)) capability is the
-// intended Notion->GitHub trigger, but automation() is private-alpha and NOT enabled for this user
-// (deploy fails 400 CapabilityNotEnabledError). Re-add these ~8 lines once alpha is granted.
+// Notion->GitHub trigger. Wire a database automation on your AI Skills database
+// ("when page added/edited" -> "Send webhook") that POSTs to this endpoint with your
+// shared secret in the X-Skills-Sync-Secret header. Set the same value as the
+// WEBHOOK_SECRET worker env var. (A worker.automation() capability would also work but
+// is gated behind a private alpha; webhooks are generally available.)
+worker.webhook("skillRowChanged", {
+	title: "Skill row changed → sync to GitHub",
+	description:
+		"Endpoint for the AI Skills DB 'Send webhook' automation. Verifies the shared secret, extracts the changed row's page id, and runs the same Notion→GitHub sync as pushToGitHub (echo-skip and conflict-flag rules included).",
+	execute: async (events) => {
+		const secret = process.env.WEBHOOK_SECRET;
+		if (!secret) {
+			throw new WebhookVerificationError("WEBHOOK_SECRET is not set in worker env");
+		}
+		for (const event of events) {
+			const provided = event.headers["x-skills-sync-secret"] ?? event.headers["X-Skills-Sync-Secret"];
+			if (provided !== secret) {
+				throw new WebhookVerificationError("X-Skills-Sync-Secret header missing or wrong");
+			}
+			// Notion's "Send webhook" automation posts { source, data: <page object> }.
+			// Fall back to explicit pageId keys so manual/test invocations work too.
+			const body = event.body as { data?: { id?: string }; pageId?: string; page_id?: string };
+			const pageId = body.data?.id ?? body.pageId ?? body.page_id;
+			if (!pageId) continue;
+			await pushToGitHub(pageId);
+		}
+	},
+});
