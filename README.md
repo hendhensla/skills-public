@@ -42,6 +42,88 @@ documentation written after the fact:
    nothing merges without review — and on merge the skill syncs onward into the public
    Notion catalog automatically.
 
+## Architecture: the full five-location pipeline
+
+The complete system spans five locations. A private Notion database is the **source of
+truth**; a private GitHub repo is the **transport hub**; this repo and the public Notion
+catalog are the de-identified, review-gated public ends.
+
+```mermaid
+flowchart LR
+    subgraph localBox ["1. Local machine"]
+        codingAgent["Coding agent sessions"]
+        localSkills["~/.claude/skills (symlink)"]
+    end
+    subgraph privateHub ["2. Private repo (hub)"]
+        privRepo[("private skills repo")]
+        privAction[["sync-to-notion Action"]]
+        privWorker["Private sync worker"]
+    end
+    subgraph workNotion ["3. Private Notion (source of truth)"]
+        workDb[("AI Skills DB")]
+        webhookAuto{{"Send webhook automation"}}
+        publisher["Publishing agent"]
+        staging["Staging pages"]
+    end
+    subgraph publicSide ["4. This repo (public)"]
+        review[/"Maintainer review"\]
+        pubRepo[("skills-public")]
+        pubAction[["sync-to-notion Action"]]
+        pubWorker["Public sync worker"]
+    end
+    subgraph personalSide ["5. Public Notion catalog"]
+        personalDb[("AI Skills Personal DB")]
+        site["Published Notion site"]
+    end
+
+    codingAgent -->|"Edits skills"| localSkills
+    localSkills <-->|"git push / pull"| privRepo
+    privRepo -->|"SKILL.md push"| privAction
+    privAction -->|"Runs pushToNotion"| privWorker
+    privWorker -->|"Writes row + body"| workDb
+    workDb -->|"UI edit"| webhookAuto
+    webhookAuto -.->|"skillRowChanged"| privWorker
+    privWorker -->|"Commits skills-sync"| privRepo
+    workDb -.->|"Active skill changed"| publisher
+    publisher -->|"De-identifies"| staging
+    staging -->|"Human reviews"| review
+    review -->|"Merge"| pubRepo
+    pubRepo -->|"Push to main"| pubAction
+    pubAction -->|"Runs pushToNotion"| pubWorker
+    pubWorker -->|"Writes row + body"| personalDb
+    personalDb -->|"Published as"| site
+
+    style localBox fill:#EDEDED,stroke:#B3B3B3
+    style privateHub fill:#C2E5FF,stroke:#3DADFF
+    style workNotion fill:#DCCCFF,stroke:#874FFF
+    style publicSide fill:#CDF4D3,stroke:#66D575
+    style personalSide fill:#C6FAF6,stroke:#5AD8CC
+    style workDb fill:#FFECBD,stroke:#FFC943
+    style review fill:#FFE0C2,stroke:#FF9E42
+```
+
+How the flows work:
+
+- **Local ⇄ private repo** is ordinary git (the local skills directory is a symlink into
+  the repo, so the coding agent and the repo share the same files).
+- **Private repo → private Notion DB**: a GitHub Action fires on any `SKILL.md` push and
+  runs the sync worker, which updates the database row and writes the page body with
+  targeted diffs so block IDs — and comments anchored to them — survive.
+- **Private Notion DB → private repo**: editing a row in the Notion UI fires a database
+  automation ("Send webhook") that calls the worker, which recomposes `SKILL.md` and
+  commits it back with a sync marker the Action knows to skip (loop prevention).
+- **Publishing gate**: when an **Active** skill changes, a Notion agent rewrites it as a
+  generic playbook into staging pages. Skills on a private deny-list (personal,
+  non-work-playbook skills) never publish, and nothing merges into this repo without
+  human review.
+- **This repo → public Notion catalog**: merges to main fire this repo's own Action and
+  worker, which sync each skill into the public database behind the published Notion
+  site. Status fields intentionally don't sync outward — the private DB owns status, the
+  public copies are mirrors.
+
+The two ends of the pipeline are the parts you can reuse directly: the three-way sync
+core (local ⇄ GitHub ⇄ Notion) is documented below.
+
 ```
   Local (~/.claude/skills, a git clone)
         ⇅  git pull / push
