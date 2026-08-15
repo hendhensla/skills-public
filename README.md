@@ -9,7 +9,7 @@ This repo is two things:
    replaced with placeholders and plain-language descriptions of the capability, so you
    can stand the skill up in your own environment. Nothing lands here without a human
    review pass. The same catalog is browsable as a Notion site:
-   **[AI Skills (Personal)](PUBLIC_NOTION_SITE_URL_TBD)** — every skill is a database
+   **[AI Skills (Personal)](https://austenhendler.notion.site/AI-Skills-Personal-3bb98c2112688146bf4dd78712152902)** — every skill is a database
    row whose page body is the playbook itself.
 2. **The sync system itself** — keep your
    [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) in
