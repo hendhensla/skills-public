@@ -15,6 +15,8 @@ notes: >-
   /deal <customer> — pulls everything known about a deal into one factual
   briefing: company research, CRM records, call recordings, meeting notes,
   Slack threads, and email history. No selling advice, just the facts.
+notion_row: 'https://app.notion.com/3bd98c211268817ba355ede5a4aefdeb'
+notion_doc: 'https://app.notion.com/p/Deal-3bd98c211268813aaf06dd95c4126d6f'
 ---
 
 # What this skill does
