@@ -196,7 +196,8 @@ export async function readRowProps(rowPageId: string): Promise<SkillMeta> {
 function metaToProps(meta: Partial<SkillMeta>): Props {
 	const props: Props = {};
 	if (meta.skill !== undefined) props["Skill"] = { title: [{ text: { content: meta.skill } }] };
-	if (meta.status !== undefined) props["Status"] = { status: { name: meta.status } };
+	// Status intentionally not written: the personal DB is a public-facing mirror of
+	// content only — statuses live exclusively on the work AI Skills DB (Austen, 2026-08-15).
 	if (meta.category !== undefined) props["Category"] = { multi_select: meta.category.map((name) => ({ name })) };
 	if (meta.proficiency !== undefined) props["Proficiency"] = { select: { name: meta.proficiency } };
 	if (meta.trigger !== undefined) props["Trigger"] = { select: { name: meta.trigger } };
