@@ -27,6 +27,8 @@ notes: >-
   strict LinkedIn section; Meta/X/Google treated with the same caution.
   LinkedIn research and sources belong in `references/linkedin-research.md`
   (build your own — see First-time setup).
+notion_row: 'https://app.notion.com/3bd98c211268815a8069ce1734343f08'
+notion_doc: 'https://app.notion.com/p/3bd98c2112688170a1eafa0c6dde288a'
 ---
 
 # Operating the browser safely on any site

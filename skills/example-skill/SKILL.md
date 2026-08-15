@@ -9,6 +9,8 @@ category: [Automation]
 proficiency: Beginner
 trigger: Manual
 notes: Delete me once you have real skills — I exist to demo the first sync.
+notion_row: 'https://app.notion.com/3bd98c2112688104822cc75a20927d9e'
+notion_doc: 'https://app.notion.com/p/3bd98c21126881d586dbe294675baaef'
 ---
 
 # Example Skill

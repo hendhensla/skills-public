@@ -18,6 +18,8 @@ trigger: Agent
 notes: >-
   Uses browser-only ATS access and a reusable interview preparation template
   page that you create in your own workspace.
+notion_row: 'https://app.notion.com/3bd98c2112688149a3a7fe21c2621da4'
+notion_doc: 'https://app.notion.com/p/3bd98c211268819aaa6ededd8ff9bf86'
 ---
 
 ## What this skill does
