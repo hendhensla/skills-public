@@ -5,7 +5,6 @@ description: >-
   Monitors already-researched accounts for material internal and external
   changes, updates only the affected research sections, rescores revenue
   viability when warranted, and leaves one concise comment per material change.
-status: Active
 category:
   - Research
   - Analysis
@@ -17,7 +16,6 @@ notes: >-
   behavior is restraint — when nothing material changed, it edits nothing and
   comments nothing. Designed for scheduled monitoring of a book of business.
 setup: incomplete
-notion_row: 'https://app.notion.com/b82276ac0fa14cd5b0ac9cde20818860'
 ---
 
 ## 🚀 First run (setup)
