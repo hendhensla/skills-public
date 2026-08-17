@@ -6,7 +6,6 @@ description: >-
   plan period, role, segment, quota cadence, ramp, guarantee, and active incentive
   mechanics before comparing customer-sound options by attainment impact, payout
   impact, and risk.
-status: Active
 category:
   - Analysis
   - Automation
@@ -21,7 +20,6 @@ notes: >-
   that no program is active. Never generalize one role's or period's plan to
   another participant.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/c4bdbcf0af03412b9fc949780803a147'
 ---
 
 ## 🚀 First run (setup)
