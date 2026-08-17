@@ -7,12 +7,18 @@ import {
 	composeSkillFile,
 	parseSkillFile,
 	repoPathForSlug,
-	slugify,
+	slugForRow,
 	syncSnapshotPath,
 	type SkillFile,
 } from "./frontmatter.js";
+import { browserSignals, hasPublishOverride, publishBlock } from "./publish.js";
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
+
+// Row types that publish to the repo. Skill rows carry writing/analysis instructions;
+// Worker rows carry the callable tool surface of a deployed Notion Worker, which is what
+// an external agent needs in order to use it. Agent and Workflow rows stay in Notion.
+const SYNCED_TYPES = new Set(["Skill", "Worker"]);
 
 export interface SyncResult {
 	slug: string;
@@ -29,6 +35,11 @@ export interface SyncResult {
 async function resolveSkill(pageId: string): Promise<{ rowId: string; docId: string; meta: nt.SkillMeta }> {
 	const id = nt.pageIdFromUrl(pageId);
 	const meta = await nt.readRowProps(id).catch(() => null);
+	// Worker rows keep their documentation in the row page body, and their Doc URL points at the
+	// Worker itself, not at a Notion page. Use the row as its own body source.
+	if (meta?.skill && meta.type === "Worker") {
+		return { rowId: id, docId: id, meta };
+	}
 	if (meta?.skill && meta.docUrl) {
 		return { rowId: id, docId: nt.pageIdFromUrl(meta.docUrl), meta };
 	}
@@ -84,15 +95,15 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 	// would otherwise throw on the missing Doc URL). A body-page trigger has no Type/Skill props and
 	// falls through to resolveSkill's reverse lookup unchanged.
 	const triggerRow = await nt.readRowProps(nt.pageIdFromUrl(triggerPageId)).catch(() => null);
-	if (triggerRow?.type && triggerRow.type !== "Skill") {
-		return { slug: slugify(triggerRow.skill), action: "noop", detail: `type=${triggerRow.type}; non-skill row, sync skipped` };
+	if (triggerRow?.type && !SYNCED_TYPES.has(triggerRow.type)) {
+		return { slug: slugForRow(triggerRow), action: "noop", detail: `type=${triggerRow.type}; type is not published to the repo, sync skipped` };
 	}
 
 	const { rowId, docId, meta } = await resolveSkill(triggerPageId);
 
 	// Defense-in-depth: a non-Skill row that somehow carries a Doc URL still must not sync.
-	if (meta.type && meta.type !== "Skill") {
-		return { slug: slugify(meta.skill), action: "noop", detail: `type=${meta.type}; non-skill row, sync skipped` };
+	if (meta.type && !SYNCED_TYPES.has(meta.type)) {
+		return { slug: slugForRow(meta), action: "noop", detail: `type=${meta.type}; type is not published to the repo, sync skipped` };
 	}
 
 	const { markdown: body } = await nt.retrievePageMarkdown(docId);
@@ -111,7 +122,7 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 		}
 		return false;
 	};
-	const path0 = repoPathForSlug(slugify(meta.skill));
+	const path0 = repoPathForSlug(slugForRow(meta));
 	const candidate = (await gh.getFile(path0)) ?? null;
 	const candidateParsed = candidate ? parseSkillFile(candidate.content) : null;
 	let existing: typeof candidate = null;
@@ -134,15 +145,15 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 		if (!existing && candidate) {
 			// The slugified title collides with a DIFFERENT skill's path — never overwrite it.
 			const issueUrl = await flag(
-				slugify(meta.skill),
+				slugForRow(meta),
 				docId,
 				"path-collision",
 				`Row title slugifies to \`${path0}\`, which belongs to another skill, and no repo file links this row. Not applied.`,
 			);
-			return { slug: slugify(meta.skill), action: "conflict", issueUrl };
+			return { slug: slugForRow(meta), action: "conflict", issueUrl };
 		}
 	}
-	const slug = existingParsed?.slug ?? slugify(meta.skill);
+	const slug = existingParsed?.slug ?? slugForRow(meta);
 	const path = repoPathForSlug(slug);
 	const file: SkillFile = {
 		slug,
@@ -154,8 +165,27 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 	};
 	const composed = composeSkillFile(file);
 
-	// Echo guard: identical to what's already in the repo -> our own round-trip.
 	const current = slug === existingParsed?.slug ? existing : await gh.getFile(path);
+
+	// Publish guard (2026-08-15): a doc that spells out agent-browser usage is a runbook for a
+	// signed-in browser session, so it never goes to a public repo. A block is a no-op, not a
+	// failure. When such a file is already published, say so on the row instead of deleting it
+	// silently: removal is the owner's call.
+	const blocked = await publishBlock(composed);
+	if (blocked) {
+		if (current) {
+			await nt
+				.postPageComment(
+					rowId,
+					`\u{1F512} skills-sync did not publish this update: ${blocked}. \`${path}\` is already in the repo, so delete it there if it must go, or add a \`publish: public\` line to this page to allow future updates.`,
+				)
+				.catch(() => undefined);
+			return { slug, action: "noop", detail: `publish guard: ${blocked}; existing repo file untouched` };
+		}
+		return { slug, action: "noop", detail: `publish guard: ${blocked}` };
+	}
+
+	// Echo guard: identical to what's already in the repo -> our own round-trip.
 	if (current && current.content === composed) return { slug, action: "noop", detail: "github already current" };
 
 	// Conflict guard: GitHub changed since last sync AND Notion changed (the trigger).
@@ -178,6 +208,16 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 	if (!file) return { slug: repoPath, action: "noop", detail: "file not found (deleted?)" };
 	const parsed = parseSkillFile(file.content);
 	const slug = parsed.slug;
+
+	// Worker docs are born in Notion: the row page IS the doc page, and a Worker id cannot be
+	// invented from a repo file. An unlinked worker doc is therefore a no-op, never a new row.
+	if (parsed.meta.type === "Worker" && (!parsed.notionRow || !parsed.notionDoc)) {
+		return {
+			slug,
+			action: "noop",
+			detail: "worker doc has no notion_row/notion_doc link; create the Worker row in Notion first",
+		};
+	}
 
 	// New skill: create the row + body page, write IDs back, snapshot.
 	if (!parsed.notionDoc || !parsed.notionRow) {
@@ -298,11 +338,48 @@ export async function dryRunCompose(triggerPageId: string): Promise<string> {
 	const { rowId, docId, meta } = await resolveSkill(triggerPageId);
 	const { markdown: body } = await nt.retrievePageMarkdown(docId);
 	return composeSkillFile({
-		slug: slugify(meta.skill),
+		slug: slugForRow(meta),
 		description: meta.whatItDoes || meta.notes || "",
 		meta,
 		notionRow: `https://www.notion.so/${rowId}`,
 		notionDoc: `https://www.notion.so/${docId}`,
 		body,
 	});
+}
+
+// ---------------------------------------------------------------------------
+// Read-only publish check: would this row reach the repo, and if not, why?
+// ---------------------------------------------------------------------------
+export interface PublishCheck {
+	slug: string;
+	type: string | null;
+	willPublish: boolean;
+	reason: string | null;
+	signals: string[];
+	overridden: boolean;
+}
+
+export async function checkPublish(triggerPageId: string): Promise<PublishCheck> {
+	const triggerRow = await nt.readRowProps(nt.pageIdFromUrl(triggerPageId)).catch(() => null);
+	if (triggerRow?.type && !SYNCED_TYPES.has(triggerRow.type)) {
+		return {
+			slug: slugForRow(triggerRow),
+			type: triggerRow.type,
+			willPublish: false,
+			reason: `type=${triggerRow.type} is not published to the repo`,
+			signals: [],
+			overridden: false,
+		};
+	}
+	const composed = await dryRunCompose(triggerPageId);
+	const parsed = parseSkillFile(composed);
+	const reason = await publishBlock(composed);
+	return {
+		slug: parsed.slug,
+		type: parsed.meta.type ?? null,
+		willPublish: reason === null,
+		reason,
+		signals: browserSignals(composed),
+		overridden: hasPublishOverride(composed),
+	};
 }

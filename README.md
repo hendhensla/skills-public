@@ -252,3 +252,39 @@ cd worker && cp .env.example .env
 npx tsx src/cli.ts dry <row-or-body-page-id>   # prints composed SKILL.md, no writes
 npx tsx src/selftest.ts                        # token-free: diff engine + frontmatter checks
 ```
+
+## Worker tool docs
+
+Rows in the AI Skills database with `Type = Worker` publish here too, at `skills/worker-<name>/SKILL.md`.
+
+Why: a deployed Notion Worker is only useful to an outside agent if that agent knows the tool names, the inputs, and how to call them. The Worker row page holds that documentation, so the row page is its own body source. There is no separate body page, and the `Doc URL` property points at the Worker instead of at a Notion page.
+
+Frontmatter adds two keys for these rows:
+
+- `type` is `Worker`
+- `worker_url` comes from the `Location` property
+
+Rows with `Type = Agent` or `Type = Workflow` still stay in Notion.
+
+### Tools, not syncs
+
+Only a Worker's **tools** publish. Sync capabilities, webhooks, and schedules are internal
+plumbing that an outside agent cannot call, so leave them out of the row page body. Write one
+section per tool: name, purpose, input fields with types, and the shape of the return value.
+
+## Publish guard (agent-browser docs)
+
+`worker/src/publish.ts` blocks any composed `SKILL.md` that explicitly documents agent-browser
+usage from reaching a **public** repo. Signals include "agent browser", browser session or
+cookie control, headless Chrome, Playwright, Puppeteer, Selenium, WebDriver, browser tool names
+such as `terminalWithBrowser`, and web scraping. The order of decisions is:
+
+1. `PUBLISH_BROWSER_DOCS=1` in the worker env allows everything. Use it when every target repo
+   is private.
+2. A line `publish: public` anywhere on the row page allows that one row.
+3. A private target repo allows everything, because nothing becomes public.
+4. Otherwise the sync returns `noop` with the reason. If the file is already in the repo, the
+   worker also comments on the row. It never deletes a published file for you.
+
+Run `ntn workers exec checkPublish -d '{"pageId":"<row url>"}'` to see the verdict for a row
+without writing anything.

@@ -52,6 +52,24 @@ export async function putFile(path: string, content: string, message: string, sh
 	return res.data.commit.sha ?? "";
 }
 
+let repoPrivate: boolean | null = null;
+
+/**
+ * Is the sync target repo private? Cached for the life of the run: visibility rarely changes and
+ * the publish guard asks on every push. A failed lookup answers "public", which keeps the guard
+ * fail-safe.
+ */
+export async function repoIsPrivate(): Promise<boolean> {
+	if (repoPrivate !== null) return repoPrivate;
+	try {
+		const res = await octokit.repos.get({ owner: GH_OWNER, repo: GH_REPO });
+		repoPrivate = Boolean(res.data.private);
+	} catch {
+		repoPrivate = false;
+	}
+	return repoPrivate;
+}
+
 /** Raise a conflict / comment-loss flag as a GitHub issue. */
 export async function createIssue(title: string, body: string, labels = ["skills-sync"]): Promise<string> {
 	const res = await octokit.issues.create({ owner: GH_OWNER, repo: GH_REPO, title, body, labels });

@@ -1,6 +1,6 @@
 import { Worker, WebhookVerificationError } from "@notionhq/workers";
 import { j } from "@notionhq/workers/schema-builder";
-import { pushToGitHub, pushToNotion, forcePushToNotion, dryRunCompose, type SyncResult } from "./sync.js";
+import { pushToGitHub, pushToNotion, forcePushToNotion, dryRunCompose, checkPublish, type SyncResult } from "./sync.js";
 
 const worker = new Worker();
 export default worker;
@@ -53,6 +53,26 @@ worker.tool("dryRunCompose", {
 		pageId: j.string().describe("Notion page id or URL of a skill row or body page."),
 	}),
 	execute: async ({ pageId }) => dryRunCompose(pageId),
+});
+
+worker.tool("checkPublish", {
+	title: "Check publish guard (read-only)",
+	description:
+		"Read-only. Compose a row's SKILL.md and report whether it would reach the GitHub repo: the Type gate, the agent-browser publish guard, the signals found, and whether a 'publish: public' override is present. Writes nothing.",
+	schema: j.object({
+		pageId: j.string().describe("Notion page id or URL of a skill or worker row."),
+	}),
+	execute: async ({ pageId }) => {
+		const r = await checkPublish(pageId);
+		return {
+			slug: r.slug,
+			type: r.type,
+			willPublish: r.willPublish,
+			reason: r.reason,
+			signals: r.signals.join(", "),
+			overridden: r.overridden,
+		};
+	},
 });
 
 // Notion->GitHub trigger. Wire a database automation on your AI Skills database
