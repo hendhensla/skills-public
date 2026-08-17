@@ -5,7 +5,6 @@ description: >-
   Defines measurable proof-of-concept success criteria for a named customer,
   tied to their stated goals, with an owner, proof, and evaluation date for each
   criterion.
-status: Active
 category:
   - Analysis
 proficiency: Intermediate
@@ -14,7 +13,6 @@ notes: >-
   /poc <customer> — pair with a deal-context skill to pull deal history and next
   steps before defining criteria.
 setup: incomplete
-notion_row: 'https://app.notion.com/727bc0aec3a54abe9258aa9eb1a04a45'
 ---
 
 ## 🚀 First run (setup)
