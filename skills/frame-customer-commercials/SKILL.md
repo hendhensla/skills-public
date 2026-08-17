@@ -5,7 +5,6 @@ description: >-
   Frame approvable commercial structures before or during quote creation. Use for
   pricing, discounting, term length, payment, billing, tiering, renewals,
   contractions, legal-term tradeoffs, and give/get negotiation planning.
-status: Active
 category:
   - Analysis
   - Automation
@@ -17,7 +16,6 @@ notes: >-
   current commercial policy, deal-desk guidance, pricing calculator, approval
   routing, and signature-routing resources.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/9623c639491f4106961eba4999f0809c'
 ---
 
 ## 🚀 First run (setup)
