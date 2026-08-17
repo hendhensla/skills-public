@@ -5,7 +5,6 @@ description: >-
   Looks up current product functionality and returns a point of view on what it
   does, whether it is being built, and when it launches, with the source and
   date behind every claim.
-status: Active
 category:
   - Research
   - Reference
@@ -15,7 +14,6 @@ notes: >-
   /function — only trust designated roadmap and announcement sources; call out
   anything outside them and treat it as unconfirmed.
 setup: incomplete
-notion_row: 'https://app.notion.com/7847fdab2e01496f8f232ba527ee1f25'
 ---
 
 ## 🚀 First run (setup)
