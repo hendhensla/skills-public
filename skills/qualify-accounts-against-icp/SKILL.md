@@ -5,7 +5,6 @@ description: >-
   Separates durable account fit from product and marketing engagement, applies
   your current ICP criteria, and recommends how much sales effort an account
   deserves.
-status: Active
 category:
   - Research
   - Analysis
@@ -15,7 +14,6 @@ notes: >-
   Keeps fit, engagement, and urgency separate so heavy product usage cannot
   inflate fit and temporary low engagement cannot hide a strong ICP.
 setup: incomplete
-notion_row: 'https://app.notion.com/71685ec5ed0642f69be26906e8f1c14f'
 ---
 
 ## 🚀 First run (setup)
