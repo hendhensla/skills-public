@@ -5,7 +5,6 @@ description: >-
   Audit the runner's owned account book for duplicate accounts, segment mismatches,
   and parent-child ownership risk, and write one findings row per account and issue
   type into a new run database.
-status: Active
 category:
   - Analysis
 proficiency: Advanced
@@ -14,7 +13,6 @@ notes: >-
   Validated on a ~150-row account book. Verify the finding count independently and
   never claim an account will be reassigned as fact.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/f4313c36c55f49659bc72d3fdfb0d76e'
 ---
 
 ## 🚀 First run (setup)
