@@ -5,7 +5,6 @@ description: >-
   Scans public and internal sources for new evidence about an account,
   normalizes it into a signals database, deduplicates it, and returns only
   material changes to the primary research agent.
-status: Active
 category:
   - Research
   - Analysis
@@ -17,7 +16,6 @@ notes: >-
   returning at most five material signals per run, each source-labeled and
   confidence-rated.
 setup: incomplete
-notion_row: 'https://app.notion.com/1d8be4b17e5742b09af15318b1799d79'
 ---
 
 ## 🚀 First run (setup)
