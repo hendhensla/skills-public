@@ -6,7 +6,6 @@ description: >-
   revenue viability for a seller, score and tier the account, and write a
   source-backed pursuit recommendation onto the account page. Coordinates
   specialist research sessions instead of loading every source into one context.
-status: Active
 category:
   - Research
   - Analysis
@@ -18,7 +17,6 @@ notes: >-
   orchestration: compact specialist handoffs preserved the score, tier, and
   recommended motion.
 setup: incomplete
-notion_row: 'https://app.notion.com/feb640e6f3a14dc28ab531b8ee7cfbf5'
 ---
 
 ## 🚀 First run (setup)
