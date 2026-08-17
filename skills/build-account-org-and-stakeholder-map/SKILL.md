@@ -4,7 +4,6 @@ skill: Build account org and stakeholder map
 description: >-
   Build and maintain a confidence-tagged org graph, stakeholder map, warm paths,
   buying-group coverage, and a compact handoff for one account.
-status: Active
 category:
   - Research
   - Analysis
@@ -14,7 +13,6 @@ notes: >-
   Keeps one full internal map per account and returns only a bounded digest, so the
   primary research context stays small.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/4e59cd70f228481da41156636726dc91'
 ---
 
 ## 🚀 First run (setup)
