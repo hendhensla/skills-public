@@ -4,7 +4,6 @@ skill: EPD Context for GTM
 description: >-
   Maps a prospect's engineering, product, and design org and its adjacent teams,
   then generates the right questions per function and at the seams between them.
-status: Active
 category:
   - Reference
   - Research
@@ -15,7 +14,6 @@ notes: >-
   sections as gaps. Hand question sequencing and call structure to your
   discovery-coaching skill.
 setup: incomplete
-notion_row: 'https://app.notion.com/f8df45c219094074af4c168eb701e80c'
 ---
 
 ## 🚀 First run (setup)
