@@ -4,7 +4,6 @@ skill: External Notion Workspace Setup
 description: >-
   Turn customer requirements into a controlled API-built demo workspace with
   synthetic data, access planning, and readiness checks for code-based setup.
-status: Active
 category:
   - Research
   - Automation
@@ -20,7 +19,6 @@ notes: >-
   authoring ready, or apply ready. Continue with the API path whenever the CLI path
   is not apply ready.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/3fbd5b654011453b97ac1e969d3625ed'
 ---
 
 ## 🚀 First run (setup)
