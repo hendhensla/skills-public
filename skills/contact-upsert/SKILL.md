@@ -5,7 +5,6 @@ description: >-
   Keeps one canonical contact row per real person in your contacts database.
   Searches for an existing record before any create, then merges newer verified
   contact and engagement data into that row without dropping history.
-status: Active
 category:
   - Automation
   - Reference
@@ -16,7 +15,6 @@ notes: >-
   review, or outreach planning — any time a person should be represented in your
   contacts database. Core contract: upsert, never append blindly.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/dc73994da57c4bf887eb50c895507569'
 ---
 
 ## 🚀 First run (setup)
