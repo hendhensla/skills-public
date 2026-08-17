@@ -5,7 +5,6 @@ description: >-
   Answer customer-facing security, privacy, and compliance questions from your
   company's trust-portal source of truth, return source hyperlinks, add staged
   discovery questions, and calibrate flexibility to the customer's plan tier.
-status: Active
 category:
   - Research
   - Reference
@@ -16,7 +15,6 @@ notes: >-
   the trust-portal connection and return source hyperlinks. Internal chat threads and
   internal docs give context only, never customer-facing evidence.
 setup: incomplete
-notion_row: 'https://app.notion.com/p/a5779139ad234e87a93f21ec74e04f44'
 ---
 
 ## 🚀 First run (setup)
