@@ -2,7 +2,9 @@
 name: X Reader Worker
 skill: worker-x-reader
 description: Reads individual X posts, the authenticated account's private bookmarks, and its liked posts for agent use.
-category: Automation, Research
+category:
+  - Automation
+  - Research
 proficiency: Advanced
 trigger: Agent
 type: Worker
