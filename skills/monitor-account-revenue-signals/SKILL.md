@@ -15,7 +15,10 @@ notes: >-
   Maintenance companion to an initial account-research skill. Its defining
   behavior is restraint — when nothing material changed, it edits nothing and
   comments nothing. Designed for scheduled monitoring of a book of business.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Monitor-account-revenue-signals-3c098c21126881f197c1c08a6c1af0ad
+notion_doc: >-
+  https://app.notion.com/p/Monitor-account-revenue-signals-3c098c211268810a81efc70534d0bbae
 ---
 
 ## 🚀 First run (setup)
@@ -124,3 +127,4 @@ Always treat these as material:
 - Read `<your-provenance-doc>` before recording a change sourced from a third-party data
   provider. Provider company IDs rarely map one-to-one with CRM accounts, and a missing
   sub-account is a coverage gap, never evidence of no activity.
+
