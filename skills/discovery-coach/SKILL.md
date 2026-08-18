@@ -14,9 +14,10 @@ proficiency: Advanced
 trigger: Manual
 notes: >-
   Sources all questioning content live from your own discovery resources page.
-  Never copy the question bank into this skill file — the source page changes and
-  a copy goes stale.
-setup: incomplete
+  Never copy the question bank into this skill file — the source page changes
+  and a copy goes stale.
+notion_row: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881a1bf55fdac3f255771'
+notion_doc: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881378f3adb9e9835ef46'
 ---
 
 ## 🚀 First run (setup)
@@ -131,3 +132,4 @@ Output: the qualification talk tracks, a read on cost of inaction, and the one q
 2. Renewal or expansion call: skip origin-story questions and lead with current-state value and ripple effects.
 3. Technical or security-led call: keep discovery here and route product security, compliance, or RFP answers to `<your-security-answer-tool>`.
 4. Attendee is not the decision maker: make the multithread question the primary next step.
+
