@@ -13,7 +13,10 @@ notes: >-
   Motions are mental models inside one sales process, not separate cycles.
   Re-read your company's current sales-process source on each run and record
   which version was used.
-setup: required
+notion_row: >-
+  https://app.notion.com/p/Choose-the-sales-motion-3c098c21126881189312ecff3b64b030
+notion_doc: >-
+  https://app.notion.com/p/Choose-the-sales-motion-3c098c211268816fa0b6ef0983c9f7e1
 ---
 
 ## 🚀 First run (setup)
@@ -183,3 +186,4 @@ Never use this as a documentation-only motion.
 - Do not recommend more seats or credits before checking utilization and addressable
   workforce.
 - Label assumptions and missing evidence, and record the process source and date used.
+
