@@ -19,7 +19,10 @@ notes: >-
   mandatory bonus/SPIF check across every official announcement channel before
   concluding that no program is active. Never generalize one role's or period's
   plan to another participant.
-setup: pending
+notion_row: >-
+  https://app.notion.com/p/Optimize-Attainment-and-Payout-3c098c211268813eb5e3f9d9129828e9
+notion_doc: >-
+  https://app.notion.com/p/Optimize-Attainment-and-Payout-3c098c21126881edac1ee84d2425b385
 ---
 
 ## 🚀 First run (setup)
@@ -363,4 +366,5 @@ invent them.
 - Preserve legal, deal desk, finance, billing, and quote-approval requirements.
 - Never generalize a bridge, kicker, guarantee, ramp, or transfer schedule to a different
   participant without current-plan evidence.
+
 
