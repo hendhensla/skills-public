@@ -15,7 +15,10 @@ notes: >-
   verified net-new duplicate, removal of every copied template row,
   chronological milestone sorting, and customer updates only on the customer's
   own plan.
-setup: required
+notion_row: >-
+  https://app.notion.com/p/Create-Mutual-Action-Plan-3c098c211268818099e7d71d9722f25c
+notion_doc: >-
+  https://app.notion.com/p/Create-Mutual-Action-Plan-3c098c21126881a79781e2839e349e5c
 ---
 
 ## 🚀 First run (setup)
@@ -147,3 +150,4 @@ give selling advice or invent missing information.
 - Provide a copy-pastable, comma-separated list of customer stakeholder emails in a code
   block and remind the user to share the document with them manually; the agent cannot add
   guests in the customer-facing workspace.
+
