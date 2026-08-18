@@ -1,7 +1,9 @@
 ---
 name: capture-chat-tasks
 skill: capture-chat-tasks
-description: Create deduplicated owner-assigned tasks from team-chat messages and thread context.
+description: >-
+  Create deduplicated owner-assigned tasks from team-chat messages and thread
+  context.
 category:
   - Automation
 proficiency: Advanced
@@ -9,7 +11,8 @@ trigger: Agent
 notes: >-
   Team-chat sub-skill of a task-capture agent. Relies on the parent agent's
   shared task, deduplication, and property rules.
-setup: required
+notion_row: 'https://app.notion.com/p/capture-chat-tasks-3c098c2112688101bbfce0448f80ed1d'
+notion_doc: 'https://app.notion.com/p/capture-chat-tasks-3c098c2112688169b06fdaf84487a0d4'
 ---
 
 ## 🚀 First run (setup)
@@ -72,3 +75,4 @@ or the source contains a clear action the owner holds.
 - Do not post, edit, react to, or delete messages unless the parent agent explicitly
   requires a concise capture confirmation.
 - Follow the parent agent's common task, deduplication, and property rules.
+
