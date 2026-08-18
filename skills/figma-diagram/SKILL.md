@@ -1,7 +1,10 @@
 ---
 name: figma-diagram
 skill: figma-diagram
-description: Create editable FigJam diagrams from verified current or proposed evidence using one semantic model, canonical shape and edge grammar, the correct diagram mode, and matching Mermaid source when useful.
+description: >-
+  Create editable FigJam diagrams from verified current or proposed evidence
+  using one semantic model, canonical shape and edge grammar, the correct
+  diagram mode, and matching Mermaid source when useful.
 category:
   - Design
   - Documentation
@@ -11,7 +14,8 @@ notes: >-
   resources that connector serves. Adds a shared semantic model, a mode router,
   canonical shape and edge grammar, evidence rules, workflow recipes, and
   semantic QA on top of it.
-setup: required
+notion_row: 'https://app.notion.com/p/figma-diagram-3c098c211268810d9026fe192b47a560'
+notion_doc: 'https://app.notion.com/p/figma-diagram-3c098c211268813d9fabf12a6b98dde7'
 ---
 
 ## 🚀 First run (setup)
@@ -228,3 +232,4 @@ source material: read them, do not overwrite them.
 - Sequence-diagram `Note` lines and gantt `classDef` styling are silently dropped. Use the
   connector's hybrid FigJam-editing workflow when annotations or gantt colors are required.
 - Thumbnail URLs expire after roughly a week. The board URL is durable.
+
