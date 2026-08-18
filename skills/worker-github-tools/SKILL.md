@@ -2,7 +2,8 @@
 name: github-tools Worker
 skill: worker-github-tools
 description: Full GitHub read and write from agents using your own token, including repository creation, branches, commits, pull requests, reviews, and merges.
-category: Automation
+category:
+  - Automation
 proficiency: Advanced
 trigger: Agent
 type: Worker
