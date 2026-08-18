@@ -14,11 +14,14 @@ proficiency: Advanced
 trigger: Manual
 notes: >-
   Distilled from a full resume rebuild. The verification pass is the important
-  part — it caught a stale metric, an all-time-record claim that was wrong on raw
-  data, a mixed-denominator bullet, and a quarterly stat mislabeled as
-  role-spanning. The .docx builder produces a one-page file using only the Python
-  standard library, for machines without python-docx.
-setup: incomplete
+  part — it caught a stale metric, an all-time-record claim that was wrong on
+  raw data, a mixed-denominator bullet, and a quarterly stat mislabeled as
+  role-spanning. The .docx builder produces a one-page file using only the
+  Python standard library, for machines without python-docx.
+notion_row: >-
+  https://app.notion.com/p/Resume-Build-Claim-Verification-3c098c21126881a78df3d0f593c57208
+notion_doc: >-
+  https://app.notion.com/p/Resume-Build-Claim-Verification-3c098c21126881faa87efbd7b60890ed
 ---
 
 ## 🚀 First run (setup)
@@ -101,3 +104,4 @@ The owner's own edits outrank your draft. When they hand back a revised version,
 - **Page-count verification may be unavailable.** If there is no Word/LibreOffice/pandoc on the machine, you cannot confirm the render. State that plainly and give a ranked cut-list in case it spills.
 - **Never invent an outcome.** Missing result → a literal `[ADD RESULT]` marker, and flag it in the response.
 - **Every claim traceable.** Keep a change log listing what was added, cut, and corrected, and what you deliberately left off.
+
