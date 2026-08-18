@@ -1,12 +1,18 @@
 ---
 name: grab-team-time
 skill: grab-team-time
-description: Book meeting time on teammates' calendars from conversation context, asking who and when only when context is unclear.
+description: >-
+  Book meeting time on teammates' calendars from conversation context, asking
+  who and when only when context is unclear.
 category:
   - Automation
 proficiency: Intermediate
 trigger: Agent
-notes: Pairs with a room-booking skill. Later replies in the same thread are authoritative updates to title, goal, or agenda.
+notes: >-
+  Pairs with a room-booking skill. Later replies in the same thread are
+  authoritative updates to title, goal, or agenda.
+notion_row: 'https://app.notion.com/p/grab-team-time-3c098c21126881d6bb0ae449c3f4e4d6'
+notion_doc: 'https://app.notion.com/p/grab-team-time-3c098c21126881619d08f72112d81995'
 ---
 
 ## 🚀 First run (setup)
@@ -61,3 +67,4 @@ If attendees or timing cannot be confidently inferred, ask before booking: who s
 - No common open slot: propose the two or three least-conflicting options and ask which to book.
 - Ambiguous names or external attendees: confirm exact emails before inviting.
 - Never book over an attendee's hard conflict.
+
