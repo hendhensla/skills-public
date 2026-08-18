@@ -15,7 +15,10 @@ notes: >-
   Delta-only account research subskill. Keeps the main account report stable by
   returning at most five material signals per run, each source-labeled and
   confidence-rated.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Scan-and-normalize-account-signals-3c098c21126881bcb9b6cd3115c37c62
+notion_doc: >-
+  https://app.notion.com/p/Scan-and-normalize-account-signals-3c098c211268816eb535f8dcd26e101e
 ---
 
 ## 🚀 First run (setup)
@@ -152,3 +155,4 @@ Never place tool errors, dispatch errors, stack traces, or troubleshooting detai
 account report or a signal row. Record only the evidence gap and the date checked. Keep raw
 errors in the agent chat. Leave a concise page comment only when a failure blocked
 completion or could affect the decision.
+
