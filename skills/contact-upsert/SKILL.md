@@ -16,6 +16,8 @@ notes: >-
   contacts database. Core contract: upsert, never append blindly. Includes the
   two-surface rule for account intelligence tools: titles, functional roles and
   phone numbers come from the contacts table view, not the per-user entity query.
+  This database is the primary title source for org mapping, so title,
+  do-not-contact, DNC reason and lead-status hygiene are research dependencies.
 setup: incomplete
 ---
 
@@ -127,6 +129,26 @@ product-AI usage flags, open-opportunity flag, signal count, top signal label.
    not the same as a real product user. Do not set relationship status from that value.
 6. Do not create a row from a contacts-view record whose email domain does not match the
    account. Report it as a data fault in the source tool instead.
+
+## Downstream consumers and field hygiene
+
+Treat this database as the primary title source for org mapping. Other skills read it before
+they fall back to `<your-gtm-dashboard-tool>`, so these fields are research dependencies, not
+cosmetics.
+
+1. Keep the title field populated. Downstream org maps read this column first and fall back
+   to the contacts table view second.
+2. Downstream readers usually filter by email domain, for example
+   `substr("Email", instr("Email", '@') + 1) = '<account-domain>'`. A row with a personal or
+   wrong-domain email is invisible to that filter, so correct the email or set the account
+   relation explicitly.
+3. Do-not-contact and DNC-reason fields must stay accurate. Every map and outreach plan
+   excludes flagged rows by name, so a stale flag creates real risk.
+4. A lead status of "disqualified" is not a delete. Keep the row and keep the title, and let
+   the reader exclude it.
+5. When you classify a person by function, read the whole title. Specific phrases such as
+   partner, channel, alliance, public sector, enablement and operations beat generic
+   engineer, product and data.
 
 ## Upsert workflow
 
