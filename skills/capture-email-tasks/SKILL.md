@@ -1,7 +1,9 @@
 ---
 name: capture-email-tasks
 skill: capture-email-tasks
-description: Create deduplicated owner-assigned tasks from clear, material inbound email actions.
+description: >-
+  Create deduplicated owner-assigned tasks from clear, material inbound email
+  actions.
 category:
   - Automation
 proficiency: Advanced
@@ -9,7 +11,8 @@ trigger: Agent
 notes: >-
   Email sub-skill of a task-capture agent. Relies on the parent agent's shared
   task, deduplication, and property rules.
-setup: required
+notion_row: 'https://app.notion.com/p/capture-email-tasks-3c098c211268817f8192ffe18d8e8412'
+notion_doc: 'https://app.notion.com/p/capture-email-tasks-3c098c21126881c28753d65d480d777c'
 ---
 
 ## 🚀 First run (setup)
@@ -74,3 +77,4 @@ someone else. Do not create a task only because an email is unread.
 - Never invent an owner, deadline, account match, or follow-up.
 - Do not send, draft, archive, label, modify, or delete email.
 - Follow the parent agent's common task, deduplication, and property rules.
+
