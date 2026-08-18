@@ -2,17 +2,18 @@
 name: audit-account-book
 skill: Audit account book
 description: >-
-  Audit the runner's owned account book for duplicate accounts, segment mismatches,
-  and parent-child ownership risk, and write one findings row per account and issue
-  type into a new run database.
+  Audit the runner's owned account book for duplicate accounts, segment
+  mismatches, and parent-child ownership risk, and write one findings row per
+  account and issue type into a new run database.
 category:
   - Analysis
 proficiency: Advanced
 trigger: Manual
 notes: >-
-  Validated on a ~150-row account book. Verify the finding count independently and
-  never claim an account will be reassigned as fact.
-setup: incomplete
+  Validated on a ~150-row account book. Verify the finding count independently
+  and never claim an account will be reassigned as fact.
+notion_row: 'https://app.notion.com/p/Audit-account-book-3c098c21126881c8b5a0f539875f66ef'
+notion_doc: 'https://app.notion.com/p/Audit-account-book-3c098c2112688168b4f8ffa6513db696'
 ---
 
 ## 🚀 First run (setup)
@@ -109,3 +110,4 @@ independently calculated finding count.
 
 Never state that an account will be taken as fact. State that it is at risk of reassignment and
 name the evidence.
+
