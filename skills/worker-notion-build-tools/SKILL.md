@@ -2,7 +2,9 @@
 name: Notion Build Tools Worker
 skill: worker-notion-build-tools
 description: Exposes general Notion-as-Code build tools for pages, databases, schemas, rows, and raw Public API calls in a target workspace.
-category: Automation, Notion
+category:
+  - Automation
+  - Notion
 proficiency: Advanced
 trigger: Agent
 type: Worker
