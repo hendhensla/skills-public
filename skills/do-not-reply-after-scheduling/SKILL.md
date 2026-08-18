@@ -11,7 +11,10 @@ trigger: Agent
 notes: >-
   Companion rule for a chat-based scheduling agent. Validated behavior: no reply
   to a bare "Thanks!" unless a specific ask requires action.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Do-Not-Reply-After-Scheduling-3c098c211268816b9cbdddbf6f31259b
+notion_doc: >-
+  https://app.notion.com/p/Do-Not-Reply-After-Scheduling-3c098c21126881a99b6cf5f920c629d6
 ---
 
 ## 🚀 First run (setup)
@@ -43,3 +46,4 @@ After a meeting is successfully scheduled or updated, do not send another chat r
 - Treat the first confirmation containing the booked details as the final reply for that request.
 - Continue responding to later messages only when they contain a specific ask.
 - Do not send acknowledgments, reminders, summaries, or check-ins after the meeting is scheduled.
+
