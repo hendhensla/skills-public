@@ -11,7 +11,8 @@ trigger: Manual
 notes: >-
   Facts only. Pair with a separate POC-criteria skill or product-functionality
   skill for those questions.
-setup: required
+notion_row: 'https://app.notion.com/p/Deal-Context-Brief-3c098c21126881c4b42ee2b5d632cca7'
+notion_doc: 'https://app.notion.com/p/Deal-Context-Brief-3c098c2112688120b93dc075b35b7d05'
 ---
 
 ## 🚀 First run (setup)
@@ -85,3 +86,4 @@ before researching a deal.
 
 - A factual summary of the deal. Do not suggest selling points or call approaches. State the
   facts only.
+
