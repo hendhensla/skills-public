@@ -1,12 +1,21 @@
 ---
 name: maintain-deal-temperature-check
 skill: Maintain deal temperature check
-description: "Keep a deal temperature-check artifact current inside an opportunity page: temperature badge, MEDDPICC plus 3 Whys scoring, a risk register with mitigations, and an append-only deal timeline."
+description: >-
+  Keep a deal temperature-check artifact current inside an opportunity page:
+  temperature badge, MEDDPICC plus 3 Whys scoring, a risk register with
+  mitigations, and an append-only deal timeline.
 category:
   - Analysis
 proficiency: Intermediate
 trigger: Agent
-notes: One artifact per opportunity, updated in place. Referenced by an opportunity-prep agent.
+notes: >-
+  One artifact per opportunity, updated in place. Referenced by an
+  opportunity-prep agent.
+notion_row: >-
+  https://app.notion.com/p/Maintain-deal-temperature-check-3c098c21126881128ccfcf7e7dfcdfba
+notion_doc: >-
+  https://app.notion.com/p/Maintain-deal-temperature-check-3c098c2112688150a9e4f91b14b3988a
 ---
 
 ## 🚀 First run (setup)
@@ -64,3 +73,4 @@ Mirror your template exactly. Four sections, in order: Temperature Check, MEDDPI
 - Facts only; every status, risk, and timeline entry needs a real source.
 - Keep writing terse and plain.
 - If nothing changed, make no edits.
+
