@@ -16,7 +16,10 @@ notes: >-
   decide whether and how to pursue a company. Validated on multi-agent
   orchestration: compact specialist handoffs preserved the score, tier, and
   recommended motion.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Research-account-revenue-viability-3c098c21126881628602e9ad43776103
+notion_doc: >-
+  https://app.notion.com/p/Research-account-revenue-viability-3c098c211268811490b9fe478f1a2667
 ---
 
 ## 🚀 First run (setup)
@@ -147,3 +150,4 @@ with the date checked instead of leaving a section out.
 - Do not contact prospects, change opportunity records, or expose private user-level data
   outside approved internal account surfaces.
 - Preserve prior validated evidence and dated history.
+
