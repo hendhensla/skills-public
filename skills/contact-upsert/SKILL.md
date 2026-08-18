@@ -13,7 +13,9 @@ trigger: Agent
 notes: >-
   Use during account research, org mapping, meeting prep, prior-engagement
   review, or outreach planning — any time a person should be represented in your
-  contacts database. Core contract: upsert, never append blindly.
+  contacts database. Core contract: upsert, never append blindly. Includes the
+  two-surface rule for account intelligence tools: titles, functional roles and
+  phone numbers come from the contacts table view, not the per-user entity query.
 setup: incomplete
 ---
 
