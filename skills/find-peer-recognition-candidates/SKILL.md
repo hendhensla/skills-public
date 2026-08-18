@@ -1,14 +1,22 @@
 ---
 name: find-peer-recognition-candidates
 skill: Find peer-recognition candidates
-description: Find evidence-backed collaborators worth recognizing on your peer-recognition platform and prepare approval-ready suggestions without sending them.
+description: >-
+  Find evidence-backed collaborators worth recognizing on your peer-recognition
+  platform and prepare approval-ready suggestions without sending them.
 category:
   - Research
   - Analysis
   - Automation
 proficiency: Advanced
 trigger: Agent
-notes: Companion to a weekly-wins workflow. Read-only against the recognition platform; the human sends the recognition.
+notes: >-
+  Companion to a weekly-wins workflow. Read-only against the recognition
+  platform; the human sends the recognition.
+notion_row: >-
+  https://app.notion.com/p/Find-peer-recognition-candidates-3c098c21126881e59045d23e6703d75a
+notion_doc: >-
+  https://app.notion.com/p/Find-peer-recognition-candidates-3c098c21126881f99a2de9780bb9e01f
 ---
 
 ## 🚀 First run (setup)
@@ -55,3 +63,4 @@ If there is no clear candidate, say: "No evidence-backed recognition suggestions
 - The agent cannot create or send recognition; it only suggests candidates and wording.
 - Use the recognition-platform connection read-only.
 - Never contact a candidate or state that recognition was sent.
+
