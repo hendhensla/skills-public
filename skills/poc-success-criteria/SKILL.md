@@ -12,7 +12,8 @@ trigger: Manual
 notes: >-
   /poc <customer> — pair with a deal-context skill to pull deal history and next
   steps before defining criteria.
-setup: incomplete
+notion_row: 'https://app.notion.com/p/POC-success-criteria-3c098c2112688129a308df9506337958'
+notion_doc: 'https://app.notion.com/p/POC-success-criteria-3c098c211268816c82c8ff25295700d6'
 ---
 
 ## 🚀 First run (setup)
@@ -82,3 +83,4 @@ later runs go straight to the workflow.
 ## Related
 
 - Run `<your-deal-context-skill>` first to pull full deal history and next steps.
+
