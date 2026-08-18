@@ -3,9 +3,9 @@ name: optimize-attainment-and-payout
 skill: Optimize Attainment and Payout
 description: >-
   Role-aware payout optimization for commission-eligible participants. Resolves
-  plan period, role, segment, quota cadence, ramp, guarantee, and active incentive
-  mechanics before comparing customer-sound options by attainment impact, payout
-  impact, and risk.
+  plan period, role, segment, quota cadence, ramp, guarantee, and active
+  incentive mechanics before comparing customer-sound options by attainment
+  impact, payout impact, and risk.
 category:
   - Analysis
   - Automation
@@ -13,13 +13,16 @@ category:
 proficiency: Advanced
 trigger: Agent
 notes: >-
-  Use as a private planning overlay for account research, deal structuring, quote
-  review, and incentive-plan interpretation. Always use the participant's current
-  signed plan and statement system as the source of truth. Includes a mandatory
-  bonus/SPIF check across every official announcement channel before concluding
-  that no program is active. Never generalize one role's or period's plan to
-  another participant.
-setup: incomplete
+  Use as a private planning overlay for account research, deal structuring,
+  quote review, and incentive-plan interpretation. Always use the participant's
+  current signed plan and statement system as the source of truth. Includes a
+  mandatory bonus/SPIF check across every official announcement channel before
+  concluding that no program is active. Never generalize one role's or period's
+  plan to another participant.
+notion_row: >-
+  https://app.notion.com/p/Optimize-Attainment-and-Payout-3c098c211268817eaa17d81af581fd99
+notion_doc: >-
+  https://app.notion.com/p/Optimize-Attainment-and-Payout-3c098c2112688182b75ccaa679eb3f34
 ---
 
 ## 🚀 First run (setup)
@@ -363,3 +366,4 @@ invent them.
 - Preserve legal, deal desk, finance, billing, and quote-approval requirements.
 - Never generalize a bridge, kicker, guarantee, ramp, or transfer schedule to a different
   participant without current-plan evidence.
+
