@@ -15,10 +15,13 @@ notes: >-
   review, or outreach planning — any time a person should be represented in your
   contacts database. Core contract: upsert, never append blindly. Includes the
   two-surface rule for account intelligence tools: titles, functional roles and
-  phone numbers come from the contacts table view, not the per-user entity query.
-  This database is the primary title source for org mapping, so title,
+  phone numbers come from the contacts table view, not the per-user entity
+  query. This database is the primary title source for org mapping, so title,
   do-not-contact, DNC reason and lead-status hygiene are research dependencies.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Contact-Upsert-Update-Existing-People-Before-Creating-New-Ones-3c098c21126881feb64cdab406526836
+notion_doc: >-
+  https://app.notion.com/p/Contact-Upsert-Update-Existing-People-Before-Creating-New-Ones-3c098c21126881d8bf70e2af07cd5e95
 ---
 
 ## 🚀 First run (setup)
@@ -262,3 +265,4 @@ Return:
 - Do not replace relation history with only the newest source.
 - Do not label either side as nonresponsive without directional evidence.
 - Do not send outreach, change account ownership, or delete/merge rows under this skill.
+
