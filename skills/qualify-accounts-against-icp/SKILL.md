@@ -12,10 +12,13 @@ proficiency: Expert
 trigger: Agent
 notes: >-
   Keeps fit, engagement, and urgency separate so heavy product usage cannot
-  inflate fit and temporary low engagement cannot hide a strong ICP. Applies only
-  the organization's official ICP, so personal or deal-level benchmarks stay out
-  of a classification other people read.
-setup: incomplete
+  inflate fit and temporary low engagement cannot hide a strong ICP. Applies
+  only the organization's official ICP, so personal or deal-level benchmarks
+  stay out of a classification other people read.
+notion_row: >-
+  https://app.notion.com/p/Qualify-accounts-against-your-ICP-3c098c21126881e58b10e453f750a52d
+notion_doc: >-
+  https://app.notion.com/p/Qualify-accounts-against-your-ICP-3c098c21126881c7a3c8f555e0075022
 ---
 
 ## 🚀 First run (setup)
@@ -190,3 +193,4 @@ solely because engagement is low.
 - Record which ICP source and date were applied.
 - Apply the official ICP only. Personal book-level ICP adjustments and internal deal
   benchmarks stay out of this classification, because other people read the output.
+
