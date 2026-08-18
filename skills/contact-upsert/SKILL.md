@@ -37,6 +37,10 @@ In that case, run setup before doing any contact work.
    - `<your-customer-accounts-relation>` — the relation used for existing-customer accounts.
    - `<your-activity-relations>` — the relations that carry engagement history (emails,
      meetings, call transcripts, recordings, calendar events).
+   - `<your-gtm-dashboard-tool>` — the account/contact intelligence tool the agent may query
+     for titles, phone numbers, and engagement counts, plus the names of its two contact
+     surfaces (a per-user entity lookup and a contacts table view) and the rep identifier it
+     expects.
    - `<your-provenance-doc>` — the internal note describing where enrichment data (phone,
      intent) actually comes from, if the user has one.
    - The connections needed to read evidence: contacts database access, and optionally
@@ -49,7 +53,8 @@ In that case, run setup before doing any contact work.
 4. **State the limits until setup is complete.** Without the contacts database and its
    identity properties, the skill cannot search, cannot classify matches, and must not
    create or update any row. Without the account relations it can create an orphaned
-   contact, so it should stop instead.
+   contact, so it should stop instead. Without the GTM dashboard tool and its contacts-table
+   surface, it must not assert that a title or phone number is unavailable.
 5. **Record completion.** Change the frontmatter line to `setup: complete` (and note the
    date) so later runs skip straight to the workflow.
 
@@ -71,6 +76,55 @@ relations.
 - Database: `<your-contacts-db>`
 - New-business account relation: `<your-prospect-accounts-relation>`
 - Existing-customer account relation: `<your-customer-accounts-relation>`
+
+## Where titles and phone numbers come from
+
+> **Gotcha.** Account intelligence tools usually expose more than one contact surface, and
+> they rarely overlap. Assuming the tool "does not carry titles" is a common and expensive
+> mistake: it writes "title unknown" across account pages while titled contacts sit in a
+> second surface of the same tool. Verify which surface holds which fields, and record the
+> date you verified it.
+
+Query **both** surfaces of `<your-gtm-dashboard-tool>` before you write or blank a title or
+phone number.
+
+| Surface | How to call it | What it returns | Titles? |
+| --- | --- | --- | --- |
+| User entities | Entity query, filtered by assigned email, entity type "user" | Email, account, fit score, intent score, account priority, engagement counts | No |
+| Contacts table view | Table-view query with page type "contacts" | Job title, functional role, direct phone number, contact type, contact source, sophistication score, country of use, fit and intent, last touch type and date, email, meeting and call counts, 7/28/90-day activity, product-AI usage, open-opportunity flag, signal count | Yes |
+
+**The call that returns titles**
+
+- Surface: the contacts table view of `<your-gtm-dashboard-tool>`.
+- Page type: `contacts`.
+- Rep identifier: the rep whose book is being read.
+- Column filter: one entry on the account-name column, with the account name as a plain string.
+- Sort: fit score, or combined fit-and-intent score, descending.
+- Page size: check the tool's maximum (commonly 100). Page through results whenever the
+  filtered row count is higher, and check any truncation flag before you trust a count.
+
+**Fields the contacts view returns that the user-entity surface does not**
+
+Job title, functional role, phone number, contact type, contact source, sophistication
+score, recent country of use, last touch type, last touch date, days since last touch,
+total emails, total meetings, total recorded calls, 7/28/90-day active flags, recent
+product-AI usage flags, open-opportunity flag, signal count, top signal label.
+
+**Rules for this skill**
+
+1. Run the contacts-view query for the account before any create, and before writing
+   "title unknown" on an existing row. Record the date checked.
+2. Match the contacts-view row to a contacts-database row on normalized email first. Never
+   match on display name alone, because display names in these surfaces are often a first
+   name, a truncated string, or the raw email.
+3. Copy title and phone into your contact row only when the email matches. Cite the
+   contacts view and the date read.
+4. Keep the previous title in notes as a dated entry when it differs. Report the difference
+   rather than silently replacing a described remit with a formal title.
+5. Contact source tells you what the row is: a CRM-only contact with no product usage is
+   not the same as a real product user. Do not set relationship status from that value.
+6. Do not create a row from a contacts-view record whose email domain does not match the
+   account. Report it as a data fault in the source tool instead.
 
 ## Upsert workflow
 
@@ -106,6 +160,10 @@ relations.
 - Prefer the most recent dated first-party or internal activity evidence over an undated source.
 - Update name, title, email, phone, and profile URL only when identity and current
   employment are sufficiently verified.
+- Title and phone are available from the contacts table view of `<your-gtm-dashboard-tool>`.
+  Query it first. Never leave title blank or unknown on the assumption that the tool does
+  not hold titles, and never claim a title is unavailable without naming the surface
+  queried and the date.
 - For provider-sourced fields, especially phone, read `<your-provenance-doc>` first. Record
   the provider and date named in the enrichment artifact, and never attribute a value to a
   data vendor unless that artifact names it.
@@ -172,7 +230,10 @@ Return:
 
 ## Prohibited behavior
 
-- Do not create a contact before completing all identifier searches.
+- Do not create a contact before completing all identifier searches, including the
+  contacts-view query for that account.
+- Do not state that a field in `<your-gtm-dashboard-tool>` is unavailable until both of its
+  contact surfaces have been queried.
 - Do not create a second person because a title, team, or account relation changed.
 - Do not replace relation history with only the newest source.
 - Do not label either side as nonresponsive without directional evidence.
