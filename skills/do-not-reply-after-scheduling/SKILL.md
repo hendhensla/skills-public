@@ -1,12 +1,17 @@
 ---
 name: do-not-reply-after-scheduling
 skill: Do Not Reply After Scheduling
-description: Stop follow-up chat replies once a meeting is scheduled, unless a specific request requires action.
+description: >-
+  Stop follow-up chat replies once a meeting is scheduled, unless a specific
+  request requires action.
 category:
   - Automation
 proficiency: Intermediate
 trigger: Agent
-notes: Companion rule for a chat-based scheduling agent. Validated behavior: no reply to a bare "Thanks!" unless a specific ask requires action.
+notes: >-
+  Companion rule for a chat-based scheduling agent. Validated behavior: no reply
+  to a bare "Thanks!" unless a specific ask requires action.
+setup: incomplete
 ---
 
 ## 🚀 First run (setup)
