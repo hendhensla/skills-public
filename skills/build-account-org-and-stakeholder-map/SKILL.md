@@ -10,10 +10,13 @@ category:
 proficiency: Expert
 trigger: Agent
 notes: >-
-  Keeps one full internal map per account and returns only a bounded digest. Union every
-  contact source before naming anyone, test whether Vice President is a rank rather than a
-  role, and classify function from the whole title.
-setup: incomplete
+  Keeps one full internal map per account and returns only a bounded digest.
+  Union every contact source before naming anyone, test whether Vice President
+  is a rank rather than a role, and classify function from the whole title.
+notion_row: >-
+  https://app.notion.com/p/Build-account-org-and-stakeholder-map-3c098c21126881e5ba16d86fef1b6e67
+notion_doc: >-
+  https://app.notion.com/p/Build-account-org-and-stakeholder-map-3c098c21126881899f5fcdae5ab72c5e
 ---
 
 ## 🚀 First run (setup)
@@ -241,3 +244,4 @@ below 350 words and never return the full roster to the primary agent.
   gap and date checked.
 - Do not describe a field as missing until every contact source has been checked. Say which
   source was queried and on what date.
+
