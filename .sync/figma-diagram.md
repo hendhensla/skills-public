@@ -2,333 +2,207 @@
 Treat this as a first run when `setup:` above still reads `required`, any `<placeholder>`
 below is unfilled, or the user has never invoked this skill. Run the setup conversation
 before generating a diagram.
-1. Explain the skill in two or three sentences: it normalizes verified evidence about a
-	system, workflow, or data model into one semantic model, then renders it as an editable
-	FigJam diagram through a Figma MCP connector, optionally emitting the same Mermaid source
-	for docs. It runs when the user asks to diagram, draw an architecture, map a workflow,
-	compare current and future state, or visualize a system. It produces a FigJam board URL,
-	the Mermaid source, and a short list of assumptions.
-2. Collect the prerequisites from the user — names and links only, never credential values:
+1. Explain the skill in two or three sentences: it turns a system, workflow, schedule, or
+	data model into an editable FigJam diagram by calling a Figma MCP connector's
+	diagram-generation tool, and it can emit the same Mermaid source for a README or doc plus
+	optional node icons from a curated library. It runs when the user asks to diagram, draw an
+	architecture, make a flowchart, or visualize a workflow or system. It produces a FigJam
+	board URL and the Mermaid source.
+2. Collect the prerequisites from the user — names and paths only, never credential values:
 	- `<your-figma-connection>` — the Figma MCP connector or integration, by name, and
-		confirmation that its diagram-generation, identity, screenshot, and skill-resource
-		tools are reachable.
+		confirmation that its diagram-generation, identity, screenshot, asset-upload, and
+		skill-resource tools are reachable.
 	- `<your-figma-plan-key>` — the plan or team key new diagram files should be created in.
 		Confirm the seat on that plan can create files; a view-only seat cannot.
+	- `<your-icon-library-path>` — the local directory holding the icon PNGs, and the dark
+		variant directory if one exists.
+	- `<your-icon-manifest>` — the file listing exact icon filename stems, usually
+		`references/icons.md` inside this skill.
+	- `<your-icon-catalog>` — an optional page or board that renders the icons visually for
+		browsing.
 	- `<your-docs-target>` — where matching Mermaid should be embedded (repository READMEs,
 		internal docs, or neither), and whether board URLs may be linked there.
 	- `<your-render-check>` — the local command available for converting a downloaded SVG to
 		an image so the render can be inspected, or confirmation that the connector's
 		screenshot tool should be used instead.
-	- `<your-diagram-guide>` — any house shape-grammar guide, template library, or companion
-		diagram-building agent that should override the defaults in this file.
-	- `<your-evidence-sources>` — which repositories, docs, or databases count as ground
-		truth for current state, and who confirms proposed state.
-	- `<your-image-library>` — an approved illustration or avatar library, by name, for actor
-		badges, plus any rule about using real photos of named people.
 3. Walk through the placeholders one at a time, restate each mapping back for confirmation,
 	and have the user save the filled values into their own copy of this skill.
-4. Until setup is complete the skill cannot create diagram files; it can only draft the
-	semantic model and Mermaid source for review.
+4. Until setup is complete the skill cannot create diagram files or place icons; it can only
+	draft Mermaid source for review.
 5. When every placeholder is filled and confirmed, set `setup: complete` in the frontmatter
 	so later runs go straight to the workflow.
 ## 📖 Purpose
-Create editable FigJam diagrams from verified system, workflow, schedule, or data-model
-evidence, then keep matching Mermaid source in related documentation when relevant.
-## 🧠 Shared semantic model
-Before writing Mermaid or choosing a visual style, normalize the source evidence into one
-model. The model is the source of truth for every renderer and style layer.
-<table header-row="true">
-<tr>
-<td>Field</td>
-<td>Required content</td>
-</tr>
-<tr>
-<td>Mode</td>
-<td>Data architecture, workflow architecture, system map, or before/after</td>
-</tr>
-<tr>
-<td>Thesis</td>
-<td>One sentence stating what the diagram must make clear</td>
-</tr>
-<tr>
-<td>Phases</td>
-<td>Optional ordered groups for workflow steps</td>
-</tr>
-<tr>
-<td>Nodes</td>
-<td>ID, label, type, owner, state, and evidence status</td>
-</tr>
-<tr>
-<td>Edges</td>
-<td>From, to, kind, trigger, and short label</td>
-</tr>
-<tr>
-<td>Assumptions</td>
-<td>Every material gap or inference</td>
-</tr>
-</table>
-Node types: `database`, `tool`, `agent`, `process`, `subprocess`, `manualAction`,
-`document`, and `decision`.
-Node states: `current` or `proposed`. Evidence status: `verified`, `inferred`, or
-`proposed`.
-Evidence rules:
-- Current-state diagrams contain only verified current elements.
-- Proposed elements must trace to an explicit requirement, stakeholder statement, or agreed
-	recommendation.
-- Use inferred elements only when needed to make the model coherent. Label them and list the
-	assumption.
-- Never invent a node or edge to make a layout look complete.
-- Ask one short clarification only when the ambiguity would materially change the
-	architecture.
-## 🧭 Mode router
-<table header-row="true">
-<tr>
-<td>Mode</td>
-<td>Use when</td>
-<td>Primary structure</td>
-</tr>
-<tr>
-<td>Data architecture</td>
-<td>The story is how data is created, stored, related, transformed, or consumed</td>
-<td>Data stores, tools, processes, documents, and decisions</td>
-</tr>
-<tr>
-<td>Workflow architecture</td>
-<td>The story is sequence, ownership, handoffs, branches, or approvals</td>
-<td>Ordered step boxes inside phase groups</td>
-</tr>
-<tr>
-<td>System map</td>
-<td>The story is which humans, AI components, platform surfaces, and external tools interact</td>
-<td>Lanes or layers by system boundary</td>
-</tr>
-<tr>
-<td>Before/after</td>
-<td>The story is a verified current state compared with a discussed future state</td>
-<td>Two coordinated views using stable node IDs</td>
-</tr>
-</table>
-If data structure and workflow sequence are both material, make two coordinated diagrams. Do
-not force both stories into one crowded picture.
-## 🔣 Canonical shape and edge grammar
-<table header-row="true">
-<tr>
-<td>Meaning</td>
-<td>Canonical visual</td>
-</tr>
-<tr>
-<td>Database or data source</td>
-<td>Cylinder</td>
-</tr>
-<tr>
-<td>Tool, agent, or automatic process</td>
-<td>Rectangle</td>
-</tr>
-<tr>
-<td>Subprocess</td>
-<td>Predefined-process shape</td>
-</tr>
-<tr>
-<td>Human input or manual action</td>
-<td>Manual-input shape</td>
-</tr>
-<tr>
-<td>Page, document, or produced artifact</td>
-<td>Document shape</td>
-</tr>
-<tr>
-<td>Decision or human review gate</td>
-<td>Diamond</td>
-</tr>
-<tr>
-<td>Phase or platform-owned zone</td>
-<td>Labeled background container</td>
-</tr>
-<tr>
-<td>Human, agent, or system owner</td>
-<td>Small corner icon or badge</td>
-</tr>
-<tr>
-<td>Edge meaning</td>
-<td>Canonical line</td>
-</tr>
-<tr>
-<td>---</td>
-<td>---</td>
-</tr>
-<tr>
-<td>Database relationship</td>
-<td>Dotted line; add direction only when direction is known</td>
-</tr>
-<tr>
-<td>Forward sequence or data flow</td>
-<td>Solid arrow</td>
-</tr>
-<tr>
-<td>Trigger</td>
-<td>Solid arrow with a short trigger label</td>
-</tr>
-<tr>
-<td>Feedback, retry, or return path</td>
-<td>Dashed arrow with a label</td>
-</tr>
-<tr>
-<td>Branch</td>
-<td>Solid outgoing arrows with outcome labels</td>
-</tr>
-</table>
-A style layer may change color, type, or stroke treatment. It must not change node or edge
-meaning. If a renderer cannot produce a canonical shape, add a visible type label or icon
-and a legend instead of silently collapsing types.
-## 🧱 Workflow composition rules
-- Read left to right from trigger to output.
-- Use one short verb phrase per step box.
-- Group steps into phases such as Intake, Triage, Plan, Build, Review, and Ship.
-- Use color by phase or by owner, but not both.
-- Use branching when the next action changes by outcome.
-- Use review diamonds only when a human decision controls progress.
-- Put the owner icon on each step when human, agent, and system handoffs matter.
-- Branching recipe: shared intake, labeled decision, distinct outcome paths, then
-	convergence.
-- Full-lifecycle recipe: ordered phases with human review gates between major handoffs.
-## 👤 Actor images and owner badges
-Follow the icon pattern in `<your-diagram-guide>` when it defines one. In a workflow diagram
-the shape states what happens and the badge states who or what performs the action. Never
-replace the canonical step box with an illustration.
-<table header-row="true">
-<tr>
-<td>Actor</td>
-<td>Preferred image</td>
-<td>Fallback</td>
-</tr>
-<tr>
-<td>Named human</td>
-<td>Verified profile avatar from the loaded source</td>
-<td>Neutral people or team illustration from `<your-image-library>`</td>
-</tr>
-<tr>
-<td>Human role</td>
-<td>Neutral role or team illustration from `<your-image-library>`</td>
-<td>Generic user line icon</td>
-</tr>
-<tr>
-<td>Custom agent</td>
-<td>The agent's actual icon, read from your platform's agent-loading tool</td>
-<td>Neutral AI illustration from `<your-image-library>`, labeled `Custom agent`</td>
-</tr>
-<tr>
-<td>External AI agent or app</td>
-<td>Official vendor logo or verified favicon</td>
-<td>Labeled monogram</td>
-</tr>
-<tr>
-<td>Generic system</td>
-<td>Canonical line icon</td>
-<td>Labeled monogram</td>
-</tr>
-</table>
-1. Open `<your-image-library>` when a phase-based workflow needs actor imagery, and use its
-	neutral team, group, or AI-character assets as role-level fallbacks. Do not use a personal
-	photo for a named person unless the user selects it or the source verifies the identity.
-2. Use one 28 to 36 px badge in the same corner of each action box. Keep the actor name or
-	actor type in the box or legend, so the image never carries meaning alone.
-3. For shared ownership, use at most two badges, and only when both actors perform the same
-	action. Otherwise split the work into separate steps.
-4. Use static PNG or SVG assets for static diagrams. Do not use GIFs or video unless the
-	requested deliverable supports motion. Never generate, redraw, or approximate a trademark
-	logo.
-5. For a controlled PNG or HTML renderer, resolve the chosen asset to a durable file with
-	your platform's file-URL tool, cache it in your scratch directory, and embed the local
-	asset or a data URI. Do not hotlink an expiring signed URL. Mermaid-to-FigJam cannot place
-	arbitrary images, so keep owner text or standard icons on the editable board and add image
-	badges only to the presentation PNG. State that difference, and never claim the FigJam
-	board includes an image that exists only in the PNG.
+Turn a system, workflow, schedule, or data model into an **editable FigJam diagram** using
+the Figma MCP connector's diagram-generation tool, and — when the diagram documents a
+repository — embed the same Mermaid source in the README so the host renders it too.
 ## 🧩 Prerequisites
 - The Figma MCP connector `<your-figma-connection>` must expose its diagram-generation,
-	identity, screenshot, and skill-resource tools. If the tools are deferred in your client,
-	load them in a single tool-search call rather than one at a time.
-- Run the connector's identity check once per session if a tool returns an error. Confirm
-	which plan the current seat can create files in, and always pass `<your-figma-plan-key>`.
-	Do not ask the user which plan to use once it is recorded here.
-- If `<your-diagram-guide>` exists, read it before drawing. It overrides the shape and phase
-	defaults in this file; the semantic model and evidence rules still apply.
+	identity, screenshot, asset-upload, and skill-resource tools. If the tools are deferred in
+	your client, load them in a single tool-search call rather than one at a time.
+- Run the connector's identity check once per session if a tool errors. Confirm which plan
+	the current seat can create files in, and always pass `<your-figma-plan-key>`. A view-only
+	seat cannot create files. Do not ask the user which plan to use once it is recorded here.
 ## 🔧 Procedure
-1. **Load the connector's own guidance first. This is mandatory.** Before every
-	diagram-generation call, read the connector's diagram skill document, then the
-	type-specific reference for the diagram type you chose. Those documents are the source
-	of truth for Mermaid constraints. This skill adds only the workflow around them.
-2. **Route the mode and write the thesis.** Use the mode router, then state in one sentence
-	what the diagram must make clear.
-3. **Gather ground truth before drawing.** Read the actual code, README, or docs listed in
-	`<your-evidence-sources>`. Never invent nodes or edges to complete the picture. A visible
-	gap is better than invented information.
-4. **Map the semantic mode to a supported renderer.** Choose the semantic mode first, then
-	the connector's diagram type.
-	- Flowchart: workflow architecture, pipelines, sync workflows, decision trees, and most
-		system maps.
-	- Architecture: request-serving systems such as client to gateway to services to
-		datastores. Its lanes are a strict DAG, so sync and data pipelines usually fit a plain
-		flowchart better.
-	- Data architecture: use an ERD for schema and cardinality, a flowchart for movement and
-		transformation, or Architecture only for a strict request-serving DAG.
-	- Before/after: create two coordinated flowcharts or architecture views with stable node
-		IDs and a delta summary.
-	- Also supported: sequence, state, and gantt.
-	- Unsupported: pie, mindmap, venn, class, timeline, quadrant, and C4. Tell the user and
-		do not call the tool.
-5. **Write the Mermaid.**
-	- Do not use emojis.
-	- Do not use `\n` or HTML in labels.
-	- Use camelCase node IDs. Do not use underscores because they break edge routing.
-	- Quote labels that contain special characters.
-	- Never use `end`, `graph`, or `subgraph` as IDs.
-	- Give every subgraph a light fill with `style` so lanes are clear on FigJam's white
-		canvas.
-	- Use color only to encode meaning.
-6. **Call the diagram-generation tool.** Pass the diagram name, the Mermaid syntax,
-	`<your-figma-plan-key>`, and the user intent. For an architecture diagram, also pass the
-	architecture layout value from the architecture reference. Do not create an empty file
-	first; the tool creates its own file.
-7. **Verify the render.** The response's image URL is an SVG even when its URL has no
-	extension. Download it to a scratch directory, convert it to an image with
-	`<your-render-check>`, and read the result. Check that labels are legible, lanes and
-	tints are present, and edges do not overlap. The thumbnail is a square crop of a wide
-	board, so judge only what is visible, or use the connector's screenshot tool with the
-	board URL and a node ID to inspect the full canvas.
-8. **Iterate in the same file.** Calls without a file key create new draft files. Extract
-	the key from the returned board URL and pass it on every retry. Stop after two
-	unsatisfactory attempts and ask what is wrong instead of spending more calls.
-9. **Deliver.** Give the user the board URL, the Mermaid source, and the assumption list. If
-	the diagram documents a repository or doc, embed the Mermaid there too so the picture
-	does not drift from the text.
-## ✅ Semantic QA
-1. Every node has a type, owner, state, and evidence status.
-2. Every edge has a clear meaning and direction. Every branch has an outcome label.
-3. No orphan nodes, invented links, overlapping icons, or labels sitting on nodes or lines.
-4. Keep each phase to four primary steps. Split dense phases or move detail into notes.
-5. Before and after views use stable node IDs and include a concise delta summary.
-6. The final render matches the source evidence and the one-sentence thesis.
-## 📚 Embed the same diagram in documentation
+1. **Load the connector's own guidance first — mandatory.** Before every diagram-generation
+	call, read the connector's diagram skill document, then the type-specific reference it
+	routes to. Those documents are the source of truth for Mermaid constraints; this skill
+	only adds the workflow around them.
+2. **Pick the diagram type.** Flowchart for processes, pipelines, sync workflows, and
+	decision trees. Architecture for request-serving systems (client → gateway → services →
+	datastores); its lanes are a strict DAG, so sync and data pipelines usually fit a plain
+	flowchart better. Also supported: sequence, ERD, state, and gantt. Unsupported — tell the
+	user and do not call the tool: pie, mindmap, venn, class, timeline, quadrant, and C4.
+3. **Gather ground truth before drawing.** Read the actual code, README, memory files, or
+	docs the diagram describes. Never invent nodes or edges to round out a picture; a visible
+	gap beats a hallucination.
+4. **Write the Mermaid.** The non-negotiables that bite most often: no emojis; no `\n` or
+	HTML in labels; camelCase node IDs (no underscores — they break edge routing); quote any
+	label with special characters; never use `end`, `graph`, or `subgraph` as IDs; tint every
+	subgraph with a light fill via `style` so lanes read on FigJam's white canvas; use color
+	only to encode meaning.
+5. **Call the diagram-generation tool.** Pass the diagram name, the Mermaid syntax,
+	`<your-figma-plan-key>`, and the user intent. For the architecture type only, also pass
+	the architecture layout value from the architecture reference. Do not create an empty file
+	first; the tool makes its own file.
+6. **Verify the render.** The response's image URL is an **SVG** despite having no extension.
+	Download it to a scratch directory, convert it with `<your-render-check>`, and read the
+	resulting image. Check that labels are legible, lanes and tints are present, and edges do
+	not overlap. The thumbnail is a square crop of a wide board, so judge what is visible, or
+	use the connector's screenshot tool with the board URL and a node ID for the full canvas.
+7. **Iterate in the same file.** Calls without a file key create new draft files. Extract the
+	key from the returned board URL and pass it on every retry. Stop after two unsatisfying
+	attempts and ask what is wrong instead of burning calls.
+8. **Add icons if the diagram warrants them.** See the icon section below — the curated icon
+	library, not emoji.
+9. **Deliver.** Give the user the board URL. If the diagram documents a repository or doc,
+	embed the Mermaid source there too so the picture cannot rot separately from the text.
+## 📚 Embedding the same diagram in docs
 - GitHub READMEs and many doc tools render `mermaid` fences natively. Use only classic
 	shorthand shapes: `[text]`, `[(db)]`, `[[subroutine]]`, `{{hex}}`, `{diamond}`, and
-	`[/lean/]`. Do not use `@{shape: ...}` v11 syntax because it has weaker compatibility.
-- Keep the FigJam board and the embedded Mermaid from one source. Write the Mermaid once and
-	paste it into both locations.
-- Link the FigJam board near the embedded diagram only in private documentation. Do not put
-	personal or draft Figma URLs in public repositories.
+	`[/lean/]`. Skip `@{shape: ...}` v11 syntax for compatibility.
+- Keep the FigJam board and the embedded Mermaid **from the same source**: write the Mermaid
+	once and paste it into both. Link the board near the embedded diagram in private docs only;
+	do not leak personal or draft Figma URLs into public repositories.
 - If your client renders Mermaid natively in generated artifacts, use that path instead of
 	this skill; inline SVG is better when full visual control is required.
-## 🤝 Companion references
-Record the reusable sources your team already owns in `<your-diagram-guide>` rather than
-duplicating them here. Useful companions are a house shape-grammar guide, a diagram-building
-agent that drafts and verifies Mermaid before creating the FigJam file, a before/after
-comparison renderer, and a discovery questionnaire that captures business context, workflow,
-systems and data, governance, and future-state success criteria. Treat those documents as
-source material: read them, do not overwrite them.
+## 🎨 Icon set — use the curated library, not emoji or clip art
+Diagrams that need visual node markers use the curated icon library, never emoji (Mermaid
+rejects them anyway) and never generic icon packs.
+- **Source of truth on disk** — the canonical copy, always start here:
+	- Light: `<your-icon-library-path>/Icons/<stem>.png`
+	- Dark: `<your-icon-library-path>/Dark_mode_icons/<stem>_darkmode.png`
+	- Transparent square PNGs. Not every light icon has a dark twin, so check before promising
+		a dark variant and fall back to the light one on a light board.
+- **Manifest** — `<your-icon-manifest>` lists every exact filename stem, grouped by letter.
+	Read it to pick names; do not guess stems. Casing and separators are inconsistent across
+	the set (for example `arrow-down-line`, `Battery_full`, `Chess_Knight_2`), so copy each
+	stem verbatim from the manifest.
+- **Visual browser** — `<your-icon-catalog>` renders the icons in a captioned grid inside
+	per-letter toggles. Use it when the user needs to *see* the options; use the manifest when
+	you only need names.
+### Choosing icons
+**Wordless glyphs only.** Prefer icons with no words or lettering: the node label already
+carries the text, so an icon with its own type fights it and breaks when the diagram is
+resized or translated. Icons that contain visible lettering — alphabet or character glyphs,
+struck letters, formula marks, or a dated calendar face — are off-limits as node icons. Pure
+symbols such as a percent sign, asterisk, question mark, or exclamation bubble are fine
+because they read as glyphs, not words. When unsure whether a stem has type in it, open the
+PNG and look before using it.
+Map the icon to what the node *is*, and stay consistent within one diagram: the same concept
+gets the same icon everywhere. Reliable stems for common diagram nodes:
+<table header-row="true">
+<tr>
+<td>Node kind</td>
+<td>Stems</td>
+</tr>
+<tr>
+<td>Datastore / DB</td>
+<td>`database`, `folder`, `document-stacked`, `archive`</td>
+</tr>
+<tr>
+<td>Service / compute</td>
+<td>`gear`, `gears-two`, `computer-chip`, `code`</td>
+</tr>
+<tr>
+<td>User / actor</td>
+<td>`user`, `friends`, `Groups`, `chat-user`</td>
+</tr>
+<tr>
+<td>Scheduler / cron</td>
+<td>`clock`, `alarm`, `calendar-day`, `stopwatch`, `repeat`</td>
+</tr>
+<tr>
+<td>Decision / gate</td>
+<td>`branch`, `checklist`, `bullseye`, `judicial-scales`</td>
+</tr>
+<tr>
+<td>External / network</td>
+<td>`globe`, `cloud`, `link`, `network`, `connections`</td>
+</tr>
+<tr>
+<td>Alerts / failure</td>
+<td>`alert`, `warning`, `error`, `report`, `bell-notification`</td>
+</tr>
+<tr>
+<td>Docs / output</td>
+<td>`document`, `notepad`, `document-list`, `chart`, `Comment`</td>
+</tr>
+<tr>
+<td>Sync / transform</td>
+<td>`sync`, `refresh`, `formula`, `rearrange`, `shuffle`</td>
+</tr>
+<tr>
+<td>AI / generated</td>
+<td>`sparkle`, `sparkle-pencil`, `robot`, `magic-wand`</td>
+</tr>
+</table>
+Verify each stem exists in `<your-icon-manifest>` before using it — the table is a starting
+point, not a guarantee, and libraries change over time. Stem names also lie occasionally: a
+stem named for a document may actually draw an alert mark, so confirm the drawing matches the
+meaning you want before shipping it.
+### Getting icons onto a FigJam board
+The diagram-generation tool renders Mermaid only — **it cannot place raster images**. So:
+> **Less-travelled route.** The page-embedding path below is the verified one; this FigJam
+> path is assembled from the connector's documented tools. Expect to debug it on first use,
+> and update this section with what actually worked.
+1. Generate the diagram first (steps 1–7 above) and keep the file key.
+2. Upload only the icons you need with the connector's asset-upload tool, passing the local
+	PNG paths.
+3. Place them with the connector's direct FigJam-editing workflow — load that workflow and
+	its FigJam resource first, which is mandatory — then position one icon per node.
+Keep this to the handful of icons the diagram actually uses; do not bulk-upload the library.
+If the user only wants a quick picture, skip icons entirely rather than burning calls, and
+ask before starting a multi-step icon pass on a diagram that did not request one.
+### Getting icons into a page or doc
+The reliable path is a two-step upload-then-attach against your workspace API: create a file
+upload from the local PNG, then attach the returned upload ID as an image block in the same
+short window.
+```json
+{"object":"block","type":"image","image":{
+  "type":"file_upload","file_upload":{"id":"<upload-id>"},
+  "caption":[{"type":"text","text":{"content":"gear"}}]}}
+```
+Send that inside `children` on the block-children append endpoint. Notes that cost time on
+the first run:
+- Batch uploads with their appends. An upload ID that is not attached inside its short
+	validity window expires and must be recreated.
+- Confirm the upload reached an `uploaded` state before using its ID.
+- Command-line clients can hang waiting on stdin when a request has no body and is not on a
+	TTY. Redirect from `/dev/null` in scripts.
+- Block nesting is limited to two levels per request, which is exactly
+	`column_list → column → image`, so a three-column icon grid lands in one call. Keep a
+	request near 100 blocks total; roughly three bands of 24 images is safe.
+- Attached images become workspace-hosted files behind short-lived **signed** URLs. Storage
+	is permanent, the link is temporary: never persist an image URL, re-fetch the block.
+- Uploads take several seconds each. Parallelize at about six workers to stay under the API
+	rate limit.
+- Expect scattered `502 Bad Gateway` and `409 conflict` responses on bulk uploads. They are
+	transient: retry the same file three or four times with backoff instead of treating the
+	first failure as fatal or dropping the icon.
 ## ⚠️ Known limits
-- The diagram-generation tool creates FigJam board output, not design files.
-- Tool-based post-generation editing is limited. It cannot change fonts or move individual
-	shapes. Regenerate for content changes and edit in Figma for cosmetic changes.
-- Sequence-diagram `Note` lines and gantt `classDef` styling are silently dropped. Use the
+- Diagram-generation output is a FigJam board, not a design file. Post-generation edits by
+	tool are limited: no font changes and no moving individual shapes. Regenerate for content
+	changes and open Figma for cosmetic ones.
+- Sequence-diagram `Note` lines and gantt `classDef` styling are silently stripped. Use the
 	connector's hybrid FigJam-editing workflow when annotations or gantt colors are required.
-- Thumbnail URLs expire after roughly a week. The board URL is durable.
+- Thumbnail URLs expire after roughly a week; the board URL is the durable link.
