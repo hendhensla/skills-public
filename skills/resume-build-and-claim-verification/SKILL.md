@@ -8,7 +8,8 @@ description: >-
   "add X to my resume", "make a resume", "turn this into resume bullets", or to
   produce a resume in Word/Google Docs/Notion. Also use when asked to
   sanity-check a number already on the resume.
-category: Career
+category:
+  - Career
 proficiency: Advanced
 trigger: Manual
 notes: >-
