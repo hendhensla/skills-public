@@ -8,11 +8,13 @@ description: >-
 category:
   - Research
   - Analysis
-proficiency: Advanced
+proficiency: Expert
 trigger: Agent
 notes: >-
   Keeps fit, engagement, and urgency separate so heavy product usage cannot
-  inflate fit and temporary low engagement cannot hide a strong ICP.
+  inflate fit and temporary low engagement cannot hide a strong ICP. Applies only
+  the organization's official ICP, so personal or deal-level benchmarks stay out
+  of a classification other people read.
 setup: incomplete
 ---
 
@@ -44,6 +46,8 @@ illustrative and must be replaced with the user's own:
   and which of them are owned by another team and must never be written.
 - `<your-exception-policy>` — who may approve an exception below the floor, and how it is
   recorded.
+- `<your-official-icp-owner>` — who owns the official ICP definition, so personal or
+  deal-level variations are kept out of a shared classification.
 - Connection names only, never values: your CRM, your analytics or product-usage source, and
   a web-search or research tool, so the user can confirm each is authorized.
 
@@ -184,3 +188,5 @@ solely because engagement is low.
 - Do not hide a weak ICP behind heavy usage, or a strong ICP behind temporary low
   engagement.
 - Record which ICP source and date were applied.
+- Apply the official ICP only. Personal book-level ICP adjustments and internal deal
+  benchmarks stay out of this classification, because other people read the output.
