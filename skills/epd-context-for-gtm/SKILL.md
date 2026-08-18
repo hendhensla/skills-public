@@ -10,10 +10,11 @@ category:
 proficiency: Advanced
 trigger: Manual
 notes: >-
-  Reads your internal EPD primer live. If the primer is unfinished, treat missing
-  sections as gaps. Hand question sequencing and call structure to your
+  Reads your internal EPD primer live. If the primer is unfinished, treat
+  missing sections as gaps. Hand question sequencing and call structure to your
   discovery-coaching skill.
-setup: incomplete
+notion_row: 'https://app.notion.com/p/EPD-Context-for-GTM-3c098c21126881ab848febab125916cb'
+notion_doc: 'https://app.notion.com/p/EPD-Context-for-GTM-3c098c21126881a799eed6658d5285e4'
 ---
 
 ## 🚀 First run (setup)
@@ -205,3 +206,4 @@ questions with probes.
 5. Security, compliance, privacy, RFP, or procurement questions: route to
    `<your-security-response-process>` and link supporting sources.
 6. Primer unreachable: say so and label the output as unsourced.
+
