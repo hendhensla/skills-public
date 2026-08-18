@@ -2,7 +2,8 @@
 name: Trust Portal MCP Proxy Worker
 skill: worker-trust-portal-mcp-proxy
 description: Proxies a public trust-portal MCP server that requires a specific Origin header, exposing its tool discovery and tool calls to agents.
-category: Automation
+category:
+  - Automation
 proficiency: Advanced
 trigger: Agent
 type: Worker
