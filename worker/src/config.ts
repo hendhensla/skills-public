@@ -37,5 +37,3 @@ export const config = {
 	// Marker placed in every sync-originated commit so the GitHub Action can ignore its own echoes.
 	commitMarker: "[skills-sync]",
 } as const;
-
-export const [GH_OWNER, GH_REPO] = config.githubRepo.split("/") as [string, string];
