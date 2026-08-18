@@ -19,10 +19,7 @@ notes: >-
   mandatory bonus/SPIF check across every official announcement channel before
   concluding that no program is active. Never generalize one role's or period's
   plan to another participant.
-notion_row: >-
-  https://app.notion.com/p/Optimize-Attainment-and-Payout-3c098c211268817eaa17d81af581fd99
-notion_doc: >-
-  https://app.notion.com/p/Optimize-Attainment-and-Payout-3c098c2112688182b75ccaa679eb3f34
+setup: pending
 ---
 
 ## 🚀 First run (setup)
