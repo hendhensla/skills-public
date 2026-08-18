@@ -13,7 +13,10 @@ trigger: Manual
 notes: >-
   /function — only trust designated roadmap and announcement sources; call out
   anything outside them and treat it as unconfirmed.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Product-functionality-POV-3c098c21126881c4b4e8d51a722a0274
+notion_doc: >-
+  https://app.notion.com/p/Product-functionality-POV-3c098c2112688135bcc5db7245ebb709
 ---
 
 ## 🚀 First run (setup)
@@ -83,3 +86,4 @@ later runs go straight to the workflow.
 - If you reference any other internal or external communication outside the designated
   sources, call it out and do not treat it with full confidence.
 - Never present a roadmap date to a customer as a commitment.
+
