@@ -1,7 +1,10 @@
 ---
 name: figma-diagram
 skill: figma-diagram
-description: Create editable diagrams in FigJam through a Figma MCP connector — flowcharts, pipelines, architecture, sequence, ERD, state, and gantt — embed matching Mermaid in docs and READMEs, and mark nodes with a curated icon set.
+description: >-
+  Create editable diagrams in FigJam through a Figma MCP connector — flowcharts,
+  pipelines, architecture, sequence, ERD, state, and gantt — embed matching
+  Mermaid in docs and READMEs, and mark nodes with a curated icon set.
 category:
   - Design
   - Documentation
@@ -10,7 +13,8 @@ notes: >-
   Wraps a Figma MCP connector's diagram-generation tool and the diagram skill
   resources that connector serves. Node icons come from a curated local icon
   library with a filename manifest; a catalog page acts as the visual browser.
-setup: required
+notion_row: 'https://app.notion.com/p/figma-diagram-3c098c2112688114a74ad0258013c805'
+notion_doc: 'https://app.notion.com/p/figma-diagram-3c098c211268812a95f5db86c1f29726'
 ---
 
 ## 🚀 First run (setup)
@@ -217,3 +221,4 @@ the first run:
 - Sequence-diagram `Note` lines and gantt `classDef` styling are silently stripped. Use the
   connector's hybrid FigJam-editing workflow when annotations or gantt colors are required.
 - Thumbnail URLs expire after roughly a week; the board URL is the durable link.
+
