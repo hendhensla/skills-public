@@ -14,7 +14,10 @@ notes: >-
   Row-first fast path: trust dated account-row metrics, verify only what is
   missing, stale, commercially important, or self-contradictory. Returns a
   bounded users/AI/credits handoff plus an account-filtered dashboard.
-setup: required
+notion_row: >-
+  https://app.notion.com/p/Analyze-account-usage-and-consumption-3c098c21126881b89a0bd81fd8926a8d
+notion_doc: >-
+  https://app.notion.com/p/Analyze-account-usage-and-consumption-3c098c211268813b8873cb449a493d77
 ---
 
 ## 🚀 First run (setup)
@@ -156,3 +159,4 @@ Never put tool errors, dispatch errors, stack traces, or troubleshooting detail 
 account report or dashboard. Write Unknown with the source and date checked, and keep raw
 errors in the agent chat. Leave a short page comment only when the failure blocked
 completion or could change the score, tier, or recommended motion.
+
