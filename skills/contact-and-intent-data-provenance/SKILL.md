@@ -2,9 +2,9 @@
 name: contact-and-intent-data-provenance
 skill: Contact and intent data provenance
 description: >-
-  Rules for stating where contact, phone, technographic, and intent data actually
-  came from. Prevents an agent from claiming it queried a data vendor that it
-  cannot query, and fixes the exact provenance wording to use.
+  Rules for stating where contact, phone, technographic, and intent data
+  actually came from. Prevents an agent from claiming it queried a data vendor
+  that it cannot query, and fixes the exact provenance wording to use.
 category:
   - Reference
   - Research
@@ -14,7 +14,10 @@ notes: >-
   Load before attributing any contact, phone, title, technographic, or intent
   fact to a named data provider. Enrichment vendor routing and feature gates
   change often, so reconfirm both before stating either as fact.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Contact-and-intent-data-provenance-3c098c21126881918926d5721b08113b
+notion_doc: >-
+  https://app.notion.com/p/Contact-and-intent-data-provenance-3c098c21126881059a97dff146c5ca03
 ---
 
 ## 🚀 First run (setup)
@@ -89,3 +92,4 @@ Keep install signals separate from interest signals. Treat every technographic o
 ## 🧾 Freshness
 
 Provider routing and gates change often. When a run depends on provenance, confirm the current waterfall and gate state before stating either as fact, and record the date checked.
+
