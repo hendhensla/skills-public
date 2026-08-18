@@ -2,8 +2,8 @@
 name: frame-customer-commercials
 skill: Frame Customer Commercials
 description: >-
-  Frame approvable commercial structures before or during quote creation. Use for
-  pricing, discounting, term length, payment, billing, tiering, renewals,
+  Frame approvable commercial structures before or during quote creation. Use
+  for pricing, discounting, term length, payment, billing, tiering, renewals,
   contractions, legal-term tradeoffs, and give/get negotiation planning.
 category:
   - Analysis
@@ -15,7 +15,10 @@ notes: >-
   Companion to opportunity and quote-creation workflows. Depends on your own
   current commercial policy, deal-desk guidance, pricing calculator, approval
   routing, and signature-routing resources.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Frame-Customer-Commercials-3c098c21126881a98e69f15f201aa166
+notion_doc: >-
+  https://app.notion.com/p/Frame-Customer-Commercials-3c098c21126881109d61c7d2c6c1ed41
 ---
 
 ## 🚀 First run (setup)
@@ -263,3 +266,4 @@ present:
 - Do not send customer-facing terms before the quote and required approvals are complete.
 - Do not modify a CRM or quote-system record unless the user asks for execution and all
   required facts are present.
+
