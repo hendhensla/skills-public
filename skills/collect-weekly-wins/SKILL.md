@@ -1,7 +1,11 @@
 ---
 name: collect-weekly-wins
 skill: Collect weekly wins
-description: Collect up to three verified weekly work wins, including a technical win when it clearly drove a customer outcome or upskilled the team or organization; deduplicate prior posts, prepare a concise team-chat summary, and log only approved wins to the wins journal.
+description: >-
+  Collect up to three verified weekly work wins, including a technical win when
+  it clearly drove a customer outcome or upskilled the team or organization;
+  deduplicate prior posts, prepare a concise team-chat summary, and log only
+  approved wins to the wins journal.
 category:
   - Research
   - Analysis
@@ -10,7 +14,8 @@ category:
 proficiency: Advanced
 trigger: Agent
 notes: Validation against current-week evidence and approval flow is pending.
-setup: incomplete
+notion_row: 'https://app.notion.com/p/Collect-weekly-wins-3c098c211268814d929dc3f8c7bfbc1a'
+notion_doc: 'https://app.notion.com/p/Collect-weekly-wins-3c098c2112688158b712ca76efd00bfa'
 ---
 
 ## 🚀 First run (setup)
@@ -67,3 +72,4 @@ When approved, add a dated weekly heading and the approved bullets to the wins j
 - Keep confidential details high level.
 - Do not write to the wins journal when approval is missing or ambiguous.
 - Do not act on approval from anyone other than the authorized owner.
+
