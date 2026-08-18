@@ -1,10 +1,7 @@
 ---
 name: figma-diagram
 skill: figma-diagram
-description: >-
-  Create editable FigJam diagrams from verified current or proposed evidence
-  using one semantic model, canonical shape and edge grammar, the correct
-  diagram mode, and matching Mermaid source when useful.
+description: Create editable FigJam diagrams from verified current or proposed evidence using one semantic model, canonical shape and edge grammar, the correct diagram mode, and matching Mermaid source when useful.
 category:
   - Design
   - Documentation
@@ -14,8 +11,7 @@ notes: >-
   resources that connector serves. Adds a shared semantic model, a mode router,
   canonical shape and edge grammar, evidence rules, workflow recipes, and
   semantic QA on top of it.
-notion_row: 'https://app.notion.com/p/figma-diagram-3c098c211268810d9026fe192b47a560'
-notion_doc: 'https://app.notion.com/p/figma-diagram-3c098c211268813d9fabf12a6b98dde7'
+setup: required
 ---
 
 ## 🚀 First run (setup)
@@ -45,6 +41,8 @@ before generating a diagram.
      diagram-building agent that should override the defaults in this file.
    - `<your-evidence-sources>` — which repositories, docs, or databases count as ground
      truth for current state, and who confirms proposed state.
+   - `<your-image-library>` — an approved illustration or avatar library, by name, for actor
+     badges, plus any rule about using real photos of named people.
 3. Walk through the placeholders one at a time, restate each mapping back for confirmation,
    and have the user save the filled values into their own copy of this skill.
 4. Until setup is complete the skill cannot create diagram files; it can only draft the
@@ -138,6 +136,37 @@ and a legend instead of silently collapsing types.
   convergence.
 - Full-lifecycle recipe: ordered phases with human review gates between major handoffs.
 
+## 👤 Actor images and owner badges
+
+Follow the icon pattern in `<your-diagram-guide>` when it defines one. In a workflow diagram
+the shape states what happens and the badge states who or what performs the action. Never
+replace the canonical step box with an illustration.
+
+| Actor | Preferred image | Fallback |
+| --- | --- | --- |
+| Named human | Verified profile avatar from the loaded source | Neutral people or team illustration from `<your-image-library>` |
+| Human role | Neutral role or team illustration from `<your-image-library>` | Generic user line icon |
+| Custom agent | The agent's actual icon, read from your platform's agent-loading tool | Neutral AI illustration from `<your-image-library>`, labeled `Custom agent` |
+| External AI agent or app | Official vendor logo or verified favicon | Labeled monogram |
+| Generic system | Canonical line icon | Labeled monogram |
+
+1. Open `<your-image-library>` when a phase-based workflow needs actor imagery, and use its
+   neutral team, group, or AI-character assets as role-level fallbacks. Do not use a personal
+   photo for a named person unless the user selects it or the source verifies the identity.
+2. Use one 28 to 36 px badge in the same corner of each action box. Keep the actor name or
+   actor type in the box or legend, so the image never carries meaning alone.
+3. For shared ownership, use at most two badges, and only when both actors perform the same
+   action. Otherwise split the work into separate steps.
+4. Use static PNG or SVG assets for static diagrams. Do not use GIFs or video unless the
+   requested deliverable supports motion. Never generate, redraw, or approximate a trademark
+   logo.
+5. For a controlled PNG or HTML renderer, resolve the chosen asset to a durable file with
+   your platform's file-URL tool, cache it in your scratch directory, and embed the local
+   asset or a data URI. Do not hotlink an expiring signed URL. Mermaid-to-FigJam cannot place
+   arbitrary images, so keep owner text or standard icons on the editable board and add image
+   badges only to the presentation PNG. State that difference, and never claim the FigJam
+   board includes an image that exists only in the PNG.
+
 ## 🧩 Prerequisites
 
 - The Figma MCP connector `<your-figma-connection>` must expose its diagram-generation,
@@ -160,12 +189,18 @@ and a legend instead of silently collapsing types.
 3. **Gather ground truth before drawing.** Read the actual code, README, or docs listed in
    `<your-evidence-sources>`. Never invent nodes or edges to complete the picture. A visible
    gap is better than invented information.
-4. **Pick the diagram type.**
-   - Flowchart: processes, pipelines, sync workflows, and decision trees.
+4. **Map the semantic mode to a supported renderer.** Choose the semantic mode first, then
+   the connector's diagram type.
+   - Flowchart: workflow architecture, pipelines, sync workflows, decision trees, and most
+     system maps.
    - Architecture: request-serving systems such as client to gateway to services to
      datastores. Its lanes are a strict DAG, so sync and data pipelines usually fit a plain
      flowchart better.
-   - Also supported: sequence, ERD, state, and gantt.
+   - Data architecture: use an ERD for schema and cardinality, a flowchart for movement and
+     transformation, or Architecture only for a strict request-serving DAG.
+   - Before/after: create two coordinated flowcharts or architecture views with stable node
+     IDs and a delta summary.
+   - Also supported: sequence, state, and gantt.
    - Unsupported: pie, mindmap, venn, class, timeline, quadrant, and C4. Tell the user and
      do not call the tool.
 5. **Write the Mermaid.**
@@ -232,4 +267,3 @@ source material: read them, do not overwrite them.
 - Sequence-diagram `Note` lines and gantt `classDef` styling are silently dropped. Use the
   connector's hybrid FigJam-editing workflow when annotations or gantt colors are required.
 - Thumbnail URLs expire after roughly a week. The board URL is durable.
-
