@@ -1,13 +1,22 @@
 ---
 name: evaluate-demo-feedback
 skill: Evaluate demo feedback
-description: Review sales demos against discovery relevance, the Tell Need / Show / Tell Value loop, business impact, delivery structure, and common demo crimes, and return prioritized coaching.
+description: >-
+  Review sales demos against discovery relevance, the Tell Need / Show / Tell
+  Value loop, business impact, delivery structure, and common demo crimes, and
+  return prioritized coaching.
 category:
   - Analysis
   - Reference
 proficiency: Advanced
 trigger: Manual
-notes: Distilled from public demo-skills training material and enriched with a Tell Need, Show, Tell Value loop.
+notes: >-
+  Distilled from public demo-skills training material and enriched with a Tell
+  Need, Show, Tell Value loop.
+notion_row: >-
+  https://app.notion.com/p/Evaluate-demo-feedback-3c098c2112688114a697e3421ac5870f
+notion_doc: >-
+  https://app.notion.com/p/Evaluate-demo-feedback-3c098c21126881458bafe233a8a00a8f
 ---
 
 ## 🚀 First run (setup)
@@ -143,3 +152,4 @@ Do not average away a critical failure. Call out any blocker that could material
 
 - Public demo-methodology training on the Tell-Show-Tell framework.
 - Sales-engineering habit frameworks covering partner, probe, prepare, practice, perform, and perfect.
+
