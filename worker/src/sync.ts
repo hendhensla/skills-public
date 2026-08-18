@@ -5,6 +5,7 @@ import * as nt from "./notion.js";
 import { computeDiff } from "./diff.js";
 import {
 	composeSkillFile,
+	githubSnapshotPath,
 	parseSkillFile,
 	repoPathForSlug,
 	slugForRow,
@@ -14,6 +15,14 @@ import {
 import { browserSignals, hasPublishOverride, publishBlock } from "./publish.js";
 
 const sha = (s: string) => createHash("sha256").update(s).digest("hex");
+
+/**
+ * Canonical key for "is this the same body?" comparisons. composeSkillFile() re-pads the body with
+ * a trailing newline while parseSkillFile() only strips leading ones, so a file that survives a
+ * round trip grows a "\n" — enough to make a raw hash differ on otherwise identical content. Only
+ * ever used for comparison, never for what gets written.
+ */
+const bodyKey = (s: string) => sha(s.replace(/\r\n/g, "\n").replace(/\s+$/, ""));
 
 // Row types that publish to the repo. Skill rows carry writing/analysis instructions;
 // Worker rows carry the callable tool surface of a deployed Notion Worker, which is what
@@ -72,7 +81,20 @@ async function readSnapshot(slug: string): Promise<{ body: string; sha: string }
 }
 async function writeSnapshot(slug: string, body: string): Promise<void> {
 	const existing = await gh.getFile(syncSnapshotPath(slug));
+	if (existing?.content === body) return; // identical content — don't spend a commit on it
 	await gh.putFile(syncSnapshotPath(slug), body, `chore(sync): snapshot ${slug}`, existing?.sha);
+}
+
+/** Hash of the repo body as of the last successful push to Notion, or null if never pushed. */
+async function readGithubSnapshot(slug: string): Promise<string | null> {
+	const f = await gh.getFile(githubSnapshotPath(slug));
+	return f ? f.content.trim() : null;
+}
+async function writeGithubSnapshot(slug: string, bodySha: string): Promise<void> {
+	const path = githubSnapshotPath(slug);
+	const existing = await gh.getFile(path);
+	if (existing?.content.trim() === bodySha) return; // already recorded — don't spend a commit on it
+	await gh.putFile(path, `${bodySha}\n`, `chore(sync): record github body hash for ${slug}`, existing?.sha);
 }
 
 async function flag(slug: string, docId: string | null, reason: string, detail: string): Promise<string> {
@@ -197,6 +219,9 @@ export async function pushToGitHub(triggerPageId: string): Promise<SyncResult> {
 
 	await gh.putFile(path, composed, `feat(sync): update ${slug} from Notion`, current?.sha);
 	await writeSnapshot(slug, body);
+	// The repo body is now exactly `body`, so record it: the two sides agree, and a later
+	// GitHub->Notion trigger must not read this as a GitHub-side change and push it back.
+	await writeGithubSnapshot(slug, bodyKey(body));
 	return { slug, action: current ? "updated" : "created", detail: "github updated from notion" };
 }
 
@@ -230,6 +255,10 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 		// false conflict.
 		const live = await nt.retrievePageMarkdown(nt.pageIdFromUrl(docUrl));
 		await writeSnapshot(slug, live.markdown);
+		// Record what the GitHub side looked like, so the next run can tell "nothing changed"
+		// apart from Notion's normalization. Adding the link-back IDs above rewrote the file's
+		// frontmatter but not its body, so this hash stays valid for the file we just wrote.
+		await writeGithubSnapshot(slug, bodyKey(parsed.body));
 		return { slug, action: "created", detail: "created notion row + body page" };
 	}
 
@@ -249,9 +278,22 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 		statusKept = currentRow.status;
 	}
 
+	// Convergence guard. Notion normalizes markdown on import, so the round-tripped body never
+	// byte-equals the repo body and the echo guard below can almost never fire. Left to itself,
+	// every run re-computed the same edits, re-applied them, and (on non-Active rows) posted
+	// another consolidation comment — forever, with no input change. Comparing the repo body to
+	// the repo body we last pushed answers "did GitHub change?" without depending on Notion's
+	// normalization, which is the question this direction actually cares about.
+	const pushedBodySha = await readGithubSnapshot(slug);
+	if (pushedBodySha === bodyKey(parsed.body)) {
+		await nt.updateRowProps(rowId, rowMeta).catch(() => undefined); // props may still differ
+		return { slug, action: "noop", detail: "github body unchanged since last sync" };
+	}
+
 	// Echo guard.
 	if (sha(live.markdown) === sha(parsed.body)) {
 		await nt.updateRowProps(rowId, rowMeta).catch(() => undefined); // props may still differ
+		await writeGithubSnapshot(slug, bodyKey(parsed.body));
 		return { slug, action: "noop", detail: "notion body already current" };
 	}
 
@@ -270,6 +312,7 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 	}
 	if (!diff.updates.length) {
 		await nt.updateRowProps(rowId, rowMeta).catch(() => undefined);
+		await writeGithubSnapshot(slug, bodyKey(parsed.body));
 		return { slug, action: "noop", detail: "no effective body change" };
 	}
 
@@ -312,6 +355,7 @@ export async function pushToNotion(repoPath: string): Promise<SyncResult> {
 	// the applied edits, and the snapshot must equal what a fresh GET returns.
 	const after = await nt.retrievePageMarkdown(docId);
 	await writeSnapshot(slug, after.markdown);
+	await writeGithubSnapshot(slug, bodyKey(parsed.body));
 	return { slug, action: "updated", detail: `applied ${diff.updates.length} edit(s)${statusKept ? `; status kept at ${statusKept}, comment left` : ""}` };
 }
 

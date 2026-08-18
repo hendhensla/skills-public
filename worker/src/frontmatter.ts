@@ -84,3 +84,12 @@ export function repoPathForSlug(slug: string): string {
 export function syncSnapshotPath(slug: string): string {
 	return `.sync/${slug}.md`;
 }
+
+/**
+ * Hash of the repo body at the last successful GitHub->Notion push. Kept separate from
+ * syncSnapshotPath because that file's contract is "== current Notion markdown" (see computeDiff),
+ * and Notion normalizes on import, so it can never answer "did GitHub change?".
+ */
+export function githubSnapshotPath(slug: string): string {
+	return `.sync/${slug}.github.sha`;
+}
