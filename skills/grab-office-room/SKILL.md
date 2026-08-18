@@ -1,12 +1,20 @@
 ---
 name: grab-office-room
 skill: grab-office-room
-description: Book an office conference room for a meeting, sized to attendees — attaching it to an event you organize, or holding it on your own calendar when someone else organizes.
+description: >-
+  Book an office conference room for a meeting, sized to attendees — attaching
+  it to an event you organize, or holding it on your own calendar when someone
+  else organizes.
 category:
   - Automation
 proficiency: Intermediate
 trigger: Agent
-notes: Live room-availability results are the only source of truth for capacity. Never set minimum capacity to 1, and never edit resources on an event you do not organize.
+notes: >-
+  Live room-availability results are the only source of truth for capacity.
+  Never set minimum capacity to 1, and never edit resources on an event you do
+  not organize.
+notion_row: 'https://app.notion.com/p/grab-office-room-3c098c2112688170a995efb08746d916'
+notion_doc: 'https://app.notion.com/p/grab-office-room-3c098c21126881cc8fb5fdd5efa511e8'
 ---
 
 ## 🚀 First run (setup)
@@ -113,3 +121,4 @@ If verification fails, retry once with the same room, then take the next-best qu
 ## 🧪 If no room fits
 
 Leave the meeting unchanged and send one concise message to `<your-ops-channel>` with the meeting title, time, required seats, and the reason, so someone can book it by hand. Escalate only after Step 3 and Step 5 have run out of options. When a booking succeeds, report the room name, its capacity, and the path used.
+
