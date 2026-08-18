@@ -11,10 +11,13 @@ category:
 proficiency: Advanced
 trigger: Agent
 notes: >-
-  Use for customer, prospect, deal, RFP, and security-review questions. Always query
-  the trust-portal connection and return source hyperlinks. Internal chat threads and
-  internal docs give context only, never customer-facing evidence.
-setup: incomplete
+  Use for customer, prospect, deal, RFP, and security-review questions. Always
+  query the trust-portal connection and return source hyperlinks. Internal chat
+  threads and internal docs give context only, never customer-facing evidence.
+notion_row: >-
+  https://app.notion.com/p/Answer-customer-security-questions-3c098c2112688159985ec4ffdca435f5
+notion_doc: >-
+  https://app.notion.com/p/Answer-customer-security-questions-3c098c211268815abe59c34f0f54adb3
 ---
 
 ## 🚀 First run (setup)
@@ -214,3 +217,4 @@ security claims. Offer to retry. Never silently substitute general knowledge.
   the linked control or security page.
 - "Which subprocessors handle AI data?" Search with the customer's wording and return direct
   subprocessor links.
+
