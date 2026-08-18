@@ -12,13 +12,16 @@ proficiency: Advanced
 trigger: Manual
 notes: >-
   Use an API-first execution path. Prefer the approved target-workspace API or
-  Worker as the default build path. Treat the canonical code-based-setup guidance,
-  the installed CLI runtime, and the team's code-based-setup discussion channel as
-  required update sources on every run. Separate confirmed shipped behavior from
-  proposals or unmerged work, then classify the CLI runtime as unavailable,
-  authoring ready, or apply ready. Continue with the API path whenever the CLI path
-  is not apply ready.
-setup: incomplete
+  Worker as the default build path. Treat the canonical code-based-setup
+  guidance, the installed CLI runtime, and the team's code-based-setup
+  discussion channel as required update sources on every run. Separate confirmed
+  shipped behavior from proposals or unmerged work, then classify the CLI
+  runtime as unavailable, authoring ready, or apply ready. Continue with the API
+  path whenever the CLI path is not apply ready.
+notion_row: >-
+  https://app.notion.com/p/External-Notion-Workspace-Setup-3c098c21126881018828cfd01d584468
+notion_doc: >-
+  https://app.notion.com/p/External-Notion-Workspace-Setup-3c098c21126881d7a10fc5a316849537
 ---
 
 ## 🚀 First run (setup)
@@ -391,3 +394,4 @@ Stop and ask for the smallest required action when:
   approved target workspace.
 
 Do not stop an API build only because code-based setup is unavailable.
+
