@@ -8,9 +8,10 @@ Collect these prerequisites from the user, one at a time, and confirm each mappi
 4. `<your-internal-email-domain>` — used to separate internal attendees from external guests when sizing the room.
 5. `<your-event-space-rooms>` — any large rooms that should be reserved for big gatherings only, with the headcount floor that unlocks them.
 6. `<your-nonroom-resource-patterns>` — name fragments for resources that are not meeting rooms (phone booths, video-conference hardware, and similar), so they can be filtered out.
-7. `<your-hold-title-prefix>` — the prefix this skill puts on its own room-hold events, so later runs recognize and skip them.
-8. `<your-ops-channel>` — where to post when no qualifying room is free or a booking fails.
-9. `<your-legacy-hold-title>` — the title of any older hold events that should be cancelled on sight. Leave blank if there are none.
+7. `<your-people-directory>` — an optional directory database that maps a person to a home office or location, plus read access to coworkers' free/busy or out-of-office events. Used to avoid counting attendees who will not be in the office. Name the database and connection only.
+8. `<your-hold-title-prefix>` — the prefix this skill puts on its own room-hold events, so later runs recognize and skip them.
+9. `<your-ops-channel>` — where to post when no qualifying room is free or a booking fails.
+10. `<your-legacy-hold-title>` — the title of any older hold events that should be cancelled on sight. Leave blank if there are none.
 Have the user save the filled values into their own copy of this skill. Until setup is complete the skill must not book anything: without calendar write access it cannot reserve a room, without the calendar account and address it cannot tell real events from mirrored copies, without the internal domain it cannot size a room correctly, and without the office name it cannot tell which building's rooms are eligible. When the values are saved, add a `setup: complete` line to the frontmatter so later runs go straight to the workflow.
 ## Purpose
 Reserve a conference room in `<your-default-office>` for a meeting on `<your-work-calendar-address>`. Use this skill whenever a calendar event needs a room.
@@ -35,6 +36,17 @@ Count the human attendees who have not declined. Exclude bots, notetakers, and r
 - **Remote guests (default):** count only `<your-internal-email-domain>` attendees, including the owner. External attendees join by video.
 - **Guests on site:** when the title or location shows an office visit — for example "onsite", "in person", or an office address — count every human attendee.
 - **Internal meeting:** count every attendee who has not declined.
+### 🏙️ Who counts as in the room
+Never count a person who will not be in `<your-default-office>`. Resolve each internal attendee with this order of evidence, strongest first:
+1. An out-of-office event on that person's calendar that overlaps the meeting. Do not count them. A coworker-events lookup usually needs only their email.
+2. `<your-people-directory>` lists their location as `<your-default-office>`. Count them.
+3. The directory lists any other office, or any remote location. Do not count them. They join by video.
+4. No directory row, or an empty location. Count them. Never undersize because data is missing.
+Always count the owner.
+Join an attendee email to a directory row in two steps:
+1. Resolve the email to a workspace user. One broad user search usually returns most of the directory; for anyone still missing, search the email local part.
+2. Match that user reference against the directory's person property, with every attendee of the whole sweep in one query rather than one query per person.
+**Known limit:** calendar APIs generally do not expose working location, so travel is invisible. A local person who is visiting another office still counts. Rooms on that person's other events the same day are a weak hint only, because a multi-site meeting carries rooms from several buildings at once. Never treat that hint as proof.
 Required seats:
 <table header-row="true">
 <tr>
@@ -93,5 +105,6 @@ Never retry on "needs action". That causes room churn.
 - **No duplicates:** before creating a hold, check the owner's calendar for an event in the same window whose only resource is a room. Update that one instead of adding another.
 - **Reschedules:** re-run the lookup for the new time. Move the hold, or release the room and book one that fits.
 - **Legacy holds:** cancel any event titled `<your-legacy-hold-title>`. Those follow an older pattern, hold an undersized room, and duplicate real meetings. Report every cancellation.
+- **Cancel results lie:** a cancel call can return an unknown error after it has already removed the event. Re-read the time window before retrying, and never cancel the same event twice.
 ## 🧪 If no room fits
 Leave the meeting unchanged and send one concise message to `<your-ops-channel>` with the meeting title, time, required seats, and the reason, so someone can book it by hand. Escalate only after the Step 2 fallback and Step 5 have run out of options. When a booking succeeds, report the room name, its capacity, and the path used.
