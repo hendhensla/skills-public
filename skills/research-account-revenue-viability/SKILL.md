@@ -50,6 +50,9 @@ Then collect the prerequisites from the user — names and links only, never cre
 - `<your-architecture-reference>` — the layered reference architecture your point of view is
   anchored in, and the doc that defines its layers. Without it, the skill writes the decision
   but skips the architecture framing.
+- `<your-competitor-list>` — the competitor and alias list, plus the evidence-scoring model,
+  used to classify tools named in job posts. Without it, the skill can collect tool names but
+  cannot classify them as competitive.
 - `<your-usage-analyst>`, `<your-signals-scout>`, `<your-org-mapper>` — the specialist
   agents or sessions this skill delegates to, if the user has them. Without them, the skill
   runs the same steps inline and takes longer.
@@ -95,6 +98,7 @@ Stop when account identity is ambiguous.
      surface.
    - **Org and stakeholder mapper**: run for likely top-tier accounts, active opportunities,
      explicit stakeholder work, or whenever buying-group evidence could change the decision.
+   - **Hiring and role-based tool research**: run for every account, using the section below.
 4. Pass each specialist only stable identifiers, the prior review date, the current decision
    state, and its output contract. Do not pass the full report unless required.
 5. Merge only compact handoffs. Apply `<your-icp-skill>`, then `<your-motion-skill>`.
@@ -137,6 +141,34 @@ list.
    in, and name the layer that is weakest or missing today.
 5. Keep the existing evidence rules. Write "Unknown" with the date checked when a layer has no
    verified evidence, and never treat the reference model as a fact about the customer's stack.
+
+## 🧲 Hiring and role-based tool research
+
+Research the account's public job postings, then extract the tools those roles name. Job posts
+state the stack a team must actually use, so treat them as a primary competitor-detection
+source.
+
+1. Search the account's own careers site first, then public job boards and aggregators. Prefer
+   roles posted or closed in the last 12 months.
+2. Prioritize roles that reveal the collaboration stack: engineering, product and design;
+   program and project management; IT and internal tools; operations; data; marketing; and
+   enablement.
+3. Read each relevant post in full. Record the role title, team, location, post date, post
+   URL, and the exact tool names appearing in the requirements, responsibilities, and tooling
+   lines.
+4. Classify every named tool as a competitor, an adjacent system of record, or neutral, using
+   `<your-competitor-list>`.
+5. Score each competitor hit with that list's evidence model. Keep scope at team level, set
+   the use case to Exact only when the post names the workflow, and otherwise use Category.
+6. Count how many roles and how many distinct teams name each competitor. Spread across teams
+   matters more than a single mention.
+7. Never infer a tool from a generic phrase such as project management, wiki, or
+   documentation. Quote the tool name or write nothing.
+8. Write findings into the public-signal sections of the report with the post URL and date.
+   Write "Unknown" with the date checked when no roles or no named tools exist.
+9. Feed verified competitor tooling into the product expansion potential score and into the
+   connect, complement, or replace call in the point of view. A job post never proves
+   deployment size, seat count, or spend.
 
 ## 📝 Output
 
