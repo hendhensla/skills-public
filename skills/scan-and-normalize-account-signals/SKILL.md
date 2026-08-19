@@ -14,7 +14,8 @@ trigger: Agent
 notes: >-
   Delta-only account research subskill. Keeps the main account report stable by
   returning at most five material signals per run, each source-labeled and
-  confidence-rated.
+  confidence-rated. Every run includes a roles and job-postings scan that
+  extracts named tools and flags competitors.
 notion_row: >-
   https://app.notion.com/p/Scan-and-normalize-account-signals-3c098c21126881bcb9b6cd3115c37c62
 notion_doc: >-
@@ -39,16 +40,19 @@ In that case, do setup before doing any research.
      fields listed under "Required fields" below.
    - `<your-provenance-doc>` — your own note on which data provider each field comes from,
      so signals are never mislabeled with a provider name.
+   - `<your-competitor-list>` — your own list of competitor products and their aliases, used
+     to classify tools named in job postings.
    - Read access to the public web or a web-search tool.
    - Optional but recommended connections, by name only: your internal customer-usage or
      account-intelligence system, your community/intent platform, your team chat, and a
      social-post reader if social evidence matters. Record the credential or environment
      variable names these need — never their values.
 3. Walk the user through each placeholder one at a time. For each one, ask for their own
-   database, doc, or connection, confirm the mapping back to them in plain language, and
-   have them save the filled value into their copy of this skill.
+   database, doc, list, or connection, confirm the mapping back to them in plain language,
+   and have them save the filled value into their copy of this skill.
 4. Until setup is complete, the skill cannot match accounts reliably, cannot deduplicate,
-   and must not write signal rows or return a handoff. Say so plainly instead of guessing.
+   cannot classify tools found in hiring, and must not write signal rows or return a
+   handoff. Say so plainly instead of guessing.
 5. When every placeholder is filled and confirmed, record `setup: complete` in the
    frontmatter so later runs skip straight to the workflow.
 
@@ -72,6 +76,21 @@ Stop when identity is ambiguous.
 
 - Company website, filings, investor materials, press releases, credible news, job posts,
   code repositories, social posts, blogs, talks, and public leadership profiles.
+
+**Roles and job postings (required every run)**
+
+- Search the account's careers site and public job boards for open and recent roles. Prefer
+  posts dated after the last successful review.
+- Read the full post and record the role title, team, location, post date, and post URL.
+- Extract every named tool and label it competitor, adjacent system of record, or neutral,
+  using `<your-competitor-list>` for products and aliases.
+- Log one signal row per competitor tool found in hiring, with team scope, the exact quoted
+  requirement line, and the number of roles that name it.
+- Escalate when a competitor appears in hiring for the first time, spreads to a second team,
+  or a role names a workflow your product should own.
+- Keep scope at team level and quote the tool name. A generic phrase such as "project
+  management" or "wiki" is not evidence, and a post never proves seats, deployment size, or
+  spend.
 
 **Social evidence**
 
