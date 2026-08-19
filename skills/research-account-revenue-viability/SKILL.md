@@ -47,6 +47,9 @@ Then collect the prerequisites from the user — names and links only, never cre
   account before deep research.
 - `<your-icp-skill>` and `<your-motion-skill>` — the qualification and go-to-market motion
   playbooks applied to merged findings.
+- `<your-architecture-reference>` — the layered reference architecture your point of view is
+  anchored in, and the doc that defines its layers. Without it, the skill writes the decision
+  but skips the architecture framing.
 - `<your-usage-analyst>`, `<your-signals-scout>`, `<your-org-mapper>` — the specialist
   agents or sessions this skill delegates to, if the user has them. Without them, the skill
   runs the same steps inline and takes longer.
@@ -116,6 +119,25 @@ Tier 1: 80 to 100. Tier 2: 65 to 79. Tier 3: 50 to 64. Tier 4: 35 to 49. Tier 5:
 Score confidence separately and explain every dimension and penalty. A verified duplicate
 overrides the recommendation regardless of score.
 
+## 🏛️ Architecture anchor for the point of view
+
+Anchor the account point of view in `<your-architecture-reference>` rather than in a feature
+list.
+
+1. Use the layers foundation up. A common shape is: **context** (knowledge, data, relations,
+   permissions), **collaboration** (comments, mentions, review, durable shared pages), and
+   **agents** (personal and custom agents, meeting notes, research modes, connected external
+   agents). Treat them as one permission-aware environment, not three product categories.
+2. Start from the customer's desired outcome, then name the layer that carries it. Never open
+   the point of view with a feature list.
+3. State which of the customer's systems stay authoritative, what context connects in, where
+   people collaborate, and where agents act. Default to connect or complement; use replace
+   only when verified evidence supports it.
+4. Map the first workflow, the proof plan, and the expansion path to the layer each one lands
+   in, and name the layer that is weakest or missing today.
+5. Keep the existing evidence rules. Write "Unknown" with the date checked when a layer has no
+   verified evidence, and never treat the reference model as a fact about the customer's stack.
+
 ## 📝 Output
 
 Follow `<your-report-template>` exactly. Put the latest usage snapshot in the usage section
@@ -128,6 +150,10 @@ source evidence in the evidence section, and dated changes in the material-chang
 The final decision must include score, tier, confidence, motion, audit flags, reasons to
 pursue and not pursue, why now, next action, stop condition, next review date, first
 workflow, buying group, proof plan, and expansion path.
+
+The point of view must also name the business outcome, the architecture layer that carries
+it, the layer gap today, and a connect, complement, or replace call for every in-scope
+external system.
 
 Before marking the account complete, confirm the page carries all of these. Write "Unknown"
 with the date checked instead of leaving a section out.
