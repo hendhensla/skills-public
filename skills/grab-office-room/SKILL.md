@@ -10,10 +10,12 @@ category:
 proficiency: Intermediate
 trigger: Agent
 notes: >-
-  Live room-availability results are the only source of truth for capacity.
-  Never set minimum capacity to 1, request the full office room list before
-  falling back to a truncated all-office lookup, and never edit resources on an
-  event you do not organize.
+  Room search fixed: the availability lookup runs with working-location
+  filtering left on, which returns the complete office room list instead of a
+  truncated sample from every office. Also covers work-calendar-only scoping,
+  email-based room matching, treating a needs-action room response as held,
+  resource write rules, and internal-meeting sizing. Stale room snapshots
+  removed; live availability results are the only source of truth for capacity.
 notion_row: 'https://app.notion.com/p/grab-office-room-3c098c2112688170a995efb08746d916'
 notion_doc: 'https://app.notion.com/p/grab-office-room-3c098c21126881cc8fb5fdd5efa511e8'
 ---
