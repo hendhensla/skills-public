@@ -15,7 +15,10 @@ Then collect the prerequisites, which only the user can supply:
 	credit data lives (analytics tool, usage dashboard, or synced database).
 - `<your-crm>` — the system of record for opportunities, segment, hierarchy, and ownership.
 - `<your-signal-sources>` — external news, funding, earnings, leadership, and hiring
-	sources the agent may read.
+	sources the agent may read, including the account careers pages and public job boards it
+	is allowed to check.
+- `<your-competitor-list>` — your written list of competing tools and their aliases, plus
+	which adjacent systems of record count as neutral, used by the hiring re-check.
 - `<your-provenance-doc>` — your written rules for contact and intent data provenance, if
 	you have one.
 - Optional specialist agents: `<your-usage-analyst>`, `<your-signals-scout>`,
@@ -64,7 +67,20 @@ Always treat these as material:
 - A new or lost champion, executive sponsor, or blocker.
 - A funding, earnings, restructuring, acquisition, leadership, or AI-program change with
 	commercial impact.
+- A competing tool named in a new job posting for the first time, or an existing competitor
+	spreading to a second team.
 - A duplicate, segment, hierarchy, ownership, or parent-opportunity change in `<your-crm>`.
+## 🧲 Hiring re-check
+1. Re-check the account's careers page and public job boards for roles posted or closed
+	since the last successful review.
+2. Quote the exact tool names in each relevant post and label each one competitor, adjacent
+	system of record, or neutral, using `<your-competitor-list>` and its aliases.
+3. Compare against the competitors already recorded in the report. Report only new tools,
+	new teams, or a changed role volume.
+4. Update the public-signal sections and the material-change log, and rescore expansion
+	potential only when the hiring evidence changes the motion or the displacement call.
+5. Keep scope at team level. A posting never proves seat count, deployment size, or spend,
+	and a generic phrase such as "project management" or "wiki" is not evidence.
 ## 📤 Update contract
 - Preserve the existing structure and previously validated claims.
 - Append dated history rather than rewriting prior material-change rows.
