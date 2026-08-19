@@ -10,13 +10,14 @@ category:
 proficiency: Intermediate
 trigger: Agent
 notes: >-
-  Two fixes. The availability lookup runs with working-location filtering left
+  Three fixes. The availability lookup runs with working-location filtering left
   on, which returns the complete office room list instead of a truncated sample
-  from every office. A presence check now runs before sizing: home office from
-  a people directory, plus out-of-office events, with unknown locations counted
-  so the room is never too small. Also work-calendar-only scoping, email-based
-  room matching, treating a needs-action room response as held, and resource
-  write rules.
+  from every office. A presence check runs before sizing: home office from a
+  people directory, plus out-of-office events, with unknown locations counted so
+  the room is never too small. A snap step rounds a hold window outward to the
+  nearest clean boundary, capped at 30 added minutes, falling back to the exact
+  meeting window. Also work-calendar-only scoping, email-based room matching,
+  treating a needs-action room response as held, and resource write rules.
 notion_row: 'https://app.notion.com/p/grab-office-room-3c098c2112688170a995efb08746d916'
 notion_doc: 'https://app.notion.com/p/grab-office-room-3c098c21126881cc8fb5fdd5efa511e8'
 ---
