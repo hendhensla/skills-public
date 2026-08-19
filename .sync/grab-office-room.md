@@ -62,8 +62,38 @@ Required seats:
 <td>the counted number, and never fewer than 3</td>
 </tr>
 </table>
-## 🏢 Step 2 — Find available rooms
-Run the primary lookup once per sweep, batching every meeting time into the request, with:
+## 🕐 Step 2 — Snap the hold window to a clean boundary
+Rooms stay bookable for everyone when they start and end on a clean boundary, on the hour or the half hour. A hold from 8:45 to 9:15 leaves two dead fragments that nobody can use.
+This step applies only to a hold the owner creates, which is the second path in Step 5. Never change the time of an invite; that would move the real meeting for every guest.
+1. Round the hold start down to the nearest :00 or :30.
+2. Round the hold end up to the nearest :00 or :30.
+3. Never shrink the window. The hold must always cover the whole meeting.
+4. If the two roundings add more than 30 minutes in total, keep the exact meeting window.
+<table header-row="true">
+<tr>
+<td>Meeting</td>
+<td>Hold window</td>
+<td>Reason</td>
+</tr>
+<tr>
+<td>8:45 to 9:15</td>
+<td>8:30 to 9:30</td>
+<td>15 minutes each side, inside the limit</td>
+</tr>
+<tr>
+<td>2:00 to 3:00</td>
+<td>2:00 to 3:00</td>
+<td>already clean</td>
+</tr>
+<tr>
+<td>8:25 to 8:35</td>
+<td>8:25 to 8:35</td>
+<td>a clean window would add 50 minutes</td>
+</tr>
+</table>
+Look up rooms for the snapped window. If no room is free for it, book the room for the exact meeting window instead. A room on the exact window is better than no room.
+## 🏢 Step 3 — Find available rooms
+Run the primary lookup once per sweep, batching every window from Step 2 into the request, and add the exact meeting window as a second slot whenever it differs from the snapped window. Use:
 - working-location filtering left on. This is the fix; never ignore working location on the first call.
 - minimum capacity = required seats, never 1,
 - a generous result count (for example 40),
@@ -75,10 +105,11 @@ Then filter the result:
 4. Treat `<your-event-space-rooms>` as event space and use them only above their headcount floor.
 **Fallback, only when the filtered list is empty.** Repeat the lookup with working location ignored at three capacity rungs: required seats, required seats plus 3, and required seats plus 6. Union the results by resource email, then apply the same filter. That mode truncates the room list across all offices, so the rungs recover rooms a single call hides.
 Capacity and room identity come from the availability result, and that result is the only source of truth. Never store a room list in this skill. A hand-maintained rooms list or floor map is useful for human reference but is often stale or partial — never let it override live data.
-## 🎯 Step 3 — Pick the room
-Choose the smallest capacity that meets the required seats. Break ties deterministically, for example by the lowest room number. Small rooms are scarce, so never take a large room when a smaller one fits.
-If the filtered list is still empty after the fallback, treat the slot as having no room.
-## 🔒 Step 4 — Reserve the room
+## 🎯 Step 4 — Pick the room
+Choose the snapped window from Step 2 when it has at least one qualifying room. Use the exact meeting window only when the snapped window has none.
+For the chosen window, take the smallest capacity that meets the required seats. Break ties deterministically, for example by the lowest room number. Small rooms are scarce, so never take a large room when a smaller one fits.
+If both windows are empty after the fallback, treat the slot as having no room.
+## 🔒 Step 5 — Reserve the room
 Check the organizer first, because the path depends on it.
 Resource write rules, for both paths:
 - Every resource item needs the room's resource email and must be marked required, not optional. A display name alone does not book a room.
@@ -87,24 +118,24 @@ Resource write rules, for both paths:
 **The owner organizes the event.** Attach the room to the original event through its resources field. Leave the attendees, time, title, and description unchanged. Attendees receive an update notification.
 **Someone else organizes the event.** The resource edit is rejected ("you are not the organizer"), so hold the room on an event the owner owns:
 - summary: `<your-hold-title-prefix> <original title>`
-- exact same start and end time as the meeting
+- the Step 2 hold window: the snapped window when a room is free for it, and the exact meeting window when no room is
 - resources: the selected room, and nothing else
 - conferencing disabled, and no human attendees
 - description: `Room held for "<original title>". Organizer: <organizer email>.`
 Leave the original invite untouched, including the owner's RSVP. This reservation is a room booking, not a duplicate meeting: no attendees, no agenda, no video link.
-## 🔍 Step 5 — Verify
+## 🔍 Step 6 — Verify
 Re-read the event or the hold and confirm the room's resource email is present in the resources list.
 Read the room's response status this way:
 - "needs action" means the room is held and the calendar has not answered yet. This is the normal result right after a write, because rooms are accepted asynchronously. Accept it and move on.
 - "accepted" means confirmed.
 - "declined" is the only failure. Take the next best qualifying room, then escalate after the second room fails.
 Never retry on "needs action". That causes room churn.
-## 🧹 Step 6 — Keep the calendar clean
+## 🧹 Step 7 — Keep the calendar clean
 - **Match on email, never on name.** The availability lookup and the event display name for the same room often differ. Compare resource emails. Read the seat count from the availability result, or from the number in parentheses in the event display name.
 - **Already correct:** if the event, or its existing hold, already holds a room in the target office with enough seats, change nothing.
-- **No duplicates:** before creating a hold, check the owner's calendar for an event in the same window whose only resource is a room. Update that one instead of adding another.
-- **Reschedules:** re-run the lookup for the new time. Move the hold, or release the room and book one that fits.
+- **No duplicates:** before creating a hold, check the owner's calendar for an event that overlaps the window and whose only resource is a room. A snapped hold does not match the meeting time exactly, so compare by overlap and not by equality. Update that one instead of adding another.
+- **Reschedules:** snap the new time again with Step 2, then re-run the lookup. Move the hold, or release the room and book one that fits.
 - **Legacy holds:** cancel any event titled `<your-legacy-hold-title>`. Those follow an older pattern, hold an undersized room, and duplicate real meetings. Report every cancellation.
 - **Cancel results lie:** a cancel call can return an unknown error after it has already removed the event. Re-read the time window before retrying, and never cancel the same event twice.
 ## 🧪 If no room fits
-Leave the meeting unchanged and send one concise message to `<your-ops-channel>` with the meeting title, time, required seats, and the reason, so someone can book it by hand. Escalate only after the Step 2 fallback and Step 5 have run out of options. When a booking succeeds, report the room name, its capacity, and the path used.
+Leave the meeting unchanged and send one concise message to `<your-ops-channel>` with the meeting title, time, required seats, and the reason, so someone can book it by hand. Escalate only after the Step 3 fallback and Step 6 have run out of options. When a booking succeeds, report the room name, its capacity, and the path used.
