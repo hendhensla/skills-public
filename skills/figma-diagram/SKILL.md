@@ -1,6 +1,7 @@
 ---
 name: figma-diagram
 skill: figma-diagram
+setup: required
 description: >-
   Create editable diagrams in FigJam through a Figma MCP connector — flowcharts,
   pipelines, architecture, sequence, ERD, state, and gantt — embed matching
@@ -46,6 +47,11 @@ before generating a diagram.
    - `<your-render-check>` — the local command available for converting a downloaded SVG to
      an image so the render can be inspected, or confirmation that the connector's
      screenshot tool should be used instead.
+   - `<your-platform-architecture-doc>` — optional: the reference that defines how your own
+     platform or product should be modelled (its layers and the language used for them), for
+     platform architecture diagrams.
+   - `<your-workflow-inventory-doc>` — optional: the reference holding an agreed workflow
+     inventory, layer tags, and trigger map for customer-scoping diagrams.
 3. Walk through the placeholders one at a time, restate each mapping back for confirmation,
    and have the user save the filled values into their own copy of this skill.
 4. Until setup is complete the skill cannot create diagram files or place icons; it can only
@@ -213,6 +219,21 @@ the first run:
   transient: retry the same file three or four times with backoff instead of treating the
   first failure as fatal or dropping the icon.
 
+## 🏛️ Platform architecture diagrams
+
+When the subject is your own platform, or that platform sitting inside a customer stack,
+build the model from `<your-platform-architecture-doc>` before writing any Mermaid.
+
+- Use the layers that reference defines, drawn foundation upward, and present them as one
+  permission-aware environment rather than a row of separate product boxes.
+- Give each layer its own tinted subgraph in that order, and put external systems in a
+  separate subgraph on the right.
+- Label every platform-to-external edge connect, complement, or replace. Default to connect.
+- Keep node labels in the customer's language and tie the whole picture to one business
+  outcome.
+- For customer-scoping runs, take the workflow inventory, layer tags, and trigger map from
+  `<your-workflow-inventory-doc>` instead of inventing nodes here.
+
 ## ⚠️ Known limits
 
 - Diagram-generation output is a FigJam board, not a design file. Post-generation edits by
@@ -221,4 +242,3 @@ the first run:
 - Sequence-diagram `Note` lines and gantt `classDef` styling are silently stripped. Use the
   connector's hybrid FigJam-editing workflow when annotations or gantt colors are required.
 - Thumbnail URLs expire after roughly a week; the board URL is the durable link.
-
