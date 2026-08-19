@@ -17,7 +17,10 @@ notes: >-
   a named person, only one primary business priority is allowed, at least one
   quantified impact must come from a cited source, and anything unsupported is
   logged as a gap instead of guessed.
-setup: required
+notion_row: >-
+  https://app.notion.com/p/Business-Priorities-Alignment-Doc-3c198c21126881999f6de1939bc11137
+notion_doc: >-
+  https://app.notion.com/p/Business-Priorities-Alignment-Doc-3c198c2112688174be82e5644b1a9156
 ---
 
 ## 🚀 First run (setup)
@@ -136,3 +139,4 @@ Deliver the new document, then give a short chat summary with:
   research only, mark every tier as inferred, and say the document is unvalidated.
 - More than one open opportunity: ask which opportunity to link.
 - The template changed: use the current template structure, not this list of sections.
+
