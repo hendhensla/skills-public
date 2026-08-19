@@ -27,6 +27,9 @@ before building or updating any output.
 		`<your-motion-names>` if a primary motion is selected.
 	- `<your-diagramming-tool>` — where an editable value-bridge visual lives, if you produce
 		one, and how the exported image is attached.
+	- `<your-services-package-menu>` — the current delivery packages you can propose, their
+		scale gates, and who owns each execution path (customer success, your own professional
+		services, or a partner).
 	- The author or owner name stamped on the created page, your fully loaded annual cost
 		assumption source for capacity math, and which supporting skills you already run for
 		account fit, stakeholder mapping, motion choice, and signal scanning.
@@ -104,8 +107,10 @@ Do this only when it is not already complete:
 4. Use the current `<your-business-priorities-template>`. Never edit the template.
 5. Update an existing output in place. Create a new page only when no matching output exists.
 ## 🧱 Build the value case
-1. Start with the customer's current-year strategic objective, its named owner, and a dated
-	forcing event.
+1. Start with the customer's current-year strategic aim, its named owner, and a dated forcing
+	event. Label it `Confirmed business objective` only when a direct customer source supports
+	it. Otherwise label it `Business hypothesis` and state what must be validated. Never
+	present an inferred objective as customer fact.
 2. Pick one primary priority from `<your-priority-taxonomy>`, for example revenue and growth,
 	cost and productivity, risk and confidence, or innovation and speed. If every category
 	fits, the priority is not clear enough.
@@ -148,13 +153,25 @@ Choose the mode from the user request and the audience. Do not mix the two forma
 	gaps, and discovery questions. This mode can be detailed.
 2. **External executive business case:** Make the page understandable in 30 seconds. Target no
 	more than five H2 sections and 700 words before the collapsed source list. Use:
-	- one outcome-led thesis and decision;
+	- one clearly labeled business hypothesis and decision;
 	- one visual value bridge;
 	- three outcome cards for growth, margin, and risk, or the customer's equivalent;
 	- one compact metric table with no more than five rows;
-	- one staged proof and decision gate.
+	- one services-to-outcome path and decision gate.
+Choose one execution path: self-serve with customer success, your own professional services,
+or partner services. If services are needed, map the work to `<your-services-package-menu>`.
+A typical menu runs from smallest to largest scope:
+1. **Launch:** one team, roughly one to two dozen users, and one first workflow.
+2. **Launch and adopt:** a larger seat count, two or three connected workflows, governance,
+	rollout, training, and adoption support.
+3. **Migrate:** source-system inventory, mapping, migration, validation, and rollout.
+4. **Transformation:** a strategic plan, a workflow roadmap, a governance model, and the
+	first advanced or agentic workflows for a sophisticated account.
+State why the package fits, what gets delivered, what the customer must own, which business
+measure it changes, and the scale gate. Services are the execution layer that converts the
+hypothesis into proof. Do not position services as generic hours or extra help.
 For an external case:
-- Lead with the customer's objective and economics. Mention product capabilities only as the
+- Lead with the customer's hypothesis and economics. Mention product capabilities only as the
 	mechanism.
 - Keep detailed evidence and assumptions in one collapsed toggle at the end.
 - Remove internal opportunity stages, seller language, health scores, internal account scores,
