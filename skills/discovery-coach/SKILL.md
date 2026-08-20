@@ -16,13 +16,14 @@ notes: >-
   Sources all questioning content live from your own discovery resources page.
   Never copy the question bank into this skill file — the source page changes
   and a copy goes stale.
+setup: incomplete
 notion_row: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881a1bf55fdac3f255771'
 notion_doc: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881378f3adb9e9835ef46'
 ---
 
 ## 🚀 First run (setup)
 
-Treat this as a first run when `setup:` above is still `incomplete`, when any `<placeholder>` is unfilled, or when the user has never invoked this skill before.
+Treat this as a first run when `setup: incomplete` is recorded, when any `<placeholder>` is unfilled, or when the user has never invoked this skill before.
 
 What it does: this skill prepares and coaches sales discovery. It triggers manually when the user asks to prep a discovery call, go deeper on a stated problem, build demo or impact questions, or pressure-test whether an opportunity is real. It produces a call frame, what is already known, ranked gaps, a sequenced question plan quoted from the user's own question bank, a qualification read, and risks.
 
@@ -30,8 +31,8 @@ Prerequisites the user must supply — pointers and names only, never credential
 
 - `<your-discovery-resources-page>` — the single page holding their question bank and questioning frameworks. This is the source of truth, read live on every run. Without it the skill has no questions to quote.
 - The section names on that page, mapped to request types: pre-call planning, going deeper on a stated problem, demo questions, impact and value questions, qualification, plain-language phrasing, mid-stage call framing, and persuasion/deal posture. Section names differ per user, so record theirs.
-- `<your-enablement-page>` — optional secondary source for broader pre-sales enablement questions.
-- `<your-accounts-db>` — the CRM or Notion database holding account pages and prior notes.
+- `<your-enablement-page>` — optional secondary source for broader pre-sales enablement.
+- `<your-accounts-db>` — the CRM or workspace database holding account pages and prior notes.
 - `<your-docs-db>` — the database where a discovery-prep doc gets created, plus the relation property that links a doc to an account.
 - `<your-call-platform>` — the conversation-intelligence or meeting-notes source for prior call context, by connection name.
 - `<your-security-answer-tool>` — where product security, compliance, and RFP questions get routed instead of being answered here.
@@ -132,4 +133,5 @@ Output: the qualification talk tracks, a read on cost of inaction, and the one q
 2. Renewal or expansion call: skip origin-story questions and lead with current-state value and ripple effects.
 3. Technical or security-led call: keep discovery here and route product security, compliance, or RFP answers to `<your-security-answer-tool>`.
 4. Attendee is not the decision maker: make the multithread question the primary next step.
+5. Tool replacement call: before proposing a workspace or database in place of a ticketing or project tool, ask for historical record volume, retention needs, and whether items arrive from outside the team. Validate the target platform's row-count, retention, and intake limits before committing to the migration.
 
