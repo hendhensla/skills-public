@@ -16,7 +16,10 @@ notes: >-
   it. The review-queue query is verified against a live accounts database; the
   batch and repair procedures were extracted from working agent instructions and
   should be exercised on a small batch first.
-setup: required
+notion_row: >-
+  https://app.notion.com/p/Verify-and-close-account-research-batches-3c298c21126881a290b1c5a9f644125d
+notion_doc: >-
+  https://app.notion.com/p/Verify-and-close-account-research-batches-3c298c2112688170a492f44c9b6c70b1
 ---
 
 ## 🚀 First run (setup)
@@ -172,3 +175,4 @@ LIMIT 15
 Cadence encoded above: tier 1 every 7 days, tier 2 every 14 days, tiers 3 to 5 every 30 days. A
 blank last-review date sorts to the front of the queue. Replace the property names and cadence
 with the ones defined in `<your-accounts-db>` and `<your-tier-bands>`.
+
