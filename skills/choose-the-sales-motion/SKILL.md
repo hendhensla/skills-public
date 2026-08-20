@@ -8,11 +8,12 @@ category:
   - Analysis
   - Reference
 proficiency: Advanced
-trigger: Agent
+trigger: Manual
 notes: >-
   Motions are mental models inside one sales process, not separate cycles.
-  Re-read your company's current sales-process source on each run and record
-  which version was used.
+  Re-read your current approved sales-process source on each run and record
+  which version was used. Replace the setup placeholders with your own sources.
+setup: incomplete
 notion_row: >-
   https://app.notion.com/p/Choose-the-sales-motion-3c098c21126881189312ecff3b64b030
 notion_doc: >-
@@ -21,7 +22,7 @@ notion_doc: >-
 
 ## 🚀 First run (setup)
 
-Treat this as a first run when `setup:` above still reads `required`, any `<placeholder>`
+Treat this as a first run when `setup:` above still reads `incomplete`, any placeholder
 below is unfilled, or the user has never invoked this skill. Run the setup conversation
 before recommending a motion.
 
@@ -34,8 +35,8 @@ before recommending a motion.
 2. Collect the prerequisites from the user — names and links only, never credential values:
    - `<your-sales-process-doc>` — the current, approved sales process and stage definitions
      this skill must re-read on every run, plus how to tell approved from draft.
-   - `<your-motion-definitions>` — your company's own motion or play definitions, if they
-     differ from the three below, and the names you use for them.
+   - `<your-motion-definitions>` — your organization's own motion or play definitions, if
+     they differ from the three below, and the names you use for them.
    - `<your-accounts-db>` and `<your-opportunities-db>` — where account and deal evidence
      lives.
    - `<your-usage-source>` — where seat, credit, and adoption utilization can be checked
@@ -63,9 +64,9 @@ before recommending a motion.
 
 ## Refresh the process source first
 
-Load your company's current sales-process and motion definitions before recommending
-anything. If the process is in draft, treat unresolved role assignments as open questions
-rather than policy, and follow a newer approved process when one exists.
+Load your current sales-process and motion definitions before recommending anything. If the
+process is in draft, treat unresolved role assignments as open questions rather than policy,
+and follow a newer approved process when one exists.
 
 ## Principle: one process, three motions
 
@@ -131,6 +132,26 @@ Never use this as a documentation-only motion.
    evidence; use core platform only by exception.
 7. **Define proof**: first workflow, success criteria, activation plan, implementation path,
    roadmap.
+
+## Entry point and coverage sequencing
+
+The motion says what to sell. This says where to enter.
+
+- **Choose the land team by workflow readiness, not by seniority of pain.** A technical
+  team may be far along on AI and may not move without a differentiated message. An
+  operations, marketing, or go-to-market team with a concrete workflow can convert faster
+  on the same workflow argument. Test both before committing.
+- **Sequence bottom up, then top down.** Speak to builders and directors first to collect
+  facts, then take a pointed point of view to the executive. Do not open at the executive
+  level with a point of view built only on research.
+- **Keep executives warm in parallel.** Send short personalized updates that state which
+  team you work with and what you build together.
+- **Expect a 3-, 6-, and 9-month path on a builder-first land.** Land one team, prove one
+  workflow, then connect functions.
+- **Closed-lost re-engagement:** Read the recorded loss reason first. A loss with no
+  recorded reason is usually a status-quo decision, not a rejection of the platform. Confirm
+  the original blocker with the prior owner before discovery, and lead with what changed
+  since that decision.
 
 ## Stage implications
 
