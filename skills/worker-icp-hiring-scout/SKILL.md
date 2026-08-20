@@ -1,14 +1,21 @@
 ---
 name: worker-icp-hiring-scout
 skill: icp-hiring-scout
-description: "Worker tool surface for scanning ATS job boards across many providers, classifying ICP-relevant roles, and writing job postings plus account-level hiring signals into your own databases."
+description: >-
+  Worker tool surface for scanning ATS job boards across many providers,
+  classifying ICP-relevant roles, and writing job postings plus account-level
+  hiring signals into your own databases.
 category:
   - Automation
   - Research
 proficiency: Advanced
 trigger: Agent
-notes: "Callable tool surface only. Provider coverage includes Greenhouse, Lever, Workday, SmartRecruiters, BambooHR, Ashby, Workable, Recruitee, Oracle Cloud, iCIMS, Paycom, ADP WorkforceNow, Phenom and Radancy."
-setup: required
+notes: >-
+  Callable tool surface only. Provider coverage includes Greenhouse, Lever,
+  Workday, SmartRecruiters, BambooHR, Ashby, Workable, Recruitee, Oracle Cloud,
+  iCIMS, Paycom, ADP WorkforceNow, Phenom and Radancy.
+notion_row: 'https://app.notion.com/p/icp-hiring-scout-3c298c21126881ebb782c33d10d516c0'
+notion_doc: 'https://app.notion.com/p/icp-hiring-scout-3c298c211268816ba0dbe4c4899752b4'
 ---
 
 ## 🚀 First run (setup)
@@ -144,3 +151,4 @@ Some platforms sit behind a bot check that refuses a plain `fetch()` and are not
 6. Legacy portals are sometimes stubs that redirect to a newer career site. When a provider returns nothing, follow the redirect once and re-detect the platform.
 7. Shared career sites host many brands behind one feed and separate them with a query filter. Carry the filter recorded on the board URL through the fetch, or one brand returns the parent company's entire req list.
 8. Exclude role families that share vocabulary with your ICP but are not it — physical engineering and physical design disciplines, for example. Without that rule an engineering-services account looks like a product-and-design hiring surge.
+
