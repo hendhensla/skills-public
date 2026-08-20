@@ -1,13 +1,20 @@
 ---
 name: grab-nyc-room
 skill: grab-nyc-room
-description: "Books an office conference room for a calendar meeting, sized to the attendees who will actually be in the building: attaches the room to invites you organize, or holds it on your own event when someone else organizes."
+description: >-
+  Books an office conference room for a calendar meeting, sized to the attendees
+  who will actually be in the building: attaches the room to invites you
+  organize, or holds it on your own event when someone else organizes.
 category:
   - Automation
 proficiency: Advanced
 trigger: Agent
-notes: "Assumes a work calendar plus an optional people/directory database. Room capacity and identity always come from the live availability lookup, never from a stored room list."
-setup: required
+notes: >-
+  Assumes a work calendar plus an optional people/directory database. Room
+  capacity and identity always come from the live availability lookup, never
+  from a stored room list.
+notion_row: 'https://app.notion.com/p/grab-nyc-room-3c298c211268817eb72ff8dcac02dbb5'
+notion_doc: 'https://app.notion.com/p/grab-nyc-room-3c298c21126881968db1dcbd2c86e32c'
 ---
 
 ## 🚀 First run (setup)
@@ -179,3 +186,4 @@ Never retry on `needsAction`. That causes room churn.
 ## 🧪 If no room fits
 
 Leave the meeting unchanged and include the meeting title, time, required seats, and reason in the run report so someone can book it by hand. Report the room name, the seats, and the path used when a booking succeeds.
+
