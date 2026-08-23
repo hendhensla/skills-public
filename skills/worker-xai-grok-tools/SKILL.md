@@ -9,13 +9,15 @@ category:
   - Automation
 proficiency: Intermediate
 trigger: Agent
+worker_url: <your-worker-url>
 notes: >-
   Callable tool surface only. Search citations are leads rather than verbatim
   post text; verify exact wording with a separate post-reading tool before
   quoting.
-worker_url: "<your-worker-url>"
-xai_credential_name: "<your-xai-credential-name>"
-setup: pending
+notion_row: >-
+  https://app.notion.com/p/worker-xai-grok-tools-3c598c21126881559a84f5a17770bc5b
+notion_doc: >-
+  https://app.notion.com/p/worker-xai-grok-tools-3c598c21126881d48665d55e5ad34dbc
 ---
 
 ## 🚀 First run (setup)
@@ -88,3 +90,4 @@ Returns: an object containing an `answer` string and, when available, a `citatio
 - Keep public X research distinct from private or authenticated account data. This worker's documented surface searches public posts only.
 - Treat results as unverified until a live smoke test succeeds and cite the returned sources with the answer.
 - Use date and handle filters when the question depends on a particular time window or set of accounts; otherwise the result set can be too broad to audit.
+
