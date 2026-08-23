@@ -2,23 +2,22 @@
 name: X Knowledge Sink Worker
 skill: worker-x-knowledge-sink
 description: >-
-  Keeps sales-relevant posts from an authenticated X account in a
-  Worker-managed Notion staging database for downstream promotion into an
-  editable destination.
+  Keeps sales-relevant posts from an authenticated X account in a Worker-managed
+  Notion staging database for downstream promotion into an editable destination.
 category:
   - Automation
   - Research
 proficiency: Advanced
 trigger: Scheduled
+worker_url: <your-worker-url>
 notes: >-
   Public playbook for a de-identified deployment. Credential names are
   documented, never credential values. This deployment exposes a scheduled
   database sync rather than an agent-callable tool.
-setup: pending
-worker_url: <your-worker-url>
-staging_database: <your-staging-db>
-destination_database: <your-destination-db>
-publisher: <your-publisher>
+notion_row: >-
+  https://app.notion.com/p/worker-x-knowledge-sink-3c598c211268818285c1c7209df11347
+notion_doc: >-
+  https://app.notion.com/p/worker-x-knowledge-sink-3c598c21126881ff90bdd3887316a515
 ---
 
 ## 🚀 First run (setup)
@@ -100,3 +99,4 @@ The staging row should preserve these outputs so the downstream publisher can ma
 - Never redeploy from an unrecovered or unverified source tree. Validate the source and manifest before changing a live deployment.
 - Treat private bookmarks as sensitive user material. Do not republish them outside the adopting workspace without authorization.
 - Keep page limits and run budgets below the platform timeout; a slow or oversized backfill can be retried automatically.
+
