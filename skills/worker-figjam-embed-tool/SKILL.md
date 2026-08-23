@@ -2,8 +2,8 @@
 name: worker-figjam-embed-tool
 skill: figjam-embed-tool
 description: >-
-  Agent tool that appends a real Notion embed block for a Figma or FigJam URL
-  to a target page, optionally after a specific block.
+  Agent tool that appends a real Notion embed block for a Figma or FigJam URL to
+  a target page, optionally after a specific block.
 category:
   - Automation
   - Notion
@@ -13,7 +13,8 @@ trigger: Agent
 notes: >-
   Callable tool surface only. Requires a deployed copy of the Worker and a
   Notion API credential supplied through the adopting agent's secure setup.
-setup: incomplete
+notion_row: 'https://app.notion.com/p/figjam-embed-tool-3c598c21126881738de5d45a61859cf3'
+notion_doc: 'https://app.notion.com/p/figjam-embed-tool-3c598c21126881e0a175e846f0a41bf6'
 ---
 
 ## 🚀 First run (setup)
@@ -68,3 +69,4 @@ Returns:
 ```
 
 Use the returned `blockUrl` to verify placement, and use the returned `pageId` and `blockId` when a later operation needs stable identifiers. The tool creates the embed; it does not create or edit the surrounding page content.
+
