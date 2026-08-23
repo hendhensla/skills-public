@@ -3,8 +3,8 @@ name: wolfia-sales-answers
 skill: Sourced security answers Worker
 description: >-
   Provide an agent with five Worker tools for sourced security, privacy,
-  compliance, and procurement answers, evidence lookup, trust-center access,
-  and question-gap logging.
+  compliance, and procurement answers, evidence lookup, trust-center access, and
+  question-gap logging.
 category:
   - Research
   - Automation
@@ -15,7 +15,10 @@ notes: >-
   getTrustCenter, logQuestion, and logGap. Preserve returned evidence for
   customer-facing claims. The WOLFIA_API_KEY credential name may be required;
   never store its value in this file.
-setup: incomplete
+notion_row: >-
+  https://app.notion.com/p/Sourced-security-answers-Worker-3c598c21126881bd8c20d35d97d34ef5
+notion_doc: >-
+  https://app.notion.com/p/Sourced-security-answers-Worker-3c598c21126881c18dc7f97141ce3dd9
 ---
 
 ## 🚀 First run (setup)
@@ -110,4 +113,5 @@ Record an unanswered question for follow-up rather than inventing a response.
 - Do not treat an internal summary as a substitute for a source document.
 - Preserve scope limits, access requirements, and source URLs.
 - Do not store credential values, tokens, workspace IDs, database IDs, or deployment IDs in this skill.
+
 
