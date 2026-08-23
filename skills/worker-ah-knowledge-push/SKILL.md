@@ -12,9 +12,8 @@ trigger: Agent
 type: Worker
 worker_url: <your-worker-url>
 notes: >-
-  Public playbook for a de-identified Worker deployment. The source record
-  documents one agent-callable push tool; scheduled syncs are intentionally
-  not documented here.
+  Public playbook for a de-identified Worker deployment. It documents only
+  the agent-callable push tool and keeps workspace-specific details private.
 setup: pending
 ---
 
@@ -81,4 +80,3 @@ Returns (semantic shape; the live response envelope may use different field name
 - Preserve the full body Markdown and source attribution so the destination remains auditable.
 - On retry, update the exact URL match rather than creating a second entry.
 - Keep source and destination locations in the adopting workspace; do not place private source content in this public playbook.
-- Do not document or invoke the Worker's scheduled sync paths from an outside agent; they are not agent-callable tools.
