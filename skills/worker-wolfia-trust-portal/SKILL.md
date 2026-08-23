@@ -1,14 +1,19 @@
 ---
-name: "wolfia-trust-portal"
-skill: "wolfia-trust-portal"
-description: "Discover and call Trust Portal tools for sourced security, compliance, privacy, RFP, and procurement answers."
+name: wolfia-trust-portal
+skill: wolfia-trust-portal
+description: >-
+  Discover and call Trust Portal tools for sourced security, compliance,
+  privacy, RFP, and procurement answers.
 category:
   - Research
   - Automation
 proficiency: Advanced
 trigger: agent
-notes: "Requires a connected deployment that exposes listWolfiaTools and callWolfiaTool. Use returned sources for customer-facing claims."
-setup: incomplete
+notes: >-
+  Requires a connected deployment that exposes listWolfiaTools and
+  callWolfiaTool. Use returned sources for customer-facing claims.
+notion_row: 'https://app.notion.com/p/wolfia-trust-portal-3c598c21126881888bbece00b9130415'
+notion_doc: 'https://app.notion.com/p/wolfia-trust-portal-3c598c21126881d0aeeee06a64793b40'
 ---
 
 ## 🚀 First run (setup)
@@ -64,3 +69,4 @@ Call one discovered Trust Portal tool.
 3. Call `callWolfiaTool` only with that exact name and the supported JSON arguments.
 4. Preserve returned sources or evidence when making customer-facing claims.
 5. If the Trust Portal does not support a claim, say so rather than filling the gap with an unsupported security or compliance assertion.
+
