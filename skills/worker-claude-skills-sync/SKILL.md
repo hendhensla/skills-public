@@ -1,23 +1,22 @@
 ---
 name: Skill repository sync Worker
 skill: worker-claude-skills-sync
-description: "Agent-callable tools for composing and synchronizing skill documents between a Notion workspace and a Git repository."
+description: >-
+  Agent-callable tools for composing and synchronizing skill documents between a
+  Notion workspace and a Git repository.
 category:
   - Automation
   - Notion
 proficiency: Advanced
 trigger: Agent
-notes: "Deploy a separate copy for your workspace and repository. Keep only credential names and configuration placeholders here; never store secret values."
 worker_url: <your-worker-url>
-notion_data_source_id: <your-skills-data-source-id>
-github_repository: <your-owner>/<your-repository>
-github_branch: main
-notion_credential: SKILLS_NOTION_TOKEN
-github_credential: GITHUB_TOKEN
-notion_api_base_url: https://api.notion.com
-notion_api_version: 2026-03-11
-comment_delete_policy: flag
-setup: pending
+notes: >-
+  Deploy a separate copy for your workspace and repository. Keep only credential
+  names and configuration placeholders here; never store secret values.
+notion_row: >-
+  https://app.notion.com/p/worker-claude-skills-sync-3c598c21126881d19f5cc792b153675b
+notion_doc: >-
+  https://app.notion.com/p/worker-claude-skills-sync-3c598c2112688183a722d15eb184bf7e
 ---
 
 ## 🚀 First run (setup)
@@ -103,3 +102,4 @@ Returns: a string containing the complete composed `SKILL.md`, including YAML fr
 - Repository paths are relative to the configured repository and should point to a `SKILL.md` file.
 - A `conflict` result means both sides changed since the last clean operation; resolve the source-of-truth decision before retrying.
 - A `noop` result is successful and means the target already matches the composed content.
+
