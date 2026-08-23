@@ -11,9 +11,10 @@ proficiency: Advanced
 trigger: Agent
 notes: >-
   Tool surface only. The connected deployment uses per-user Outreach OAuth and
-  exposes read operations plus guarded sequence-state actions. Use the live
-  tool schemas as authoritative; never place OAuth values in this file.
-setup: pending
+  exposes read operations plus guarded sequence-state actions. Use the live tool
+  schemas as authoritative; never place OAuth values in this file.
+notion_row: 'https://app.notion.com/p/outreach-api-tools-3c598c21126881d1a5ccd5defd7556ec'
+notion_doc: 'https://app.notion.com/p/outreach-api-tools-3c598c211268819a8062e9855b3ad60e'
 ---
 
 ## 🚀 First run (setup)
@@ -137,3 +138,4 @@ Returns: an action result object containing the updated sequence-state status an
 4. For one prospect, report the prospect identifier or email, sequence, mailbox, resulting state, and returned link. For multiple prospects, review each target and requested action separately before calling the tool for each one.
 5. Stop on missing or ambiguous records, reauthorization requests, opt-out indicators, duplicate states, mailbox errors, or any validation failure. Report the blocker instead of retrying blindly.
 6. Never expose OAuth tokens, client secrets, workspace identifiers, Worker identifiers, or connection internals in output.
+
