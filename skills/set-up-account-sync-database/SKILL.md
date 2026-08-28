@@ -1,5 +1,5 @@
 ---
-name: "Set up an account sync database"
+name: Set up an account sync database
 skill: set-up-account-sync-database
 description: >-
   Build and hand off a one-way, Worker-managed account database for a sales
@@ -14,7 +14,10 @@ notes: >-
   Use this for a one-off account-book mirror in an adopting workspace. Keep the
   source of truth upstream, keep user-authored enrichment outside the managed
   schema, and document the no-delete limitation.
-setup: pending
+notion_row: >-
+  https://app.notion.com/p/set-up-account-sync-database-3ca98c21126881abb7c3d110af31ef62
+notion_doc: >-
+  https://app.notion.com/p/set-up-account-sync-database-3ca98c211268811689a8d05ba777d578
 ---
 
 ## 🚀 First run (setup)
@@ -260,3 +263,4 @@ Return no more than five sections:
 - Never add deletion behavior without explicit approval and a tested rollback path.
 - Never broaden access beyond the target user and approved collaborators.
 - Never add enrichment columns to the Worker-owned schema.
+
