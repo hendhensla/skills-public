@@ -2,21 +2,22 @@
 name: make-readout
 skill: Stakeholder Readout
 description: >-
-  Build a concise, evidence-backed account or deal readout for a named stakeholder.
-  Use account, meeting, and pipeline evidence to show the current state, use cases,
-  timeline, blockers, and next steps in one scannable page.
+  Build a concise, evidence-backed account or deal readout for a named
+  stakeholder. Use account, meeting, and pipeline evidence to show the current
+  state, use cases, timeline, blockers, and next steps in one scannable page.
 category:
   - Writing
   - Research
   - Customer Scoping
 proficiency: Advanced
 trigger: Manual or agent request
-setup: required
 notes: >-
-  Keep the readout audience-safe. Distinguish confirmed facts, current status, and
-  unknowns. Never invent owners, dates, seat counts, or commercial facts when sources
-  conflict. Do not use this skill for a business-priorities value case or an account
-  point-of-view narrative.
+  Keep the readout audience-safe. Distinguish confirmed facts, current status,
+  and unknowns. Never invent owners, dates, seat counts, or commercial facts
+  when sources conflict. Do not use this skill for a business-priorities value
+  case or an account point-of-view narrative.
+notion_row: 'https://app.notion.com/p/Stakeholder-Readout-3ca98c2112688181b7f2e08cee33c33b'
+notion_doc: 'https://app.notion.com/p/Stakeholder-Readout-3ca98c211268817baa1ec96671e07bd8'
 ---
 
 ## 🚀 First run (setup)
@@ -122,3 +123,4 @@ title. Give the page an icon.
 - Inventing owners, dates, or seat counts when sources conflict.
 - Creating a second skill page outside the skill catalog.
 - Presenting unknowns as confirmed facts.
+
