@@ -1,5 +1,5 @@
 ---
-name: make-readout
+name: make-readout-business-review
 skill: Stakeholder Readout
 description: >-
   Build a concise, evidence-backed account or deal readout for a named
