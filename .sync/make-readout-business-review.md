@@ -70,8 +70,8 @@ If the audience is missing, ask one short question. Do not guess the reader.
 	sources conflict, stay qualitative rather than inventing a number.
 6. Write the one-page readout. Lead with the asks, then usage state, workspace inventory,
 	use cases with who, timeline, and next steps.
-7. File the page in `<your-readout-db>` or the configured sales-docs location. Do not leave it
-	only in chat.
+7. File the canonical page in `<your-prod-readout-db>` and a working copy in
+	`<your-working-readout-db>`. Do not leave either page only in chat.
 ## 📄 Output shape
 One page. Use only these sections.
 1. Top callout with this reader's asks for the week. Put user-specified next steps here first.
