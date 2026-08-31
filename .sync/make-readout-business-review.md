@@ -22,8 +22,10 @@ account or creating a readout.
 		cases, owners, decisions, and dates.
 	- `<your-opportunities-db>` or CRM opportunity source for commercial dates, stage, seats,
 		and other deal facts.
-	- `<your-readout-db>` or the sales-docs location where the finished page is created and
-		filed.
+	- `<your-prod-readout-db>` or the production readout database where the canonical page is
+		created, using the destination's one-page document type.
+	- `<your-working-readout-db>` or the working sales-docs database where a copy is created,
+		using the destination's account-strategy document type.
 	- The connected tools, data sources, and credential or environment-variable names used to
 		access those sources; provide names only, never tokens or secrets.
 3. Walk through each placeholder one at a time, restate the mapping to the user for
@@ -103,15 +105,16 @@ title. Give the page an icon.
 - Show the complete workspace inventory when the configured sources provide it. Keep workspace
 	names and identifiers tied to source records rather than inferred from other fields.
 ## 📁 Filing
-- Customer readout: create it in `<your-readout-db>` or the configured sales-docs location.
-	Set the document type and status to the destination's draft options, set the author to the
-	user running the skill, and link the matching account.
-- If the account is ambiguous, ask before creating the page.
-- After creation, give the user the page. Do not dump the readout in chat.
-- If the user requests a move to another workspace, recreate it in that workspace's readout
-	location with the destination's document type, then remove the original copy only after the
-	replacement is confirmed.
-- Do not file a companion page. Keep this skill's instructions in the skill document.
+- Default destination: create the canonical customer readout in `<your-prod-readout-db>`.
+	Set its document type to the destination's one-page option, its status to Draft, the author
+	to the user running the skill, and the matching CRM account link.
+- Also create a working copy in `<your-working-readout-db>`. Set its document type to the
+	destination's account-strategy option, its status to Draft, the author to the user running
+	the skill, and the matching account.
+- If the account is ambiguous, ask before creating either page.
+- After creation, give the user both page links. Do not dump the readout in chat.
+- Do not delete either copy unless the user asks.
+- Do not file a companion skill page. Keep this skill's instructions in the skill document.
 ## ⚠️ Avoid
 - Skipping the account check.
 - Writing a long memo instead of a one-pager.
