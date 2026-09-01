@@ -3,23 +3,23 @@ name: business-priorities-alignment
 skill: Business Priorities Alignment Doc
 description: >-
   Build an evidence-backed business-priorities and executive value case for one
-  account or buying center. Links the strategic objective to one workflow, a
+  account or buying center. Link the strategic objective to one workflow, a
   business output, operating leverage, profit, growth, or risk, and a staged
-  proof plan. Labels unconfirmed objectives as hypotheses, selects the delivery
-  path and services package, and produces either a detailed internal worksheet
+  proof plan. Label unconfirmed objectives as hypotheses, select the delivery
+  path and services package, and produce either a detailed internal worksheet
   or a short visual external executive readout.
 category:
   - Research
   - Analysis
   - Writing
 proficiency: Advanced
-notes: >-
-  Canonical value-case skill. Enforces evidence standards, claim-level
-  confidence labels, an objective-to-economics value chain, business-hypothesis
-  labeling, operating-leverage quantification rules, services-package mapping,
-  visual brevity standards for external readouts, a 30-second executive test,
-  and a handoff to the account point-of-view skill.
 trigger: Manual
+notes: >-
+  Enforce evidence standards, claim-level confidence labels, an
+  objective-to-economics value chain, business-hypothesis labeling,
+  operating-leverage quantification rules, services-package mapping, visual
+  brevity standards for external readouts, a 30-second executive test, and a
+  handoff to the account point-of-view workflow.
 setup: required
 notion_row: >-
   https://app.notion.com/p/Business-Priorities-Alignment-Doc-3c198c21126881999f6de1939bc11137
@@ -34,45 +34,43 @@ below is unfilled, or the user has never invoked this skill. Run the setup conve
 before building or updating any output.
 
 1. Explain the skill in two or three sentences: it resolves one account and buying center,
-   collects dated internal evidence, and turns it into one evidence-backed value case that
-   ties the customer's strategic objective to an operating change, a business output, and an
-   economic or risk outcome. It runs when a person asks for a business case, a value case, a
-   value pyramid, a value bridge, the three whys, discovery prep, or an executive readout for
-   a named account. It produces either a detailed internal worksheet or a short visual
-   external executive case, plus a chat handoff with gaps and a confidence rating.
-2. Collect the prerequisites from the user — names and links only, never credential values:
-   - `<your-business-priorities-template>` — the master template page, which must never be
-     edited. Confirm its section order, tables, and validation checkboxes.
-   - `<your-docs-db>` — where the output is created or updated, plus the exact option names
-     for its type and status properties, its account and opportunity relations, and its
-     author property.
-   - `<your-accounts-db>` — the authoritative account records used to resolve one exact
-     match, plus `<your-opportunities-db>` when opportunity linking is expected. Name any
-     secondary account list you also keep, so a record that exists only there can be
-     resolved instead of guessed.
+   collects dated evidence, and turns it into one evidence-backed value case that ties the
+   customer's strategic objective to an operating change, a business output, and an economic
+   or risk outcome. It runs when a person asks for a business case, value case, value pyramid,
+   value bridge, three whys, discovery preparation, or executive readout for a named account.
+   It produces either a detailed internal worksheet or a short visual external executive case,
+   plus a chat handoff with gaps and a confidence rating.
+2. Collect these prerequisites from the user, using names and links only, never credential
+   values:
+   - `<your-business-priorities-template>` — the master template page. Confirm its section
+     order, tables, and validation checkboxes, and keep it read-only.
+   - `<your-docs-db>` — where the output is created or updated, including the exact option
+     names for its type and status properties, account and opportunity relations, and author
+     property.
+   - `<your-accounts-db>` — the authoritative account records used to resolve one exact match,
+     plus `<your-opportunities-db>` when opportunity linking is expected. Name any secondary
+     account list so records found there can be resolved instead of guessed.
    - `<your-account-research-hub>` — where account pages and prior research live.
-   - The evidence sources that are connected and their priority order: meeting notes and
-     transcripts, `<your-call-recording-tool>`, `<your-crm>`, customer email, and
-     `<your-chat-tool>`.
+   - The connected evidence sources and their priority order: meeting notes and transcripts,
+     `<your-call-recording-tool>`, `<your-crm>`, customer email, and `<your-chat-tool>`.
    - `<your-priority-taxonomy>` — the priority categories your team chooses between, and
      `<your-motion-names>` if a primary motion is selected.
-   - `<your-diagramming-tool>` — where an editable value-bridge visual lives, if you produce
-     one, and how the exported image is attached.
-   - `<your-services-package-menu>` — the current delivery packages you can propose, their
-     scale gates, and who owns each execution path (customer success, your own professional
-     services, or a partner).
-   - The author or owner name stamped on the created page, your fully loaded annual cost
-     assumption source for capacity math, and which supporting skills you already run for
-     account fit, stakeholder mapping, motion choice, and signal scanning.
-   - The names of any connections or credentials those tools require (names only); each
-     person authenticates their own account.
-3. Walk through the placeholders one at a time, restate each mapping back for confirmation,
-   and have the user save the filled values into their own copy of this skill.
-4. Until setup is complete the skill cannot resolve an account, read evidence, or create or
-   update an output; it can only list the evidence it would gather and the discovery
-   questions it would ask.
-5. When every placeholder is filled and confirmed, set `setup: complete` in the frontmatter
-   so later runs go straight to the workflow.
+   - `<your-diagramming-tool>` — where an editable value-bridge visual lives, if one is
+     produced, and how its exported image is attached.
+   - `<your-services-package-menu>` — the current delivery packages, scale gates, and owner
+     for each execution path: customer success, professional services, or a partner.
+   - The author or owner name stamped on created pages, the source for fully loaded annual cost
+     assumptions used in capacity math, and the supporting workflows used for account fit,
+     stakeholder mapping, motion choice, and signal scanning.
+   - The names of any connections or credentials those tools require. Each person authenticates
+     their own account.
+3. Walk through the placeholders one at a time, restate each mapping for confirmation, and
+   have the user save the filled values into their own copy of this skill.
+4. Until setup is complete, the skill cannot resolve an account, read evidence, or create or
+   update an output. It can only list the evidence it would gather and the discovery questions
+   it would ask.
+5. When every placeholder is filled and confirmed, set `setup: complete` in the frontmatter so
+   later runs go straight to the workflow.
 
 ## 🎯 Purpose
 
@@ -180,8 +178,8 @@ Do this only when it is not already complete:
    operating outcome, not as a product feature.
 5. Answer why change, why now, and why your company. Why now needs a dated forcing event.
    Name the initiative in the customer's language and state the champion's personal win.
-6. Recommend one first workflow with one customer outcome, the involved teams, and one
-   success measure.
+6. Recommend one first workflow with one customer outcome, the involved teams, and one success
+   measure.
 7. Define an economic north star in the customer's own unit, for example assets or accounts
    supported per professional, decisions completed per professional, revenue per employee,
    launches per team, cost to serve, or exposure to a named risk.
@@ -272,6 +270,12 @@ For the external executive case, do not copy the full worksheet structure. Compr
 approved evidence into the visual format above. Keep unsupported claims out of the visible
 readout and place open assumptions in the collapsed source section.
 
+## ✍️ Writing quality
+
+Before finalizing prose or a document, load and apply `<your-writing-quality-guide>`. Preserve
+every supported claim and run its second-pass audit. The evidence and customer-safety rules in
+this skill take priority when they are stricter.
+
 ## ✅ Quality gate
 
 The readout alone must answer:
@@ -335,7 +339,7 @@ Additional cases:
 
 ## 🤝 Handoff
 
-Send the finished worksheet to your account point-of-view skill. Do not write the final
+Send the finished worksheet to your account point-of-view workflow. Do not write the final
 account point of view here.
 
 ## 📎 References
