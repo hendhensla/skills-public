@@ -232,5 +232,5 @@ questions with probes.
    measurement.
 5. Security, compliance, privacy, RFP, or procurement questions: route to
    `<your-security-response-process>` and link supporting sources.
-6. Primer unreachable: say so and label the output as unsourced.
+6. Primer unreachable: say so and label adopter-specific conclusions as unconfirmed; continue with the embedded baseline.
 
