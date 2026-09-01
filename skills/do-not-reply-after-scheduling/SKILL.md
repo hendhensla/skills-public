@@ -8,6 +8,7 @@ category:
   - Automation
 proficiency: Intermediate
 trigger: Agent
+setup: required
 notes: >-
   Companion rule for a chat-based scheduling agent. Validated behavior: no reply
   to a bare "Thanks!" unless a specific ask requires action.

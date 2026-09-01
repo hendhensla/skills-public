@@ -10,6 +10,7 @@ category:
   - Reference
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: >-
   Use during account research, org mapping, meeting prep, prior-engagement
   review, or outreach planning — any time a person should be represented in your

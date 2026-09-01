@@ -13,9 +13,9 @@ category:
 proficiency: Advanced
 trigger: Manual
 notes: >-
-  Sources all questioning content live from your own discovery resources page.
-  Never copy the question bank into this skill file — the source page changes
-  and a copy goes stale.
+  Uses the adopter's discovery resources when available and includes a reusable
+  baseline question framework below so the playbook remains runnable without an
+  internal source page.
 setup: incomplete
 notion_row: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881a1bf55fdac3f255771'
 notion_doc: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881378f3adb9e9835ef46'
@@ -48,9 +48,37 @@ Run discovery like a top rep. Use this skill to prepare for a discovery call, co
 
 Trigger phrases: "prep discovery", "discovery questions", "disco prep", "demo questions", "impact questions", "qualify this opp", "is this a real opp", "coach my discovery".
 
-## 📚 Source of truth (read first, every run)
+## 📚 Reusable discovery framework
 
-> ⚠️ Always load `<your-discovery-resources-page>` at the start of a run and use its current content. That page changes over time. Never answer from memory of it, and never copy its question bank into this file.
+Use the adopter's mapped discovery source for local wording when it is available. If it is unavailable, use this embedded framework and label the questions as baseline rather than quoting a private source.
+
+### Nine discovery areas
+
+Cover goals, motivation, burning issues, success measures, requirements, capabilities, history, operating context, and participants. Only unresolved areas should create questions.
+
+### Problem-deepening ladder
+
+1. What is happening today, and who feels it?
+2. How often does it happen, and what does it delay, cost, or put at risk?
+3. What have they tried, and why did it not fully solve the problem?
+4. What measurable change would make the problem worth solving?
+5. What event or date makes the change important now?
+
+### Impact and qualification prompts
+
+- If nothing changes this quarter, what is the consequence?
+- Which metric, workflow, or risk would prove improvement?
+- Who owns the outcome, who uses the workflow, and who approves change?
+- What must be true for a first workflow to be trusted in production?
+- What is the next customer-visible step and by when?
+
+### Call-framing loop
+
+Open with the customer's goal, deepen the current problem, connect it to measurable impact, test whether a first workflow can be proven, and close on a mutually owned next step.
+
+## 📚 Optional local source
+
+When configured, load `<your-discovery-resources-page>` first and prefer its current wording for local terminology. If it is unavailable, do not claim to quote it; use the reusable framework above and disclose the limitation.
 
 Map the request to the right section of that page:
 
@@ -90,7 +118,7 @@ If the account is ambiguous, ask one short clarifying question. If notes are mis
 2. Classify the call type and pick the matching source sections.
 3. Extract what is already known against the nine discovery areas: goals, motivation, burning issues, success, requirements, capabilities, history, context, participants.
 4. Name the gaps. Only the gaps drive the question plan.
-5. Select 8 to 12 questions from the source page, in the source page wording. Sequence them zoom out to zoom in, not as a checklist. Add follow-up probes for each expected answer.
+5. Select 8 to 12 questions from the mapped source when available; otherwise select from the embedded framework and tailor the wording to the known problem. Sequence them zoom out to zoom in, not as a checklist. Add follow-up probes for each expected answer.
 6. Add one qualification test and one next-step or multithread question.
 7. Flag risk: single threaded, no compelling event, no measurable target, or a prior failed attempt.
 
@@ -107,7 +135,7 @@ Use this structure in chat unless a doc is requested.
 
 Rules:
 
-1. Quote questions in the source page wording. Do not invent replacements when a fit exists.
+1. Prefer the mapped source page wording. If it is unavailable, use the embedded framework, label it as a baseline, and do not invent customer facts.
 2. Never invent customer facts. Mark anything unverified as an open question.
 3. Never state an action was taken by the user or anyone else unless a source shows it.
 4. Keep the plan runnable in a 30-minute call.
@@ -129,7 +157,7 @@ Output: the qualification talk tracks, a read on cost of inaction, and the one q
 
 ## ⚠️ Edge cases
 
-1. Source page unreachable: say so, ask whether to proceed from the nine discovery areas only, and label the output as unsourced.
+1. Source page unreachable: proceed from the embedded nine-area framework, label the questions as baseline or unsourced, and note the limitation.
 2. Renewal or expansion call: skip origin-story questions and lead with current-state value and ripple effects.
 3. Technical or security-led call: keep discovery here and route product security, compliance, or RFP answers to `<your-security-answer-tool>`.
 4. Attendee is not the decision maker: make the multithread question the primary next step.

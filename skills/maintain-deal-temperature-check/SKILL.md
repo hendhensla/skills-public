@@ -9,6 +9,7 @@ category:
   - Analysis
 proficiency: Intermediate
 trigger: Agent
+setup: required
 notes: >-
   One artifact per opportunity, updated in place. Referenced by an
   opportunity-prep agent.

@@ -9,6 +9,7 @@ category:
   - Analysis
 proficiency: Expert
 trigger: Agent
+setup: required
 notes: >-
   Keeps one full internal map per account and returns only a bounded digest.
   Union every contact source before naming anyone, test whether Vice President

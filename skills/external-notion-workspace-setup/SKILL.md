@@ -10,6 +10,7 @@ category:
   - Notion
 proficiency: Advanced
 trigger: Manual
+setup: required
 notes: >-
   Use an API-first execution path. Prefer the approved target-workspace API or
   Worker as the default build path. Treat the canonical code-based-setup

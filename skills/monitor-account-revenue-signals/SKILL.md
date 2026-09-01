@@ -11,6 +11,7 @@ category:
   - Automation
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: >-
   Maintenance companion to an initial account-research skill. Its defining
   behavior is restraint — when nothing material changed, it edits nothing and

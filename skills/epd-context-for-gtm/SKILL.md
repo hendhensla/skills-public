@@ -9,10 +9,11 @@ category:
   - Research
 proficiency: Advanced
 trigger: Manual
+setup: required
 notes: >-
-  Reads your internal EPD primer live. If the primer is unfinished, treat
-  missing sections as gaps. Hand question sequencing and call structure to your
-  discovery-coaching skill.
+  Uses an adopter-provided EPD primer when available and includes a reusable
+  EPD operating-model baseline so the playbook remains runnable without an
+  internal source. Hand question sequencing and call structure to the adopter's discovery skill.
 notion_row: 'https://app.notion.com/p/EPD-Context-for-GTM-3c098c21126881ab848febab125916cb'
 notion_doc: 'https://app.notion.com/p/EPD-Context-for-GTM-3c098c21126881a799eed6658d5285e4'
 ---
@@ -51,8 +52,7 @@ Walk through the placeholders one at a time. After each answer, restate the mapp
 the user ("the primer lives at X, and call plans route to Y"), then have them save the filled
 value into their own copy of this skill.
 
-Until setup is complete, the skill has no primer to read, so it must label any output as
-unsourced and must not present inferences as internal guidance.
+Until setup is complete, label adopter-specific conclusions as unconfirmed. The embedded baseline may still be used as general guidance, but it must not be presented as a fact about a particular account.
 
 When every placeholder is filled and confirmed, set `setup: complete` in the frontmatter so
 later runs go straight to the workflow.
@@ -71,10 +71,37 @@ function-specific questions; the discovery skill owns call structure, question s
 qualification, and output format. When a call plan is requested, produce the map here and
 route the plan through the discovery skill.
 
-## 📚 Source of truth (read first, every run)
+## 📚 Embedded EPD baseline and optional local sources
 
-> ⚠️ Load `<your-epd-primer>` at the start of every run. Do not answer EPD questions from
-> model knowledge alone.
+Use `<your-epd-primer>` and `<your-operating-model-reference>` when configured to add adopter-specific context. The baseline below is sufficient to run the map without those private sources.
+
+### Core operating-model baseline
+
+EPD work creates value through decisions and artifacts that move from product intent to design, engineering, data, launch, and customer-facing teams. The highest-risk failures usually occur at handoffs: requirements drift, design intent is lost, success metrics are undefined, status is assembled manually, launches lack enablement, or security and compliance arrive late.
+
+Use the account's evidence to test these as hypotheses, not to label an organization before discovery.
+
+### Historical reference points
+
+Use these only as orientation, not as account facts: brand-management roots in the early twentieth century; product-management and management-by-objectives practice in the mid-twentieth century; waterfall methods in the 1970s and 1980s; Scrum practice in the 1980s and 1990s; and the Agile Manifesto in 2001.
+
+### Good versus risky patterns
+
+- Good: one current source for intent, visible ownership, shared success measures, short feedback loops, and traceable decisions.
+- Risky: duplicated requirements, tool fragmentation, handoff-only reviews, output metrics without outcomes, and approvals discovered at the end.
+
+### Safe seam prompts
+
+- Product → engineering: What changed between the requirement and the build, and where is the current decision recorded?
+- Design → engineering: Which design intent is hardest to preserve, and how is implementation reviewed?
+- Product → data: Who owns the success metric, and when is it checked after launch?
+- EPD → leadership: How much effort goes into assembling roadmap status and explaining dependencies?
+- EPD → GTM/support: What reaches customers without enablement, known issues, or a clear owner?
+- EPD → security/compliance: Which approvals are discovered late, and what does that delay?
+
+## 📚 Optional local sources
+
+If the mapped primer or operating-model reference is unavailable, continue with this baseline and mark account-specific inferences as hypotheses.
 
 1. The primer for the core argument, the EPD nuance list, and good product team vs bad
    product team behavior.

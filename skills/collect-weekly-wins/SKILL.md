@@ -13,6 +13,7 @@ category:
   - Workspace
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: Validation against current-week evidence and approval flow is pending.
 notion_row: 'https://app.notion.com/p/Collect-weekly-wins-3c098c211268814d929dc3f8c7bfbc1a'
 notion_doc: 'https://app.notion.com/p/Collect-weekly-wins-3c098c2112688158b712ca76efd00bfa'

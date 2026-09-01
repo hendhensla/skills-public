@@ -9,6 +9,7 @@ category:
   - Automation
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: >-
   Assumes a work calendar plus an optional people/directory database. Room
   capacity and identity always come from the live availability lookup, never

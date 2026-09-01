@@ -12,6 +12,7 @@ category:
   - Reference
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: >-
   Use as a private planning overlay for account research, deal structuring,
   quote review, and incentive-plan interpretation. Always use the participant's

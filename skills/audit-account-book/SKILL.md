@@ -9,6 +9,7 @@ category:
   - Analysis
 proficiency: Advanced
 trigger: Manual
+setup: required
 notes: >-
   Validated on a ~150-row account book. Verify the finding count independently
   and never claim an account will be reassigned as fact.

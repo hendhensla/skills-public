@@ -8,6 +8,7 @@ category:
   - Automation
 proficiency: Intermediate
 trigger: Agent
+setup: required
 notes: >-
   Pairs with a room-booking skill. Later replies in the same thread are
   authoritative updates to title, goal, or agenda.

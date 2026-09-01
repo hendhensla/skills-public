@@ -8,6 +8,7 @@ category:
   - Automation
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: >-
   Email sub-skill of a task-capture agent. Relies on the parent agent's shared
   task, deduplication, and property rules.

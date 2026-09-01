@@ -10,6 +10,7 @@ category:
   - Reference
 proficiency: Advanced
 trigger: Manual
+setup: required
 notes: >-
   Distilled from public demo-skills training material and enriched with a Tell
   Need, Show, Tell Value loop.

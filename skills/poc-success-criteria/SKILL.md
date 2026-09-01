@@ -9,6 +9,7 @@ category:
   - Analysis
 proficiency: Intermediate
 trigger: Manual
+setup: required
 notes: >-
   /poc <customer> — pair with a deal-context skill to pull deal history and next
   steps before defining criteria.

@@ -10,6 +10,7 @@ category:
   - Automation
 proficiency: Advanced
 trigger: Agent
+setup: required
 notes: >-
   Companion to a weekly-wins workflow. Read-only against the recognition
   platform; the human sends the recognition.

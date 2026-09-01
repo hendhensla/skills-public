@@ -10,6 +10,7 @@ category:
   - Research
 proficiency: Intermediate
 trigger: Manual
+setup: required
 notes: >-
   Load before attributing any contact, phone, title, technographic, or intent
   fact to a named data provider. Enrichment vendor routing and feature gates

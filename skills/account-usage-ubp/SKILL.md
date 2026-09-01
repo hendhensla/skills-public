@@ -10,6 +10,7 @@ category:
   - Automation
 proficiency: Expert
 trigger: Agent
+setup: required
 notes: >-
   Row-first fast path: trust dated account-row metrics, verify only what is
   missing, stale, commercially important, or self-contradictory. Returns a
