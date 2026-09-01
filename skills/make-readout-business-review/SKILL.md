@@ -1,6 +1,6 @@
 ---
 name: make-readout-business-review
-skill: Customer Value Business Review
+skill: "Customer Value Business Review"
 description: >-
   Create a concise, customer-facing business review grounded in strategic goals,
   customer experience, use cases, adoption, and outcomes. Use for business,
@@ -10,13 +10,14 @@ category:
   - Research
   - Customer Scoping
 proficiency: Advanced
-trigger: Manual or agent request
+trigger: "Manual or agent request"
+setup: required
 notes: >-
   Lead with customer value. Distinguish confirmed outcomes from opportunities
-  ahead. Exclude internal account-review data, deal mechanics, commercial
-  status, internal timelines, internal owners, and internal next steps. Include
-  billing or payment details only when there is an active customer conversation
-  and the topic is material. State Unknown when evidence is missing.
+  ahead. Exclude internal account-review data, deal mechanics, commercial status,
+  internal timelines, internal owners, and internal next steps. Include billing
+  or payment details only when there is an active customer conversation and the
+  topic is material. State Unknown when evidence is missing.
 notion_row: >-
   https://app.notion.com/p/Customer-Value-Business-Review-3ce98c21126881749542e16aa39db3da
 notion_doc: >-
@@ -34,8 +35,9 @@ Before proceeding, ask the user to supply these prerequisites:
 3. The product-usage or adoption source, such as `\<your-usage-source>`, when adoption evidence is needed.
 4. The destination document database, such as `\<your-customer-docs-db>`, including its one-pager document type, draft status, author field, and account relation field.
 5. The connected tools, data sources, and credential or environment-variable names required to access those sources. Provide names only, never credential values.
+6. A writing-quality reference or style guide, such as `\<your-writing-quality-guide>`, if a second-pass prose audit is not built into the adopting agent.
 
-Walk through each placeholder one at a time. After each answer, restate the mapping for confirmation, then have the user save the filled values in their own copy of this skill. Until setup is complete, the skill cannot reliably resolve an account, reconcile evidence, verify adoption, include relevant customer context, or file the finished review. When every placeholder is filled and confirmed, change `setup: required` to `setup: complete` in the frontmatter so later runs skip directly to the workflow.
+Walk through each placeholder one at a time. After each answer, restate the mapping for confirmation, then have the user save the filled values in their own copy of this skill. Until setup is complete, the skill cannot reliably resolve an account, reconcile evidence, verify adoption, apply the requested writing-quality audit, or file the finished review. When every placeholder is filled and confirmed, change `setup: required` to `setup: complete` in the frontmatter so later runs skip directly to the workflow.
 
 ## 🎯 Purpose
 
@@ -88,6 +90,10 @@ Use only these sections:
 
 Keep the page short and visual. Start each section heading with an emoji. Do not repeat the title as an H1. Give the page a relevant icon.
 
+## ✍️ Writing quality
+
+Before finalizing, run a second-pass prose audit using the configured writing-quality reference when available. Preserve names, numbers, dates, quotations, citations, and factual meaning. Match a supplied writing sample's rhythm, contractions, punctuation, vocabulary, and deliberate quirks. Remove stock openers and closers, vague hedging, forced contrasts, fake rhetorical questions, unnecessary rule-of-three phrasing, repetitive sentence openings, synonym spinning, corporate filler, excessive em dashes, decorative emoji, and invented examples. Edit only what is broken, preserve links and attributed text, and treat these patterns as signals rather than proof of authorship.
+
 ## 🛡️ Guardrails
 
 - Lead with customer value, not product features or usage counts.
@@ -102,4 +108,3 @@ Keep the page short and visual. Start each section heading with an emoji. Do not
 File the review in the configured customer-facing document database as a one-pager. Set its status to Draft, assign the configured author, and set the account relation to the exact matching account. Ask one short question if the account match is ambiguous. Return the page URL and do not leave the review only in chat.
 
 Do not delete an existing review unless the user asks. Do not create a companion skill page. Keep this skill's instructions in the skill document.
-
