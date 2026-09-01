@@ -6,7 +6,8 @@ Before proceeding, ask the user to supply these prerequisites:
 3. The product-usage or adoption source, such as `\<your-usage-source>`, when adoption evidence is needed.
 4. The destination document database, such as `\<your-customer-docs-db>`, including its one-pager document type, draft status, author field, and account relation field.
 5. The connected tools, data sources, and credential or environment-variable names required to access those sources. Provide names only, never credential values.
-Walk through each placeholder one at a time. After each answer, restate the mapping for confirmation, then have the user save the filled values in their own copy of this skill. Until setup is complete, the skill cannot reliably resolve an account, reconcile evidence, verify adoption, include relevant customer context, or file the finished review. When every placeholder is filled and confirmed, change `setup: required` to `setup: complete` in the frontmatter so later runs skip directly to the workflow.
+6. A writing-quality reference or style guide, such as `\<your-writing-quality-guide>`, if a second-pass prose audit is not built into the adopting agent.
+Walk through each placeholder one at a time. After each answer, restate the mapping for confirmation, then have the user save the filled values in their own copy of this skill. Until setup is complete, the skill cannot reliably resolve an account, reconcile evidence, verify adoption, apply the requested writing-quality audit, or file the finished review. When every placeholder is filled and confirmed, change `setup: required` to `setup: complete` in the frontmatter so later runs skip directly to the workflow.
 ## 🎯 Purpose
 Create a customer-facing business review that establishes upfront value. Ground the story in the customer's strategic goals, experience, use cases, adoption, and outcomes. Make the value clear before discussing product details.
 ## 📥 Required inputs
@@ -43,6 +44,8 @@ Use only these sections:
 7. Opportunity ahead: the next customer value to establish, without an internal action plan.
 8. Billing or payments: optional. Include only for an active customer conversation.
 Keep the page short and visual. Start each section heading with an emoji. Do not repeat the title as an H1. Give the page a relevant icon.
+## ✍️ Writing quality
+Before finalizing, run a second-pass prose audit using the configured writing-quality reference when available. Preserve names, numbers, dates, quotations, citations, and factual meaning. Match a supplied writing sample's rhythm, contractions, punctuation, vocabulary, and deliberate quirks. Remove stock openers and closers, vague hedging, forced contrasts, fake rhetorical questions, unnecessary rule-of-three phrasing, repetitive sentence openings, synonym spinning, corporate filler, excessive em dashes, decorative emoji, and invented examples. Edit only what is broken, preserve links and attributed text, and treat these patterns as signals rather than proof of authorship.
 ## 🛡️ Guardrails
 - Lead with customer value, not product features or usage counts.
 - Use adoption data only when it proves or explains value.
