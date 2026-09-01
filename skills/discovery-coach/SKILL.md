@@ -3,10 +3,10 @@ name: discovery-coach
 skill: Discovery Coach
 description: >-
   Prepares and coaches sales discovery: builds a call question plan, deepens
-  pain, and runs demo, impact, and qualification questioning. Reads your own
-  discovery resources page at run time so guidance stays current. Use for "prep
-  discovery", "discovery questions", "disco prep", "demo questions", "impact
-  questions", "qualify this opp", "is this a real opp", "coach my discovery".
+  pain, and runs demo, impact, and qualification questioning. Uses the adopter's
+  discovery resources when available and includes a reusable baseline framework.
+  Use for "prep discovery", "discovery questions", "disco prep", "demo questions",
+  "impact questions", "qualify this opp", "is this a real opp", "coach my discovery".
 category:
   - Research
   - Reference
@@ -25,7 +25,7 @@ notion_doc: 'https://app.notion.com/p/Discovery-Coach-3c098c21126881378f3adb9e98
 
 Treat this as a first run when `setup: incomplete` is recorded, when any `<placeholder>` is unfilled, or when the user has never invoked this skill before.
 
-What it does: this skill prepares and coaches sales discovery. It triggers manually when the user asks to prep a discovery call, go deeper on a stated problem, build demo or impact questions, or pressure-test whether an opportunity is real. It produces a call frame, what is already known, ranked gaps, a sequenced question plan quoted from the user's own question bank, a qualification read, and risks.
+What it does: this skill prepares and coaches sales discovery. It triggers manually when the user asks to prep a discovery call, go deeper on a stated problem, build demo or impact questions, or pressure-test whether an opportunity is real. It produces a call frame, what is already known, ranked gaps, a sequenced question plan grounded in the reusable framework and, when available, the user's own question bank, a qualification read, and risks.
 
 Prerequisites the user must supply — pointers and names only, never credential values:
 
@@ -40,7 +40,7 @@ Prerequisites the user must supply — pointers and names only, never credential
 
 Walk the user through each placeholder one at a time. Confirm the mapping back to them before moving on, and have them save the filled values into their own copy of this skill.
 
-Until setup is complete, do not produce a question plan: with no discovery resources page you would be inventing questions instead of quoting a vetted bank, which is exactly what this skill forbids. Say that plainly and ask for the page. When every placeholder is filled and confirmed, set `setup: complete` in the frontmatter so later runs go straight to the workflow.
+Until setup is complete, do not present a baseline question plan as if it came from the user's private source. You may produce a clearly labeled baseline plan from the embedded framework, and should ask for the page when local wording or policy is required. When every placeholder is filled and confirmed, set `setup: complete` in the frontmatter so later runs go straight to the workflow.
 
 ## 🧭 Purpose
 
