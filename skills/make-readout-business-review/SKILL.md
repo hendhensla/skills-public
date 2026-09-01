@@ -1,6 +1,6 @@
 ---
 name: make-readout-business-review
-skill: "Customer Value Business Review"
+skill: Customer Value Business Review
 description: >-
   Create a concise, customer-facing business review grounded in strategic goals,
   customer experience, use cases, adoption, and outcomes. Use for business,
@@ -10,14 +10,17 @@ category:
   - Research
   - Customer Scoping
 proficiency: Advanced
-trigger: "Manual or agent request"
-setup: required
+trigger: Manual or agent request
 notes: >-
   Lead with customer value. Distinguish confirmed outcomes from opportunities
-  ahead. Exclude internal account-review data, deal mechanics, commercial status,
-  internal timelines, internal owners, and internal next steps. Include billing
-  or payment details only when there is an active customer conversation and the
-  topic is material. State Unknown when evidence is missing.
+  ahead. Exclude internal account-review data, deal mechanics, commercial
+  status, internal timelines, internal owners, and internal next steps. Include
+  billing or payment details only when there is an active customer conversation
+  and the topic is material. State Unknown when evidence is missing.
+notion_row: >-
+  https://app.notion.com/p/Customer-Value-Business-Review-3ce98c21126881749542e16aa39db3da
+notion_doc: >-
+  https://app.notion.com/p/Customer-Value-Business-Review-3ce98c211268815ca3caece270c8b828
 ---
 
 ## 🚀 First run (setup)
@@ -99,3 +102,4 @@ Keep the page short and visual. Start each section heading with an emoji. Do not
 File the review in the configured customer-facing document database as a one-pager. Set its status to Draft, assign the configured author, and set the account relation to the exact matching account. Ask one short question if the account match is ambiguous. Return the page URL and do not leave the review only in chat.
 
 Do not delete an existing review unless the user asks. Do not create a companion skill page. Keep this skill's instructions in the skill document.
+
