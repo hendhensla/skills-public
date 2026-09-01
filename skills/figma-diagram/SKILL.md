@@ -9,11 +9,12 @@ description: >-
 category:
   - Design
   - Documentation
+proficiency: ""
 trigger: Agent
 notes: >-
   Wraps a Figma MCP connector's diagram-generation tool and the diagram skill
   resources that connector serves. Node icons come from a curated local icon
-  library with a filename manifest; a catalog page acts as the visual browser.
+  library with a filename manifest; an optional catalog page acts as the visual browser.
 notion_row: 'https://app.notion.com/p/figma-diagram-3c098c2112688114a74ad0258013c805'
 notion_doc: 'https://app.notion.com/p/figma-diagram-3c098c211268812a95f5db86c1f29726'
 ---
@@ -45,8 +46,8 @@ before generating a diagram.
    - `<your-docs-target>` — where matching Mermaid should be embedded (repository READMEs,
      internal docs, or neither), and whether board URLs may be linked there.
    - `<your-render-check>` — the local command available for converting a downloaded SVG to
-     an image so the render can be inspected, or confirmation that the connector's
-     screenshot tool should be used instead.
+     an image so the render can be inspected, or confirmation that the connector's screenshot
+     tool should be used instead.
    - `<your-platform-architecture-doc>` — optional: the reference that defines how your own
      platform or product should be modelled (its layers and the language used for them), for
      platform architecture diagrams.
@@ -88,7 +89,7 @@ repository — embed the same Mermaid source in the README so the host renders i
 3. **Gather ground truth before drawing.** Read the actual code, README, memory files, or
    docs the diagram describes. Never invent nodes or edges to round out a picture; a visible
    gap beats a hallucination.
-4. **Write the Mermaid.** The non-negotiables that bite most often: no emojis; no `\n` or
+4. **Write the Mermaid.** The non-negotiables that bite most often: no emojis; no `\\n` or
    HTML in labels; camelCase node IDs (no underscores — they break edge routing); quote any
    label with special characters; never use `end`, `graph`, or `subgraph` as IDs; tint every
    subgraph with a light fill via `style` so lanes read on FigJam's white canvas; use color
@@ -126,15 +127,14 @@ repository — embed the same Mermaid source in the README so the host renders i
 Diagrams that need visual node markers use the curated icon library, never emoji (Mermaid
 rejects them anyway) and never generic icon packs.
 
-- **Source of truth on disk** — the canonical copy, always start here:
-  - Light: `<your-icon-library-path>/Icons/<stem>.png`
-  - Dark: `<your-icon-library-path>/Dark_mode_icons/<stem>_darkmode.png`
-  - Transparent square PNGs. Not every light icon has a dark twin, so check before promising
-    a dark variant and fall back to the light one on a light board.
+- **Source of truth on disk** — the canonical copy: light icons live under
+  `<your-icon-library-path>/Icons/<stem>.png`; dark variants live under
+  `<your-icon-library-path>/Dark_mode_icons/<stem>_darkmode.png` when available.
+  Transparent square PNGs are expected. Not every light icon has a dark twin, so check before
+  promising a dark variant and fall back to the light one on a light board.
 - **Manifest** — `<your-icon-manifest>` lists every exact filename stem, grouped by letter.
-  Read it to pick names; do not guess stems. Casing and separators are inconsistent across
-  the set (for example `arrow-down-line`, `Battery_full`, `Chess_Knight_2`), so copy each
-  stem verbatim from the manifest.
+  Read it to pick names; do not guess stems. Casing and separators may be inconsistent, so
+  copy each stem verbatim from the manifest.
 - **Visual browser** — `<your-icon-catalog>` renders the icons in a captioned grid inside
   per-letter toggles. Use it when the user needs to *see* the options; use the manifest when
   you only need names.
@@ -166,9 +166,8 @@ gets the same icon everywhere. Reliable stems for common diagram nodes:
 | AI / generated | `sparkle`, `sparkle-pencil`, `robot`, `magic-wand` |
 
 Verify each stem exists in `<your-icon-manifest>` before using it — the table is a starting
-point, not a guarantee, and libraries change over time. Stem names also lie occasionally: a
-stem named for a document may actually draw an alert mark, so confirm the drawing matches the
-meaning you want before shipping it.
+point, not a guarantee, and libraries change over time. Stem names can also be misleading:
+confirm the drawing matches the meaning you want before shipping it.
 
 ### Getting icons onto a FigJam board
 
@@ -234,11 +233,17 @@ build the model from `<your-platform-architecture-doc>` before writing any Merma
 - For customer-scoping runs, take the workflow inventory, layer tags, and trigger map from
   `<your-workflow-inventory-doc>` instead of inventing nodes here.
 
+## ✍️ Writing quality
+
+When a diagram task also writes a README, page, or supporting document, apply the writing
+style guide configured for that workspace to the prose. Preserve exact system names, Mermaid
+syntax, and technical facts. Run its second-pass audit before delivery.
+
 ## ⚠️ Known limits
 
 - Diagram-generation output is a FigJam board, not a design file. Post-generation edits by
   tool are limited: no font changes and no moving individual shapes. Regenerate for content
-  changes and open Figma for cosmetic ones.
+  changes and open the design tool for cosmetic ones.
 - Sequence-diagram `Note` lines and gantt `classDef` styling are silently stripped. Use the
   connector's hybrid FigJam-editing workflow when annotations or gantt colors are required.
 - Thumbnail URLs expire after roughly a week; the board URL is the durable link.
