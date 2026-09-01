@@ -32,9 +32,9 @@ call plan.
 
 Then collect the prerequisites, which only the user can supply:
 
-- `<your-epd-primer>` — your internal primer covering the core argument, the EPD nuance
-  list, and good versus bad product-team behavior. This skill must read it on every run and
-  cannot answer from model knowledge alone.
+- `<your-epd-primer>` — an optional adopter-owned primer covering local terminology, the
+  core argument, and organization-specific nuances. The embedded baseline below remains
+  runnable when this source is unavailable.
 - `<your-operating-model-reference>` — your reference for operating-model history and the
   timeline the primer relies on.
 - `<your-discovery-skill>` — the discovery-coaching skill that owns call structure, question
@@ -194,7 +194,7 @@ nuance or a seam, not to a product feature.
 Rules:
 
 1. Never present an internal health score or uncertain usage data as customer-facing fact.
-2. Label any inference that the primer does not support.
+2. Label any account-specific inference that the mapped sources do not support.
 3. Never state that a person or team took an action unless a source shows it.
 4. Do not quote the primer verbatim to customers. It is internal and may be unfinished.
 
