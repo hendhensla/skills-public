@@ -8,7 +8,7 @@ category:
   - Documentation
 proficiency: Beginner
 trigger: Manual
-notes: Verification fixture only; no production workflow.
+notes: Metadata-only edits must sync too.
 notion_row: >-
   https://app.notion.com/p/skills-sync-verification-3de98c211268811ebd3cde4284be0de8
 notion_doc: >-
