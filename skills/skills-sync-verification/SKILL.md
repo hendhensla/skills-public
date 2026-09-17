@@ -1,13 +1,18 @@
 ---
-name: "skills-sync-verification"
-skill: "skills-sync-verification"
-description: "A small, non-production check that verifies a skill edit can move through a publishing pipeline."
+name: skills-sync-verification
+skill: skills-sync-verification
+description: >-
+  A small, non-production check that verifies a skill edit can move through a
+  publishing pipeline.
 category:
   - Documentation
 proficiency: Beginner
 trigger: Manual
-notes: "Verification fixture only; no production workflow."
-setup: incomplete
+notes: Verification fixture only; no production workflow.
+notion_row: >-
+  https://app.notion.com/p/skills-sync-verification-3de98c211268811ebd3cde4284be0de8
+notion_doc: >-
+  https://app.notion.com/p/skills-sync-verification-3de98c211268815295f4cb970090bc48
 ---
 
 ## 🚀 First run (setup)
@@ -48,3 +53,4 @@ A passing check produces one updated repository file, one matching public catalo
 - Do not copy workspace IDs, private URLs, tokens, local file paths, or other internal identifiers into the public copy.
 - Do not create a second catalog row when an existing row already matches the skill name or slug.
 - This skill verifies a publishing path; it does not implement the publishing path itself.
+
