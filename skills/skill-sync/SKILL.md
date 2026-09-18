@@ -13,7 +13,8 @@ trigger: Scheduled
 notes: >-
   Treat the catalog as authoritative, preserve concurrent edits, and verify
   saved content rather than trusting transport success alone.
-setup: incomplete
+notion_row: 'https://app.notion.com/p/skill-sync-3df98c21126881b3951be49d07bbcdf9'
+notion_doc: 'https://app.notion.com/p/skill-sync-3df98c2112688182b7a7dab914541fba'
 ---
 
 ## 🚀 First run (setup)
@@ -90,3 +91,4 @@ After changing the worker or reconciliation job, run its build and unit tests, t
 - Never package credentials, secret values, personal data, customer data, or machine-specific paths.
 - Keep public-release de-identification and review gates separate from private reconciliation.
 - Do not report completion until repository content, catalog content, and local state have each been verified.
+
