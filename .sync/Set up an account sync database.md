@@ -19,7 +19,7 @@ The source remains authoritative. The target is a one-way mirror: it does not wr
 - Use the Personal Agent's built-in Notion and Worker management tools.
 - Load the current Worker-development guidance and the current source and reference target schemas before any Worker action.
 - Use the approved source database, not a CRM connector or ad hoc query, when the source already contains the synchronized account records.
-- Use the source page identifier as the stable primary key in a `Source Page ID` text property.
+- Use the stable source account identifier as the primary key in a `Stable Source Account ID` text property.
 - Page through the complete matching source set with the source cursor and emit idempotent upserts.
 - Run on the agreed schedule, commonly every 30 minutes.
 - Do not add deletion behavior without explicit approval and a tested rollback plan. If an account leaves the owner's book, the target may retain a stale row; report that limitation.
@@ -46,7 +46,7 @@ Do not accept a guessed ID or URL as proof. Stop and report the exact missing No
 1. Read the source database with the deployed Worker's hosted Notion credential.
 2. Filter on the target user's person value. For a sales owner, use the sales-owner property unless the user explicitly approves more roles.
 3. Page through every matching source row with the Notion cursor.
-4. Emit one upsert per source page, using its UUID as both the change key and `Source Page ID`.
+4. Emit one upsert per source page, using its stable account identifier as the change key and `Stable Source Account ID`.
 5. Return `hasMore` and the next cursor until the full source set is processed.
 6. Run on the configured schedule with a full paginated upsert sweep.
 7. Do not delete target rows automatically; report the stale-row behavior.
@@ -55,7 +55,7 @@ Mirror the current reference schema rather than inventing a generic CRM schema.
 - Load the current source and reference target schemas before implementation; never rely on a stale hard-coded field list.
 - Preserve compatible source types for title, text, number, checkbox, select, multi-select, date, URL, and people values.
 - Set `Account Name` as the target title property.
-- Add `Source Page ID` as rich text and enforce uniqueness in the Worker logic.
+- Add `Stable Source Account ID` as rich text and enforce uniqueness in the Worker logic.
 - Copy account identity, ownership, revenue, segment, renewal, tiering, seats, active users, AI usage, integrations, plan, health, risk, and employee fields when present in the current source schema.
 - Flatten relations, formulas, and rollups that cannot be recreated safely. Related source page IDs may be stored as comma-separated text for activity, opportunity, meeting, task, request, document, or ticket fields.
 - Do not create live relations from the private mirror into shared source databases unless the user explicitly approves that access model.
@@ -72,7 +72,7 @@ Implement:
 - One source query filtered to the target user's ownership value.
 - Schema-derived field mapping.
 - Cursor pagination.
-- Idempotent upserts keyed by `Source Page ID`.
+- Idempotent upserts keyed by `Stable Source Account ID`.
 - A return value containing `hasMore`, the next cursor, and run counts.
 - The agreed schedule and no-delete behavior.
 Run the project check before deployment. Confirm the manifest has one managed database and one synchronization capability.
@@ -85,7 +85,7 @@ Before the first hosted write:
 1. Preview the sync and compare its count with the filtered source count.
 2. Inspect at least three rows covering different plans and account types.
 3. Compare identity, owner, revenue, plan, usage, and source URL values.
-4. Confirm every target row has a unique `Source Page ID`.
+4. Confirm every target row has a unique `Stable Source Account ID`.
 5. Confirm the schedule, health, access, and no-delete limitation.
 Only after all gates pass should the Worker run the hosted synchronization.
 ### 6. Hand off
@@ -216,7 +216,7 @@ Do not call setup complete until:
 - The source query uses the approved source database and the target ownership filter.
 - The preview count matches the filtered source count.
 - Three sampled rows match identity, owner, revenue, plan, usage, and source URL.
-- Every target row has a unique `Source Page ID`.
+- Every target row has a unique `Stable Source Account ID`.
 - The schedule is configured and reports healthy.
 - The target user can open the database.
 - The no-delete and stale-row behavior is documented.
