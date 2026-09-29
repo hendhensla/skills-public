@@ -1,14 +1,26 @@
 ---
 name: account-flywheel-video
 skill: Account Flywheel Video
-description: Build a short, account-specific motion video showing how an existing workspace can support product development, launches, field feedback, and a product-to-go-to-market learning loop. Use for a motion video, flywheel video, overview video, or product-to-go-to-market video for a named account or contact.
+description: >-
+  Build a short, account-specific motion video showing how an existing workspace
+  can support product development, launches, field feedback, and a
+  product-to-go-to-market learning loop. Use for a motion video, flywheel video,
+  overview video, or product-to-go-to-market video for a named account or
+  contact.
 category:
   - Sales
   - Design
 proficiency: Advanced
 trigger: Agent
-notes: A cinematic, captioned Remotion workflow for a 45 to 60 second account story. Research the account, get storyboard sign-off, verify feature claims, render a coherent preview loop, and deliver the video with a closing three-layer workflow diagram.
-setup: incomplete
+notes: >-
+  A cinematic, captioned Remotion workflow for a 45 to 60 second account story.
+  Research the account, get storyboard sign-off, verify feature claims, render a
+  coherent preview loop, and deliver the video with a closing three-layer
+  workflow diagram.
+notion_row: >-
+  https://app.notion.com/p/Account-Flywheel-Video-3ea98c2112688107a135d21643eb4728
+notion_doc: >-
+  https://app.notion.com/p/Account-Flywheel-Video-3ea98c21126881818cb0da124c5dfa8d
 ---
 
 ## 🚀 First run (setup)
@@ -201,3 +213,4 @@ Before handoff, confirm:
 - [ ] The final video and static diagram are in the agreed output destination.
 - [ ] The handoff names total duration, editable source, easy future changes, and pilot metrics.
 - [ ] No private people, customer details, secret values, internal URLs, identifiers, or machine-specific paths remain in the public asset.
+
