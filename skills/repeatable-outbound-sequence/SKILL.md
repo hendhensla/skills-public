@@ -1,14 +1,14 @@
 ---
 name: "Repeatable Outbound Sequence"
 skill: "repeatable-outbound-sequence"
-description: "Prioritizes signal-based outbound targets, checks for collisions, enriches existing records, drafts tailored outreach, and logs follow-up activity without sending anything before approval."
+description: "Prioritizes signal-based outbound targets, checks all-time relationship and activity history, enriches existing records, drafts tailored outreach, and logs follow-up activity without sending anything before approval."
 category:
   - Sales
   - Automation
   - Writing
 proficiency: "Expert"
 trigger: "Manual"
-notes: "Five-phase workflow for signal review, revenue qualification, collision checks, contact enrichment, approved drafting, and follow-through. Configure the placeholders before use."
+notes: "Five-phase workflow for signal review, revenue qualification, all-time relationship checks, contact enrichment, approved drafting, and follow-through. Configure the placeholders before use."
 setup: incomplete
 ---
 
@@ -64,18 +64,24 @@ No email, sequence enrollment, social message, team-chat post, CRM reassignment,
 
 Use the team's approved thresholds. If no thresholds have been configured, present the calculations and ask for a decision rather than silently applying a new policy.
 
-## 2. Five-surface collision and activity check
+## 2. All-time relationship, partner, and activity check
 
-Before proposing outreach to a person or account, check all five surfaces:
+Before proposing outreach to a person or account, check the full available history across these surfaces. Do not limit the review to a short recent window:
 
-1. **CRM and ownership:** Search `<your-crm>`, `<your-opportunities-db>`, and `<your-contacts-db>` for ownership, status, recent activity, tasks, next steps, prior messages, and existing records. If another rep owns the record and is actively working it, leave it alone. If the record is owned but idle, flag it for reassignment instead of changing it.
-2. **Email:** Search `<your-email>` for the person's email, name, and domain across sent, received, and draft messages.
-3. **Calendar:** Search `<your-calendar>` for past and future meetings and paginate every available result page. If the connection has a result cap, also run a dedicated current-to-future window so a capped response cannot hide a meeting.
+1. **CRM and ownership:** Search `<your-crm>`, `<your-opportunities-db>`, and `<your-contacts-db>` for ownership, status, recent activity, tasks, next steps, prior messages, meetings attended, last meeting, and existing records. If another rep owns the record and is actively working it, leave it alone. If the record is owned but idle, flag it for reassignment instead of changing it.
+2. **Email:** Search `<your-email>` all-time for the person's email, name, and domain across sent, received, and draft messages, including approved call-review or page-view signals when available.
+3. **Calendar:** Search `<your-calendar>` across all available past history and future meetings, and paginate every result page. If the connection has a result cap, also run a dedicated current-to-future window so a capped response cannot hide a meeting.
 4. **Team chat:** Search `<your-team-chat>` for the person's name, email, company handle, and external conversations as well as internal account threads.
-5. **Social messages:** Check `<your-social-dms>` and the notes on `<your-contacts-db>` for recent messages, connection requests, replies, or stated timing.
+5. **Social messages:** Check `<your-social-dms>` and the notes on `<your-contacts-db>` for prior messages, connection requests, replies, or stated timing.
+6. **Meeting sources:** Search `<your-meetings-db>` and approved company or partner meeting sources for the account, contact, same-day calls, prior demos, and co-sell or partner context.
+7. **Call summaries:** Search `<your-call-notes>` for exact summaries, decisions, objections, and commitments from prior calls.
+8. **Docs and usage sources:** Search `<your-docs-db>` and `<your-people-usage-source>` for existing account briefs, personal usage, and prior research.
 
-Apply these holds:
+Apply these rules:
 
+- Never send a cold-style introduction to someone the user has already met. Open warmly by referencing the prior meeting or topic, then connect the live signal and partner context.
+- For a warm or familiar contact, recommend channels in the configured priority order. A reasonable default is team chat first, social message second, email third.
+- Provide both a short conversational message for the top recommended channel and an email version for warm contacts.
 - Active owner, live sequence, or active conversation: leave with the current owner.
 - Recent two-way conversation, upcoming meeting, or requested timing: hold.
 - Bounce, unsubscribe, or explicit do-not-contact request: block all sends.
@@ -102,13 +108,14 @@ Apply these holds:
 1. Read the account's approved POV from `<your-accounts-db>`, including the executive summary, current business priorities, and the signal that triggered the work.
 2. Cite only tools and integrations verified through `<your-connected-tools-field>` or a trusted usage source. Do not imply that a team uses a tool because a similar company does.
 3. Connect the prospect's workflow to the teams that depend on it. Keep the connection concrete: name the handoff, shared context, decision, or recurring work that could benefit.
-4. Draft with this structure:
+4. If the collision check finds a prior meeting or relationship, use a warm opener that names the shared context and produce both the short conversational version and the email version. Do not reset the relationship with a cold-style introduction.
+5. Draft with this structure:
    - Greeting matched to the person's role and relationship.
    - Paragraph 1: one or two short sentences describing the observed signal and the verified connected tools.
    - Paragraph 2: one or two short sentences describing the likely cross-functional implication. An observation opener such as `Imagine...`, `Seems like...`, or `It appears...` is allowed when it is grounded in evidence.
    - Paragraph 3: one approved CTA on its own line, followed by the approved sign-off.
-5. Use the user's approved voice profile. Prefer plain words, contractions, specific observations, varied sentence length, and natural rhythm. Avoid filler, fake hooks, forced contrasts, corporate clichés, unsupported claims, synonym spinning, excessive emoji, and em-dash-heavy prose. Preserve every factual claim and audit the draft once more before returning it.
-6. Use one of these example CTAs, or the equivalent from the user's approved list:
+6. Use the user's approved voice profile. Prefer plain words, contractions, specific observations, varied sentence length, and natural rhythm. Avoid filler, fake hooks, forced contrasts, corporate clichés, unsupported claims, synonym spinning, excessive emoji, and em-dash-heavy prose. Preserve every factual claim and audit the draft once more before returning it.
+7. Use one of these example CTAs, or the equivalent from the user's approved list:
    1. `Use anything like this today?`
    2. `Ever come across us before?`
    3. `Want to see how this could work for you?`
@@ -119,7 +126,7 @@ Apply these holds:
    8. `Open to seeing why [peer or competitor] uses us?`
    9. `Want to see a relevant case study?`
    10. `Worth a chat? No expectations beyond sharing a few ideas and seeing where it goes.`
-7. Present the draft for approval. Do not send, enroll, or message until `<your-approval-owner>` explicitly approves the exact copy and destination.
+8. Present the draft for approval. Do not send, enroll, or message until `<your-approval-owner>` explicitly approves the exact copy and destination.
 
 ## 5. Follow-up, calling queue, and activity logging
 
