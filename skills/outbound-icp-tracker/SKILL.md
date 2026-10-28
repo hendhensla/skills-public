@@ -8,7 +8,7 @@ category:
   - Automation
 proficiency: Advanced
 trigger: Manual
-notes: "De-identified public playbook. Configure your own data sources before use."
+notes: "De-identified public playbook. Configure your own databases, documents, and signal sources before use."
 setup: incomplete
 ---
 
