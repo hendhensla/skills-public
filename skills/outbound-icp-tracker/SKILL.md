@@ -64,6 +64,7 @@ Use the person's actual role, verified activity, and admin status—not title al
 5. Check the contact history before drafting. Do not repeat the same proof point, offer, or pain framing without a reason.
 6. Keep messaging grounded in the person's responsibilities. Never pitch an admin-only concern to a non-admin.
 7. Record the exact value proposition and resource used so the next run can avoid duplication.
+8. For signals from public or third-party sources, retain the source and date in the private record and do not treat usage as verified without corroboration.
 
 ## 2. Continuous contact log
 
