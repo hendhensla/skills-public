@@ -99,6 +99,7 @@ For every person, normalize:
 - Archetype from the table above.
 - Admin or workspace-owner status: `admin`, `non-admin`, or `unknown`.
 - Evidence and date for each important signal.
+- Preserve source lineage in the private system, but never copy private source URLs or identifiers into the public skill.
 - Prior value proposition, proof point, resource, and follow-up offer.
 
 Separate facts from inferences. A title can suggest an archetype but cannot prove admin status or product usage.
