@@ -17,7 +17,7 @@ setup: incomplete
 
 ## 🚀 First run (setup)
 
-Detect a first run when this file has no `setup: complete` marker, a required placeholder is still unfilled, or the user has never invoked this skill. This skill applies consistent Notion page structure, typography, spacing, and readability conventions. It triggers when a user creates, restructures, or restyles a Notion page and produces a native Notion layout that keeps the source content and evidence intact.
+Detect a first run when this file has no `setup: complete` marker, a required placeholder is still unfilled, or the user has never invoked this skill. This skill applies consistent Notion page structure, typography, spacing, and readability conventions when creating or restyling a Notion page, and produces a native layout that keeps the source content and evidence intact.
 
 Before using it, the user must supply:
 
@@ -30,7 +30,7 @@ Walk through the prerequisites one at a time. For each item, ask the user to ide
 
 ## Purpose
 
-Apply these preferences when creating or restyling a native Notion page. Keep the content, facts, calculations, evidence, hyperlinks, comments, and meaningful blocks intact unless the user also requested rewriting.
+Apply these preferences when creating, restructuring, or restyling a native Notion page or document. Keep the content, facts, calculations, evidence, hyperlinks, comments, and meaningful blocks intact unless the user also requested rewriting.
 
 ## Heading rules
 
