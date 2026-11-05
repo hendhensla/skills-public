@@ -37,7 +37,7 @@ Apply these preferences when creating, restructuring, or restyling a native Noti
 - Start every H1 with a relevant emoji, followed by a space and the title.
 - Use H1 for major sections and H2/H3 for subsections. Do not promote every label to H1.
 - Make every H1 a toggle heading so the page scans as a collapsible outline. In Notion-flavored Markdown, use a form such as `# 📌 Title {toggle="true"}` and place that section's content beneath it according to the destination's nesting rules.
-- Give the page itself a relevant icon. If the page title is being edited as part of the design, prefix it with a relevant emoji as well.
+- Give the page itself a relevant icon. If the page title is being edited as part of the design, prefix the title with a relevant emoji as well.
 
 ## Section dividers
 
